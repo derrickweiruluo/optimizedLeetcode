@@ -1,0 +1,31 @@
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        i, j = click[0], click[1]
+        
+        if board[i][j] == "M":
+            board[i][j] = "X"
+            return board
+        
+        self.dfs(board, i, j)
+        return board
+    
+    def dfs(self, board, x, y):
+        if board[x][y] != "E":
+            return
+        next_directions = [(i, j) for i in [-1, 0, 1] for j in [-1, 0, 1]]
+        count = 0
+        
+        for dx, dy in next_directions:
+            if 0 <= x + dx < len(board) and 0 <= y + dy < len(board[0]) and board[x + dx][y + dy] == "M":
+                count += 1
+        
+        if count != 0:
+            board[x][y] = str(count)
+            return
+        else:
+            board[x][y] = "B"
+        
+        for dx, dy in next_directions:
+            if 0 <= x + dx < len(board) and 0 <= y + dy < len(board[0]):
+                self.dfs(board, x + dx, y + dy)
+        
