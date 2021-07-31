@@ -1,4 +1,4 @@
-# Intuition
+# Intuition lee215
 # Don't need the condition of BST, just in-order output the whole tree.
 
 # Straight forward idea here:
