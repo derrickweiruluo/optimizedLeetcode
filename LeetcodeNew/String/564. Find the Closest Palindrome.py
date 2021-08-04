@@ -2,6 +2,7 @@
 需要trick， identify 5 个候选人最重要.
 base case， 解在[9999, 100001] for any 5-digit number
 prefix 是 input_str[:mid], where mid = (len + 1) // 2
+https://leetcode.com/problems/find-the-closest-palindrome/discuss/102391/Python-Simple-with-Explanation
 
 Given a string n representing an integer, return the closest integer (not including itself), which is a palindrome. 
 If there is a tie, return the smaller one.
