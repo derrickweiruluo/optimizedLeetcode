@@ -34,20 +34,19 @@ class Solution:
     def numMatchingSubseq(self, s: str, words: List[str]) -> int:
         
         count = 0
-        word_dict = collections.defaultdict(list)
+        word_map = collections.defaultdict(list)
         
         for word in words:
-            word_dict[word[0]].append(word)
-        
+            word_map[word[0]].append(word)
         
         for char in s:
-            word_list = word_dict[char]
-            word_dict[char] = []
-            for word in word_list:
-                if len(word) == 1:
+            linked_words = word_map[char]
+            word_map[char] = []
+            for word in linked_words:
+                if len(word) == 1: # finish scanning, is a matching seq
                     count += 1
                 else:
-                    word_dict[word[1]].append(word[1:])
+                    word_map[word[1]].append(word[1:])  # the next char, and its linked_words added
         
         return count
             
