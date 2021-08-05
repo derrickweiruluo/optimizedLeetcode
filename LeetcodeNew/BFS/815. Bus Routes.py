@@ -27,7 +27,7 @@ Output: -1
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
         
-        # {bus_#: route}
+        # {stop: bus_#}
         mapping = collections.defaultdict(set)
         for bus, route in enumerate(routes):
             for stop in route:
