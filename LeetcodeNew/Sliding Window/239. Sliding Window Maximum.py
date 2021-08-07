@@ -53,6 +53,7 @@ class Solution:
         
         for i in range(len(nums)):
             # the first/left (max) element is out of the current window
+            # queue as the window for comparison, comparing nums[i] with queue[0] when i - queue[0] <= k
             if queue and i - queue[0] == k:
                 queue.popleft()
                 
