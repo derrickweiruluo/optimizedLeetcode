@@ -24,10 +24,11 @@ class Solution:
     def smallestRangeII(self, nums: List[int], k: int) -> int:
         
         nums.sort()
+        global_min, global_max = nums[0] + k, nums[-1] - k
         res = nums[-1] - nums[0]
         
         for i in range(len(nums) - 1):
-            candidates = [nums[0] + k, nums[i] + k, nums[i + 1] - k, nums[-1] - k]
+            candidates = [global_min, nums[i] + k, nums[i + 1] - k, global_max]
             res = min(res, max(candidates) - min(candidates))
-        
+            
         return res
