@@ -26,9 +26,9 @@ class Node:
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
 
-##############
-use dict[node] = Node(node.val) to create a copy
-use visited to store visited nodes
+########
+use visited[node] = Node(node.val) to create a copy
+use visited[node].neighbors to store neigh-copy
 """
 
 class Solution:
