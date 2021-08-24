@@ -25,6 +25,11 @@ n == matrix[i].length
 All the rows and columns of matrix are guaranteed to be sorted in non-decreasing order.
 1 <= k <= n2
 
+#########
+二分模版，比较时候计算当前mid count 有几个小于等于mid的 matrix values
+while left < right, converge 出来的就是解
+
+https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/1322101/C%2B%2BJavaPython-MaxHeap-MinHeap-Binary-Search-Picture-Explain-Clean-and-Concise
 """
 
 class Solution:
