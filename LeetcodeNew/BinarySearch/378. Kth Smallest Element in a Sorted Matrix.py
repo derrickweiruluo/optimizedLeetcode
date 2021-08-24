@@ -33,7 +33,7 @@ class Solution:
         left, right = matrix[0][0], matrix[-1][-1]
         m, n = len(matrix), len(matrix[0])
         
-        def countGreaterThan(x):
+        def notGreaterThan(x):
             cnt = 0
             j = n - 1
             for i in range(m):
@@ -45,7 +45,7 @@ class Solution:
         
         while left < right:
             mid = (left + right) // 2
-            if countGreaterThan(mid) < k:
+            if notGreaterThan(mid) < k:
                 left = mid + 1
             else:
                 right = mid
