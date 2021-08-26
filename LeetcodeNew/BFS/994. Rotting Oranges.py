@@ -1,32 +1,53 @@
+"""
+You are given an m x n grid where each cell can have one of three values:
+
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+
+##### Image:
+https://leetcode.com/problems/rotting-oranges/
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 10
+grid[i][j] is 0, 1, or 2.
+
+"""
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         
-        rotten = collections.deque()
-        fresh_cnt = 0
-        minPassed = 0
+        queue = collections.deque()
+        time = 0
+        fresh_count = 0
         
-        row, col = len(grid), len(grid[0])
-        
-        for i in range(row):
-            for j in range(col):
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    fresh_count += 1
                 if grid[i][j] == 2:
-                    rotten.append((i, j))
-                elif grid[i][j] == 1:
-                    fresh_cnt += 1
+                    queue.append((i, j))
                     
-        while fresh_cnt > 0 and rotten:
-            minPassed += 1
-            for _ in range(len(rotten)):
-                x, y = rotten.popleft()
-                for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                    xi , yi = x + dx, y + dy
-                    if xi < 0 or xi > row - 1 or yi < 0 or yi > col - 1:
-                        continue
-                    if grid[xi][yi] == 0 or grid[xi][yi] == 2:
-                        continue
-                    
-                    fresh_cnt -= 1
-                    grid[xi][yi] = 2
-                    rotten.append((xi, yi))
-                    
-        return minPassed if fresh_cnt == 0 else -1
+        dirs = [(1,0), (-1, 0), (0,1), (0, -1)]
+        
+        while queue and fresh_count:
+            # while的下一个循环都是下一层，depth + 1， 这里对应的是时间+1
+            time += 1
+            for _ in range(len(queue)): # pop掉当前层的所有元素， 去感染下一层的新鲜桔子
+                x, y = queue.popleft()
+                for dx, dy in dirs:
+                    xi, yi = x + dx, y + dy
+                    if 0 <= xi < len(grid) and 0 <= yi < len(grid[0]):
+                        # update 和 append下一层的元素
+                        if grid[xi][yi] == 1:
+                            fresh_count -=1
+                            grid[xi][yi] = 2
+                            queue.append((xi, yi))
+        
+        return time if not fresh_count else -1
