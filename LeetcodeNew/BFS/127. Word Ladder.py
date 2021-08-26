@@ -36,6 +36,10 @@ class Solution:
                 return length
             for i in range(len(word)):
                 for char in 'abcdefghijklmnopqrstuvwxyz':
+                    # 当前word，每个index，尝试改变有且仅有一个字母， 如果转换后的在wordlist
+                    # 从wordlist中删除，然后加到queue的尾巴
+                    # 第一个word的双循环找完以后，queue剩下的就是转换一次后的候选人
+                    # 然后以此类推BFS， 每一层都 length + 1
                     nextWord = word[:i] + char + word[i + 1:]
                     if nextWord in wordList:
                         wordList.remove(nextWord)
