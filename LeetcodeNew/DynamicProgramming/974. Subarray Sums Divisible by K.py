@@ -9,11 +9,11 @@ class Solution:
         
         rem_count = [0] * k
         rem_count[0] = 1
-        curr_rem = 0
+        cur_rem = 0
         
         for num in nums:
-            curr_rem = (curr_rem + num) % k
-            res += rem_count[curr_rem]
-            rem_count[curr_rem] += 1
+            cur_rem = (cur_rem + num) % k
+            res += rem_count[cur_rem]
+            rem_count[cur_rem] += 1
         
         return res
