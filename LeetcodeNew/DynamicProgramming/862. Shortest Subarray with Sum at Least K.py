@@ -27,7 +27,7 @@ Constraints:
 
 
 #########
-Sliding window implementation with increasing deque, deque of [idx, cur_sum]
+Sliding window implementation with increasing deque, deque of [idx, cur_sum].
 """
 class Solution:
     def shortestSubarray(self, nums: List[int], k: int) -> int:
