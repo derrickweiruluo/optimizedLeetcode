@@ -28,9 +28,7 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         
-        cur_sum = 0
-        res = math.inf
-        left = 0
+        cur_sum, left, res = 0, 0, math.inf
         
         for i, num in enumerate(nums):
             cur_sum += num
