@@ -23,6 +23,7 @@ for _ in range(len(q)) means the number of nodes in each level,
 and this loop finds all the children which belong to this level.
 For example, you may serialize the following 3-ary tree
 https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/
+https://github.com/Taoge123/OptimizedLeetcode/blob/master/LeetcodeNew/Tree/LC_429_N_ary_Tree_Level_Order_Traversal.py
 
 O(N) for both
 """
