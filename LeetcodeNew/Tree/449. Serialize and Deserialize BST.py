@@ -5,27 +5,33 @@
 #         self.left = None
 #         self.right = None
 
-class Codec:
+lass Codec:
 
     def serialize(self, root: TreeNode) -> str:
         """Encodes a tree to a single string.
         """
-        vals = []
+        if not root: return ''
+        res = []
         
-        def dfs(node):
+        def preorder(node):
             if not node: return
-            vals.append(node.val)
-            dfs(node.left)
-            dfs(node.right)
+            res.append(str(node.val))
+            preorder(node.left)
+            preorder(node.right)
         
-        dfs(root)
-        return " ".join(map(str, vals))
+        preorder(root)
+        return ' '.join(res)
+
 
     def deserialize(self, data: str) -> TreeNode:
         """Decodes your encoded data to tree.
         """
-        queue = collections.deque(int(val) for val in data.split())
+        ## strick在于构建的时候如果
+        
+        vals = [int(val) for val in data.split()]
+        queue = collections.deque(vals)
         def buildTree(lowerBound, upperBound):
+            if not queue: return
             if queue and lowerBound < queue[0] < upperBound:
                 curr_val = queue.popleft()
                 node = TreeNode(curr_val)
@@ -33,13 +39,5 @@ class Codec:
                 node.right = buildTree(curr_val, upperBound)
                 return node
         
-        return buildTree(-math.inf, math.inf)
+        return buildTree(-10001, 10001)
         
-
-# Your Codec object will be instantiated and called as such:
-# Your Codec object will be instantiated and called as such:
-# ser = Codec()
-# deser = Codec()
-# tree = ser.serialize(root)
-# ans = deser.deserialize(tree)
-# return ans
