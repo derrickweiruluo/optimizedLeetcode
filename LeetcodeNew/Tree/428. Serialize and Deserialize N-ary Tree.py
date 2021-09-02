@@ -11,48 +11,55 @@ class Node(object):
 # While the next item is not "#", create a child with the item, add the child to the list of children and recurse to create its subtree.
 # Repeat until there are no more children, then ignore the "#".
 
+"""
+We should return its level order traversal:
+[
+     [1],
+     [3,2,4],
+     [5,6]
+]
+The solution maintains the array for each level.
+for _ in range(len(q)) means the number of nodes in each level,
+and this loop finds all the children which belong to this level.
+For example, you may serialize the following 3-ary tree
+https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/
+
+O(N) for both
+"""
+
 class Codec:
     def serialize(self, root: 'Node') -> str:
-        #Encodes a tree to a single string.
         
-        serial = []
+        if not root: return
         
+        res = []
         def preorder(node):
-            if not node:
-                return None
-            serial.append(str(node.val))
+            if not node: return
+            res.append(str(node.val))
             for child in node.children:
                 preorder(child)
-            serial.append("#")
+            res.append('#')   # mark at the end of each leaf node
+        
         preorder(root)
-        return " ".join(serial)
+        return ','.join(res)
         
 	
     def deserialize(self, data: str) -> 'Node':
-        #Decodes your encoded data to tree.
-
-        if not data:
-            return None
-        tokens = deque(data.split())
-        root = Node(int(tokens.popleft()), [])
         
-        def treeBuilder(node):
-            if not tokens:
-                return
-            while tokens[0] != "#":
-                value = tokens.popleft()
-                child = Node(int(value), [])
+        if not data: return
+        
+        queue = collections.deque(data.split(','))
+        root = Node(int(queue.popleft()), [])
+        
+        def buildTree(node):
+            if not node: return
+            while queue[0] != '#':
+                val = int(queue.popleft())
+                child = Node(val, [])
                 node.children.append(child)
-                treeBuilder(child)
-            
-            tokens.popleft()    # discard "#"
-            
-        treeBuilder(root)
+                buildTree(child)
+            if queue[0] == '#':
+                queue.popleft()
+        
+        buildTree(root)
         return root
-        
-        
-        
-
-# Your Codec object will be instantiated and called as such:
-# codec = Codec()
-# codec.deserialize(codec.serialize(root))
