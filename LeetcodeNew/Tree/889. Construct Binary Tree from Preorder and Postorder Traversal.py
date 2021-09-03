@@ -15,7 +15,7 @@ Input: preorder = [1], postorder = [1]
 Output: [1]
 
 
-
+####下面真理
 Foreword
 I saw some solutions saying O(N) time, but actually they are not.
 If it takes already O(N) time to find left part and right part, it could not be O(N).
