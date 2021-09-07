@@ -32,17 +32,19 @@ Space: O(sorting)
 class Solution:
     def minAvailableDuration(self, slots1: List[List[int]], slots2: List[List[int]], duration: int) -> List[int]:
         
-        l1, l2 = len(slots1), len(slots2)
         slots1.sort()
         slots2.sort()
         
         p1 = p2 = 0
+        l1, l2 = len(slots1), len(slots2)
         
         while p1 < l1 and p2 < l2:
             intersect_start = max(slots1[p1][0], slots2[p2][0])
-            intersect_end = min(slots1[p1][1],slots2[p2][1])
+            intersect_end = min(slots1[p1][1], slots2[p2][1])
             if intersect_end - intersect_start >= duration:
                 return [intersect_start, intersect_start + duration]
+            
+            # 因为这道题不是p1就是p2增加，p1 绝对增加的条件是p1.end < p2.end, HAVE TO p1 += 1
             elif slots1[p1][1] < slots2[p2][1]:
                 p1 += 1
             else:
