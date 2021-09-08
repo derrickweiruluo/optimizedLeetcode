@@ -18,8 +18,10 @@ At most 2 * 105 calls will be made to set and get.
 #####
 https://leetcode.com/problems/time-based-key-value-store/
 
-Bisect_Right, Right Bound, 
 
+当被问到clost left to target, which is right bound
+同样的template，被改只有 when arr[mid] <= target: left = mid + 1
+&& return left - 1
 """
 
 class TimeMap:
@@ -29,26 +31,24 @@ class TimeMap:
         Initialize your data structure here.
         """
         self.dic = collections.defaultdict(list)
-        
 
     def set(self, key: str, value: str, timestamp: int) -> None:
         self.dic[key].append([timestamp, value])
 
     def get(self, key: str, timestamp: int) -> str:
         arr = self.dic[key]
-        if not arr: return ""
-        left, right = 0, len(arr) - 1
+        left, right = 0, len(arr)
         while left < right:
-            mid = (left + right + 1) // 2
-            if arr[mid][0] > timestamp:
-                right = mid - 1
+            mid = (left + right) // 2
+            if arr[mid][0] <= timestamp:
+                left = mid + 1
             else:
-                left = mid
-        
-        return arr[left][1] if arr[left][0] <= timestamp else ""
+                right = mid
+        '''
+        Returns a value such that set was called previously, with timestamp_prev <= timestamp
+        print(left, right)
+        left == right and since it is moved to right when <= target, therefore need to return left - 1 or right - 1
+        since it is asked for closest left, if left and right == 0, means all vals in arr is > target, therefore return ""
+        '''
+        return "" if left == 0 else arr[left - 1][1]
 
-
-# Your TimeMap object will be instantiated and called as such:
-# obj = TimeMap()
-# obj.set(key,value,timestamp)
-# param_2 = obj.get(key,timestamp)
