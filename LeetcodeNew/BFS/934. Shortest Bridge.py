@@ -22,23 +22,21 @@ class Solution:
                         dfs(xi, yi)
         
         steps = 0
-        i, j = get_first()
-        dfs(i, j)
-        queue = list(boundOne)
+        i, j = get_first(grid)
+        dfs(grid, i, j)
+        queue = collections.deque(list(boundOne))
         
         while queue:
-            nextQueue = []
-            for i, j in queue:
-                for dx, dy in dirs:
-                    xi, yi = i + dx, j + dy
-                    if 0 <= xi < rows and 0 <= yi < cols:
-                        if grid[xi][yi] == 0:
-                            grid[xi][yi] = -1
-                            nextQueue.append((xi, yi))
-                        elif grid[xi][yi] == 1:
-                            return steps
-            
             steps += 1
-            queue = nextQueue
+            for _ in range(len(queue)):
+                x, y = queue.popleft()
+                for dx, dy in dirs:
+                    xi, yi = x + dx, y + dy
+                    if 0 <= xi < m and 0 <= yi < n:
+                        if grid[xi][yi] == 1:
+                            return steps
+                        elif grid[xi][yi] == 0:
+                            queue.append((xi, yi))
+                            grid[xi][yi] = -1
         
         return steps
