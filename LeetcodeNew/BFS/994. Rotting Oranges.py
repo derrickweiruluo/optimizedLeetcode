@@ -37,17 +37,17 @@ class Solution:
         dirs = [(1,0), (-1, 0), (0,1), (0, -1)]
         
         while queue and fresh_count:
-            # while的下一个循环都是下一层，depth + 1， 这里对应的是时间+1
             time += 1
-            for _ in range(len(queue)): # pop掉当前层的所有元素， 去感染下一层的新鲜桔子
+            for _ in range(len(queue)):  # the amount popping at each level
                 x, y = queue.popleft()
                 for dx, dy in dirs:
                     xi, yi = x + dx, y + dy
-                    if 0 <= xi < len(grid) and 0 <= yi < len(grid[0]):
+                    if 0 <= xi < m and 0 <= yi < n and grid[xi][yi] == 1:
                         # update 和 append下一层的元素
-                        if grid[xi][yi] == 1:
-                            fresh_count -=1
-                            grid[xi][yi] = 2
-                            queue.append((xi, yi))
+                        fresh_count -= 1
+                        queue.append((xi, yi))
+                        grid[xi][yi] = 2
         
-        return time if not fresh_count else -1
+        if not fresh_count:
+            return time
+        return -1
