@@ -38,6 +38,7 @@ class Solution:
         else:
             return self.findKthLargest(nums[pos + 1:], k - 1 - pos)
 
+    # partition function return a 0-index based K-largest position
     def partition(self, nums):
         """put all larget than pivot, nums[-1], to the front, every partition,
         i += 1, upon checking all values in nums, i is at the position where
