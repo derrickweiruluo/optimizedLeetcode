@@ -26,7 +26,12 @@ class Solution #1:
         res += self.dfs(node.right, max(node.val, prevMax))
         return res
         
-        
+# def dfs(self, node, prevMax):  
+#         if not node: return
+#         if node.val >= prevMax:
+#             self.goodNodeCount += 1
+#         self.dfs(node.left, max(node.val, pervMax))
+#         self.dfs(node.right, max(node.val, pervMax))        
         
 class Solution #2:
     def goodNodes(self, root: TreeNode) -> int: 
