@@ -8,7 +8,6 @@ Note: This question is the same as 1123: https://leetcode.com/problems/lowest-co
 
 '''
 
-
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
         
@@ -17,12 +16,11 @@ class Solution:
                 return 0, None
             left = dfs(node.left)
             right = dfs(node.right)
-            
             if left[0] > right[0]:
-                return left[0] + 1, left[1]
+                return left[0] + 1, left[1]     # return left node if left it deeper
             elif left[0] < right[0]:
-                return right[0] + 1, right[1]
+                return right[0] + 1, right[1]   # return right node if right it deeper
             else:
-                return left[0] + 1, node
-            
+                return left[0] + 1, node        # return it's parent node if same depth
+        
         return dfs(root)[1]
