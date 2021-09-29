@@ -17,6 +17,8 @@ Output: 2
 
 Input: nums = [3,9,6], k = 2
 Output: 1
+
+https://leetcode.com/problems/frequency-of-the-most-frequent-element/discuss/1175090/JavaC%2B%2BPython-Sliding-Window
 '''
 
 class Solution:
