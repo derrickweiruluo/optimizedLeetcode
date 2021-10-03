@@ -32,8 +32,8 @@ class Solution:
             if char not in res:     
                 # res[-1] is a char that has an index MUST < than current idx
                 # cond1: res 非空
-                # cond2: 当前char 比 res[-1] 小
-                # cond3: 且res[-1] 对应的 char 后面还有重复的
+                # cond2: 当前char 比 res[-1] 小            
+                # cond3: 且res[-1] 对应的 char 后面还有重复的 (这个是特别条件)
                 
                 while res and char < res[-1] and last_idx[res[-1]] > i:
                     res.pop()

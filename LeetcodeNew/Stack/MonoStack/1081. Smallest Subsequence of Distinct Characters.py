@@ -1,4 +1,4 @@
-'''
+'''SAME AS 316
 Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.
 
 Ex1:
@@ -32,7 +32,7 @@ class Solution:
                 # res[-1] is a char that has an index MUST < than current idx
                 # cond1: res 非空
                 # cond2: 当前char 比 res[-1] 小
-                # cond3: 且res[-1] 对应的 char 后面还有重复的
+                # cond3: 且res[-1] 对应的 char 后面还有重复的 (特别条件)
                 
                 while res and char < res[-1] and last_idx[res[-1]] > i:
                     res.pop()

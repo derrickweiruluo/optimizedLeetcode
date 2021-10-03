@@ -23,6 +23,7 @@ num does not have any leading zeros except for the zero itself.
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
         
+        # 生成最小递增序列，每次出现更小的时候我们就把前面的更大的值替换掉，可替换次数有限不能超过k
         stack = []  # mono-increasing stack
         for digit in num:
             while k and stack and stack[-1] > digit:
@@ -33,5 +34,5 @@ class Solution:
         if k > 0:
             stack = stack[:-k]  # remove the last k in the mono-increasing stack
         
-        res = ''.join(stack).lstrip('0')
+        res = ''.join(stack).lstrip('0')  # remove leading zeros
         return res if res else '0'
