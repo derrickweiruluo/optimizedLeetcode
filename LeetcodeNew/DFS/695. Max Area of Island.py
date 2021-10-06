@@ -19,19 +19,18 @@ class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         
         res = 0
-        
-        # dfs of area， nice
-        def dfs(grid, i, j):
-            if i < 0 or i > len(grid) - 1 or j < 0 or j > len(grid[0]) - 1 or grid[i][j] == 0:
-                return 0.  # 超出边界return 0
-            grid[i][j] = 0
-            
-            return 1 + dfs(grid, i, j + 1) + dfs(grid, i, j - 1) + dfs(grid, i + 1, j) + dfs(grid, i - 1, j)
-        
-        
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j] == 1:
-                    res = max(res, dfs(grid, i, j))
-        
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                res = max(res, self.dfs(grid, i, j, m, n))
         return res
+    
+    def dfs(self, grid, i, j, m, n):
+        if i < 0 or i >= m or j < 0 or j >= n or grid[i][j] == 0:
+            return 0
+        grid[i][j] = 0
+        left = self.dfs(grid, i, j - 1, m, n)
+        right = self.dfs(grid, i, j + 1, m, n)
+        up = self.dfs(grid, i - 1, j, m, n)
+        down = self.dfs(grid, i + 1, j, m, n)
+        return 1 + left + right + up + down
