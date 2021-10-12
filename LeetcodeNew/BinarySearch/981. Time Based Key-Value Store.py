@@ -27,28 +27,29 @@ https://leetcode.com/problems/time-based-key-value-store/
 class TimeMap:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.dic = collections.defaultdict(list)
+        self.mapping = collections.defaultdict(list)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        self.dic[key].append([timestamp, value])
+        self.mapping[key].append((timestamp, value))
 
     def get(self, key: str, timestamp: int) -> str:
-        arr = self.dic[key]
-        left, right = 0, len(arr)
+        lst = self.mapping[key]
+        left, right = 0, len(lst)
         while left < right:
             mid = (left + right) // 2
-            if arr[mid][0] <= timestamp:
-                left = mid + 1
-            else:
+            if lst[mid][0] > timestamp:
                 right = mid
+            else:
+                left = mid + 1
+        if left == 0:
+            return ''
+         # right bound题 ，因为题目问 search res <= target
+        return lst[left - 1][1]
+        
         '''
         Returns a value such that set was called previously, with timestamp_prev <= timestamp
         print(left, right)
         left == right and since it is moved to right when <= target, therefore need to return left - 1 or right - 1
         since it is asked for closest left, if left and right == 0, means all vals in arr is > target, therefore return ""
         '''
-        return "" if left == 0 else arr[left - 1][1]
 

@@ -11,7 +11,30 @@ Given the root of a binary tree, return the zigzag level order traversal of its 
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+
+class Solution:  # more concised code
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        res = []
+        queue = collections.deque([root])
+        while queue:
+            cur = []
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                cur.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            res.append(cur)
+        
+        for i in range(len(res)):
+            if i % 2:
+                res[i] = res[i][::-1]
+
+
+class Solution2:  # older code
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         
         if not root: return []

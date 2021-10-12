@@ -17,6 +17,8 @@ Ex 5:
 Input: cardPoints = [1,79,80,1,1,1,200,1], k = 3
 Output: 202
 
+#
+https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
 '''
 
 class Solution:

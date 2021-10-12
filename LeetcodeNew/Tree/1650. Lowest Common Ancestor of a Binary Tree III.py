@@ -15,10 +15,8 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        res = None
         root = self.findRoot(p, q)
-        res = self.traverse(root, p, q)
-        return res
+        return self.dfs(root, p, q)
     
     def findRoot(self, p, q):
         depth1 = depth2 = 0
@@ -30,14 +28,13 @@ class Solution:
             depth2 += 1
         return p if depth1 > depth2 else q
     
-    def traverse(self,root, p, q):
-        if not root: return
+    def dfs(self, root, p, q):
+        if not root:
+            return
         if root == p or root == q:
             return root
-        
-        left = self.traverse(root.left, p, q)
-        right = self.traverse(root.right, p, q)
-        
+        left = self.dfs(root.left, p, q)
+        right = self.dfs(root.right, p, q)
         if left and right:
             return root
         if left:

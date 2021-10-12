@@ -18,36 +18,26 @@ All the calls are being made to the system in chronological order (i.e., timesta
 At most 300 calls will be made to hit and getHits.
 """
 
+### 面试问到的话，问清楚怎么定义last 5 min
 
 class HitCounter:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.counter = collections.Counter()
+        self.hitCounter = collections.Counter()
         
 
     def hit(self, timestamp: int) -> None:
-        """
-        Record a hit.
-        @param timestamp - The current timestamp (in seconds granularity).
-        """
-        self.counter[timestamp] += 1
+        self.hitCounter[timestamp] += 1
+        
 
     def getHits(self, timestamp: int) -> int:
-        """
-        Return the number of hits in the past 5 minutes.
-        @param timestamp - The current timestamp (in seconds granularity).
-        """
-        res = 0
         # ex: for time btw 1 to 300 
         # O(n) for the below accumulating
         # for i in range(timestamp - 299, timestamp + 1):
         #     res += self.counter[i]
-        for t in self.counter:
-            if t in range(timestamp - 299, timestamp + 1):
-                res += self.counter[t]
+        res = 0
+        for t in range(timestamp - 299, timestamp + 1):  # from relative idx 0 to 299
+            res += self.hitCounter[t]
         return res
 
 

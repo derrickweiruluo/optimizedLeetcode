@@ -8,9 +8,9 @@ Given the root of a binary tree, return the maximum path sum of any path.
 
 #####
 https://leetcode.com/problems/binary-tree-maximum-path-sum/
-每个树是一个部分解，每个node return 当前node + max(左右子树)
+每个node所在的subtree都是一个部分解，每个node return 当前node + max(左右子树)
 '''
-class Solution #1:
+class Solution: #1:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         
         self.maxPath = -math.inf
@@ -20,15 +20,15 @@ class Solution #1:
     def dfs(self, node):
         if not node: 
             return 0
-        left = max(0, self.dfs(node.left))
-        right = max(0, self.dfs(node.right))
+        left = max(0, self.dfs(node.left))  #防止走一个sum是负的subtree
+        right = max(0, self.dfs(node.right))#防止走一个sum是负的subtree
         
         curMax = node.val + left + right
         self.maxPath = max(self.maxPath, curMax)
         return node.val + max(left, right)
 
 
-class Solution #2:
+class Solution: #2:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         
         self.maxPath = -math.inf
