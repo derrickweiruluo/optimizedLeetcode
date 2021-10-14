@@ -4,6 +4,7 @@ The path does not need to start or end at the root or a leaf, but it must go dow
 
 Example:
 root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
+
       10
      /  \
     5   -3
@@ -12,9 +13,11 @@ root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
  / \   \
 3  -2   1
 Return 3. The paths that sum to 8 are:
-1.  5 -> 3
-2.  5 -> 2 -> 1
-3. -3 -> 11
+
+1.  curSum of [10, 5, 3]    - oldSum of [10]
+    # 当 [10. 5. 3] 的 3 backtrack完之后， curSum[10 + 5 + 3] -= 1因为这条path不会再被使用了，这道题的path是downward path only
+2.  curSum of [10, 5, 2, 1] - oldSum of [10]
+3.  curSum of [10, -3, 11]  - oldSum of [10]
 
 https://leetcode.com/problems/path-sum-iii/discuss/141424/Python-step-by-step-walk-through.-Easy-to-understand.-Two-solutions-comparison.-%3A-)
 https://leetcode.com/problems/path-sum-iii/discuss/91892/Python-solution-with-detailed-explanation
@@ -25,8 +28,9 @@ https://leetcode.com/problems/path-sum-iii/discuss/91892/Python-solution-with-de
 3.  Again, we traverse through the tree, at each node, we can get the currPathSum (from root to current node). If within this path, there is a valid solution, then there must be a oldPathSum such that currPathSum - oldPathSum = target.
 4.  We just need to add the frequency of the oldPathSum to the result.
 5.  During the DFS break down, we need to -1 in cache[currPathSum], because this path is not available in later traverse.
-6.  Check the graph below for easy visualization.
 
+
+要求必须是往下走的path，意味着backtrack的时候，上一条path会消失无法再用
 O(n) space for dfs and cache, O(n) time
 '''
 

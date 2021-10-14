@@ -32,6 +32,21 @@ prefix sum, and calculaute the prefix sum remainder of k
 if this remainder happended before, and len >= 2: return True
 """
 
+class Solution: # 新代码
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        seen = {0: -1}  # [2,4,9], target == 6, so from idx -1 to idx 1, the len is 2 which satisfy the requirement
+        prefixRem = 0
+        for idx, num in enumerate(nums):
+            prefixRem = (prefixRem + num) % k
+            if prefixRem not in seen:
+                seen[prefixRem] = idx
+            else:
+                if idx - seen[prefixRem] > 1:
+                    return True
+        
+        return False
+
+
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         

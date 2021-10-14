@@ -24,9 +24,9 @@ class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         
         nums.sort()
-        res = sum(nums[:3])
+        res = math.inf
         
-        for i, val in enumerate(nums):
+        for i in range(len(nums) - 2):
             left, right = i + 1, len(nums) - 1
             while left < right:
                 cur = nums[i] + nums[left] + nums[right]
@@ -38,5 +38,4 @@ class Solution:
                     right -= 1
                 else:
                     return cur
-        
         return res
