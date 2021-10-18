@@ -34,7 +34,7 @@ class Solution: #1
 #         self.dfs(node.left, max(node.val, pervMax))
 #         self.dfs(node.right, max(node.val, pervMax))        
         
-class Solution: #2
+class Solution2: #2
     def goodNodes(self, root: TreeNode) -> int: 
         self.res = 0
         self.dfs(root, root.val)
@@ -47,3 +47,17 @@ class Solution: #2
             self.dfs(node.left, max(prevMax, node.val))
         if node.right:
             self.dfs(node.right, max(prevMax, node.val))
+
+class Solution3: #3
+    def goodNodes(self, root: TreeNode) -> int:
+        self.res = 0
+        def dfs(root, preMax):
+            if not root:
+                return
+            if root.val >= preMax:
+                self.res += 1
+            dfs(root.left, max(root.val, preMax))
+            dfs(root.right, max(root.val, preMax))
+        
+        dfs(root, -math.inf)
+        return self.res

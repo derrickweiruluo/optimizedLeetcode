@@ -4,8 +4,6 @@ There are a total of numCourses courses you have to take, labeled from 0 to numC
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.
 
- 
-
 Example 1:
 
 Input: numCourses = 2, prerequisites = [[1,0]]
@@ -21,29 +19,30 @@ Space complexity is also O(E+V) because we work with adjacency lists
 
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        
         graph = [[] for _ in range(numCourses)]
-        visited = [0 for _ in range(numCourses)]
-        
+        visited = [0 for _ in range(numCourses)] # storing [0, -1, 1] values only
         for course, preq in prerequisites:
             graph[course].append(preq)
         
-        self.path = []
+        self.res = []
         for i in range(numCourses):
-            if not self.dfs(graph, visited, i):
+            if not self.dfs(i, graph, visited):
                 return []
-        return self.path
+        return self.res
     
-    def dfs(self, graph, visited, cur):
-        if visited[cur] == -1: return False
-        if visited[cur] == 1: return True
-        visited[cur] = -1   
-#         先标记为 -1 直到最深的 被标记为1 （leaf），
+    def dfs(self, course, graph, visited):
+        if visited[course] == -1:
+            return False
+        if visited[course] == 1:
+            return True
+        visited[course] = -1
+#         先标记为 -1 直到最深的 被标记为1 （leaf）
 #         往上的的递归都会变成1 且从底部一直构建path
-        for course in graph[cur]:
-            if not self.dfs(graph, visited, course):
+        for preq in graph[course]:
+            if not self.dfs(preq, graph, visited):
                 return False
         
-        visited[cur] = 1
-        self.path.append(cur)
+        visited[course] = 1
+        self.res.append(course)
         return True
+    

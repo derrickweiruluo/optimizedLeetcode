@@ -14,8 +14,6 @@ Time complexity : O(m * n + L)O(m×n+L) where LL is the number of operations, mm
 
 Space complexity : O(m * n)O(m×n) as required by UnionFind data structure.
 
-
-
 """
 
 
@@ -33,7 +31,7 @@ class Solution:
             path_x, path_y = find(x), find(y)
             if path_x == path_y:
                 return False
-            path[path_x] = path_y.  # connect if not in the same path
+            path[path_x] = path_y  # connect if not in the same path
             # path[path_y] = path_x
             return True
         
@@ -45,6 +43,7 @@ class Solution:
                 count += 1
                 for xi, yi in [(x + 1, y), (x - 1, y), (x, y - 1), (x, y + 1)]:
                     # if the neighbor not visited and these two neighbor not from the same path, union and count -=1
+                    # (xi, yi)与(x, y)相邻,且不同path, UF operation, merge the path
                     if (xi, yi) in seen and union((xi, yi), (x, y)):
                         count -= 1
         

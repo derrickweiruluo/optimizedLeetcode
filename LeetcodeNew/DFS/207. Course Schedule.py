@@ -30,22 +30,25 @@ class Solution:
         
         graph = [[] for _ in range(numCourses)]
         visited = [0 for _ in range(numCourses)]
+        # top down approach, search from high-level course to low-level
+        # if search to the leaf course, return True and mark as True
         for course, preq in prerequisites:
             graph[course].append(preq)
         
         for i in range(numCourses):
-            if not self.dfs(graph, visited, i):
+            if not self.dfs(i, graph, visited):
                 return False
         return True
     
-    def dfs(self, graph, visited, cur):
-        if visited[cur] == -1: return False
-        if visited[cur] == 1: return True
-        visited[cur] = -1
-        
-        for preq in graph[cur]:
-            if not self.dfs(graph, visited, preq):
+    def dfs(self, course, graph, visited):
+        if visited[course] == -1:
+            return False
+        if visited[course] == 1:
+            return True
+        visited[course] = -1
+        for preq in graph[course]:
+            if not self.dfs(preq, graph, visited):
                 return False
         
-        visited[cur] = 1
+        visited[course] = 1
         return True

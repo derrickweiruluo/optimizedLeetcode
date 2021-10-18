@@ -10,22 +10,30 @@ Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
 Ex2:
 Input: nums = [0]
 Output: [[],[0]
+
+The key to this problem is how to remove/avoid duplicates efficiently.
+
+For the same depth, among the same numbers, only the first number can be used.
+
+Time complexity: O(2^n * n)
+Space complexity: O(n)
 '''
 
-class Solution1:
+class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         
         nums.sort()
         res = []
         
-        def dfs(nums, idx, path, res):
+        def dfs(startIdx, nums, path, res):
             res.append(path)
-            for i in range(idx, len(nums)):
-                if i == idx or nums[i] != nums[i - 1]:
-                    dfs(nums, i + 1, path + [nums[i]], res)
-    
-        dfs(nums, 0, [], res)
+            for i in range(startIdx, len(nums)):
+                if i == startIdx or nums[i] != nums[i - 1]:
+                    dfs(i + 1, nums, path + [nums[i]], res)
+        
+        dfs(0, nums, [], res)
         return res
+
 
 class Solution2:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
