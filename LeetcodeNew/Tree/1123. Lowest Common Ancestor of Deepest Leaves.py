@@ -23,7 +23,7 @@ class Solution:
         
         def dfs(node):
             if not node:
-                return 0, None
+                return 0, None # depth and parent
             left = dfs(node.left)
             right = dfs(node.right)
             

@@ -51,6 +51,5 @@ class Solution:
                 return root
             if left: return left
             if right: return right
-            else: return None
-        
+                    
         return traverse(root, node_set)

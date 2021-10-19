@@ -33,7 +33,7 @@ p and q will exist in the BST.
 #         self.left = None
 #         self.right = None
 
-class Solution:
+class Solution: # recursive
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         
         # recursive solution1
@@ -43,7 +43,8 @@ class Solution:
             return self.lowestCommonAncestor(root.right, p, q)
         return root
         
-        
+class Solution: # iterative
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         # iterative solution2
         while True:
             if root.val > p.val and root.val > q.val:
