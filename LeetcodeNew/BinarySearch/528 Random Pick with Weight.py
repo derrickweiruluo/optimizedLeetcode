@@ -9,19 +9,20 @@ For example, if w = [1, 3], the probability of picking index 0 is 1 / (1 + 3) = 
 class Solution:
 
     def __init__(self, w: List[int]):
-        # self.total = sum(w)
-        self.n = len(w)
-        for i in range(1, self.n):
-            w[i] += w[i - 1]
         self.w = w
+        for i in range(1, len(w)):
+            self.w[i] += self.w[i - 1]
+        self.total = w[-1]
+        self.n = len(w)
 
     def pickIndex(self) -> int:
-        random_weight = random.randint(1, self.w[-1])
-        left, right = 0, self.n - 1
+        randWeight = random.randint(1, self.total)
+        left, right = 0, self.n
         while left < right:
             mid = (left + right) // 2
-            if self.w[mid] < random_weight:
+            if self.w[mid] < randWeight:
                 left = mid + 1
             else:
                 right = mid
+        
         return left

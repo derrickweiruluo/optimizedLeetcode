@@ -27,6 +27,35 @@ nums is a non-decreasing array.
 def一个通用二分函数， 找target的左位置， 找target + 1 的前一位
 确认边界和确认target存在
 """
+class Solution:  # updated on 10/19/21
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        
+        if not nums:
+            return [-1, -1]
+        
+        def binarySearchLeft(nums, target):
+            left, right = 0, len(nums) - 1
+            while left < right:
+                mid = (left + right) // 2
+                if nums[mid] < target:
+                    left = mid + 1
+                else:
+                    right = mid
+            return left if nums[left] == target else -1
+
+        def binarySearchRight(nums, target):
+            left, right = 0, len(nums) - 1
+            while left < right:
+                mid = (left + right) // 2 + 1  # 这个是upper bound，所以必须 +1
+                if nums[mid] > target:
+                    right = mid - 1
+                else:
+                    left = mid
+            return left if nums[left] == target else -1
+        
+        left, right = binarySearchLeft(nums, target), binarySearchRight(nums, target)
+        return [left, right]
+
 
 
 class Solution:

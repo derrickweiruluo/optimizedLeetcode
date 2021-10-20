@@ -23,7 +23,25 @@ O(n)
 
 
 
-class Solution:
+class Solution: 
+    # updated on 10/19/21 on while loop condition, which is always True
+    def findDuplicate(self, nums: List[int]) -> int:
+        
+        slow, fast = 0, 0
+        n = len(nums)
+        
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                slow = 0
+                while slow != fast:
+                    slow = nums[slow]
+                    fast = nums[fast]
+                return slow
+
+
+class Solution: 
     def findDuplicate(self, nums: List[int]) -> int:
         
         """

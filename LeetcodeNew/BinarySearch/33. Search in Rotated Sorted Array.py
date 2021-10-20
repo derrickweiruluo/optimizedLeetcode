@@ -20,13 +20,17 @@ Input: nums = [1], target = 0
 Output: -1
 
 https://leetcode.com/problems/search-in-rotated-sorted-array/discuss/14436/Revised-Binary-Search
+https://github.com/wisdompeak/LeetCode/tree/master/Binary_Search/033.Search-in-Rotated-Sorted-Array
 '''
+
+
 ### 有手写笔记
 
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         
+        # 
         left, right = 0, len(nums) - 1
         
         while left <= right:

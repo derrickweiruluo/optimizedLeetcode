@@ -27,24 +27,28 @@ https://leetcode.com/problems/time-based-key-value-store/
 class TimeMap:
 
     def __init__(self):
-        self.mapping = collections.defaultdict(list)
+        self.timestamps = collections.defaultdict(list)
 
     def set(self, key: str, value: str, timestamp: int) -> None:
-        self.mapping[key].append((timestamp, value))
+        # All the timestamps timestamp of set are strictly increasing.
+        self.timestamps[key].append((timestamp, value))
 
     def get(self, key: str, timestamp: int) -> str:
-        lst = self.mapping[key]
-        left, right = 0, len(lst)
+        if key not in self.timestamps:
+            return ''
+        data = self.timestamps[key]
+        left, right = 0, len(data)
         while left < right:
             mid = (left + right) // 2
-            if lst[mid][0] > timestamp:
+            if data[mid][0] > timestamp:
                 right = mid
             else:
                 left = mid + 1
-        if left == 0:
+        
+        if left == 0:  # 所有data的时间都 > timestamp
             return ''
-         # right bound题 ，因为题目问 search res <= target
-        return lst[left - 1][1]
+        # left bound题 ，因为题目问 search res <= target
+        return data[left - 1][1]
         
         '''
         Returns a value such that set was called previously, with timestamp_prev <= timestamp
