@@ -1,0 +1,718 @@
+import collections, math
+
+
+'''     3. *** 频率：2 
+/* 给一个matrix, 找出所有radius = k的sum的三个最大值 radius的定义是像上下左右辐射k个距离的菱形
+'''
+# 菱形题目， 找半径为k的最大的三个菱形面积
+import heapq
+matrix = [[1,2,3,9,0],[0,1,2,3,5],[3,4,5,6,7]]
+k = 1
+m, n = len(matrix), len(matrix[0])
+heap = []
+
+def findSum(grid, x, y, k):
+    sum = 0
+    for i in range(x - k, x + k + 1):
+        diff = abs(i - x)
+        for j in range(y - k + diff, y + k + 1 - diff):
+            sum += grid[i][j]
+    return sum
+
+for i in range(k, m - k):
+    for j in range(k, n - k):
+        cur = findSum(matrix, i, j, k)
+        heap.append(-cur)
+res = []
+heapq.heapify(heap)
+for i in range(3):
+    res.append(-1 * heapq.heappop(heap))
+
+print(res)
+
+
+'''     4. ** 频率：2
+There are a number of piles arranged in a row, and each pile has a positive integer number of stones piles[i]. Alice and Bob take turns, with Alice starting first. On each player's turn, that player can take 2 consecutive stones where piles[i] = piles[i+1]. The game continues until noboday can make any move. return winner 
+Ex. [1,2,2,3,3,1,1] Alice take [2,2], Bob [3,3], Alice [1,1]. 剩下一个1没办法take，Alice 赢 */ // 翻译：就是轮流从数组中拿相邻的值又相同的一对，直到拿完为止，最后一个拿的获胜 // 我的思路：brute force每轮从头遍历到尾，找到相邻的相同一对删除，直到不能删
+'''
+
+stones = [1,2,2,3,3,1,1]
+i = j = 0
+player = -1 # for default, if cur player can take one pair, -1 --> 1
+n = len(stones)
+stack = []
+while i < n:
+    if not stack or stones[i] != stack[-1]:
+        stack.append(stones[i])
+    else:
+        stack.pop()
+        player *= -1
+        print(i, player, '####')
+    i += 1
+
+print(player == 1)
+
+'''
+5. * 频率：3
+/* checkMonotonicity(easy)
+Q: Given an array A containing n integers. The task is to check whether the array is Monotonic or not. An array is monotonic if it is either monotone increasing or monotone decreasing.
+
+An array A is monotone increasing if for all i <= j, A <= A[j]. An array A is monotone decreasing if for all i <= j, A >= A[j].
+Return “True” if the given array A is monotonic else return “False” (without quotes).
+Input : 6 5 4 4     --> True
+Input : 5 15 20 10  --> False
+
+检查array 是否单调递增或递减, 是就回传true, 5分钟搞定吧。*/
+'''
+arr = [2,2,5,7,7,32,54,100,100]
+# arr = [5, 15, 20, 10]
+n = len(arr)
+up = down = True
+for i in range(1, n):
+    if arr[i] > arr[i - 1]:
+        down = False
+    if arr[i] < arr[i - 1]:
+        up = False
+
+print(up or down)
+
+'''     6. * sumofReversed(easy)
+Q: 给定一个numbers arrays of array, 将裡面所有number 按照题目规则reverse后，将所有结果加总。
+Example:
+Input: numbers =[ [7, 20, 73200], [12, 23, 15]]
+Output: 23709 + 104 = 23813
+
+'''
+
+input = [[7, 20, 73200], [12, 23, 15]]
+res = 0
+def convert(s):
+    res = ''
+    i = 0
+    while s[i] == '0':
+        i += 1
+    return str(s[i:]) + '0' * i # move all leading '0' to end
+    
+for arr in input:
+    cur = 0
+    for num in arr:
+        cur += int(convert(str(num)[::-1])) # 转换成reverse str
+    print(cur)
+    res += cur
+    cur = 0
+
+print(res)
+
+'''     7. *************** 频率：2 俄罗斯方块变种
+'''
+
+'''     8.  * operations in array (easy)
+Q: 给一个operations in array 以及一个numbers array, 有以下三种operations
+第一种 [0, x]：将numbers都加上x
+第二种 [1, x]：将numbers都乘以x
+第三种 [2]: 从numbers中取出最小值加入result array
+最后将result的和回传。
+Input: numbers = [1, 12, 5, 7] operations = [[2], [0, 1], [1, 2], [2]]
+Output:
+Explain:
+[2] => result = [1]
+[0, 1] => numbers = [2, 13, 6, 8]
+[1, 2] => numbers = [4, 26, 12, 16]
+[2] => result = [1, 4]
+return = 1 + 4 = 5
+
+'''
+import heapq
+nums = [1, 12, 5, 7] 
+ops = [[2], [0, 1], [1, 2], [2]]
+res = 0
+
+heapq.heapify(nums)
+curMin = heapq.heappop(nums)
+
+for op in ops:
+    if op == [2]:
+        res += curMin
+        print(curMin)
+    if len(op) == 2:
+        if op[0] == 0:
+            curMin += op[1]
+        elif op[0] == 1:
+            curMin *= op[1]
+print(res)
+
+'''     9. **   二进制数字大数字加法
+可能会特别大所以用string表示。求两个二进制数的和 sum(string s1, string s2); */
+我的思路：经典大数加法
+'''
+
+
+'''10. *
+把一个string 每两个char reverse 操作， e.g. abcde => badce
+白给
+'''
+
+s = 'abcde' # --> 'badce
+res = ''
+for i in range(len(s)):
+    if i % 2 == 0:
+        if i != len(s) - 1:
+            res += (s[i + 1])
+            res += (s[i])
+        else:
+            res += (s[i])
+print(res)
+
+
+'''     11. *
+给一个数组a, 返回数组b 表示a 中连续三个数是否是单调的， length(b) = length(a) - 2,
+白给
+'''
+nums = [1,2,3,4,5,6,7,8,0,2,4]
+
+res = [False] * (len(nums) - 2)
+for i in range(len(nums) - 2):
+    if nums[i] <= nums[i + 1] <= nums[i + 2] or nums[i] >= nums[i + 1] >= nums[i + 2]:
+        res[i] = True
+
+print(res)
+
+'''     12. * 频率：2 老题
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=726595
+给一个String[], 需要用每一个String的第一个字母和下一个String的最后一个字母组成新String, 最后一个String和第一个String组
+Example ["what“, "is", "your", "name"], output ["ws", "ir", "ye", "nt"]
+'''
+arr = ['what', 'is', 'your', 'name']
+res = []
+for i in range(len(arr)):
+    if i == len(arr) - 1:
+        res.append(arr[i][0] + arr[0][-1])
+    else:
+        res.append(arr[i][0] + arr[i + 1][-1])
+
+print (res)
+
+'''13. **
+给两个String[], 检查是否第二个String[]里所有的String都是第一个String[]里 
+    ###    0 到 某个element的concatination    ###
+String[] a, String[] b, check if b[j] = a[0] + a[1] +.. + a
+Example a = ["one", "twoThree", "four"], b = ["one", "onetwoThree"] true
+a = ["one", "twoThree", "four"], b = ["onetwo"] false */
+
+我的思路：把所有a数组从0到1，到2，到3......到n的字符串都算出来，存在hashset里，然后遍历b看看是不是每个元素都在里面
+'''
+a = ["one", "twoThree", "four"], b = ["onetwo"]
+path = ''
+valid = set()
+for i in range(len(a)):
+    path += a[i]
+    valid.add(path)
+
+res = True
+for elem in b:
+    if elem not in valid:
+        print(False)
+print(True)
+
+'''     14. *** 频率：2
+给一个matrix 和一个int k, 找到所有总和最大的k * k的submatrix，返回这些subarray里的distinct element 
+[[1, 2, 3]
+ [3, 2, 1] k = 2, 有两个sum为8的submatrix, distinct element为{1, 2, 3}
+ [0, 0, 0]]
+
+'''
+k = 2
+grid = [[1,2,3,9,0],[0,1,2,3,5],[3,4,5,6,7]]
+'''
+[[1,2,3,9,0],
+ [0,1,2,3,5],
+ [3,4,5,6,7]]
+'''
+m, n = len(grid), len(grid[0])
+preSum = [[0 for i in range(n + 1)] for i in range(m + 1)]
+for i in range(m):
+    for j in range(n):
+        preSum[i + 1][j + 1] = preSum[i + 1][j] + preSum[i][j + 1] + grid[i][j] - preSum[i][j]
+print(preSum)
+
+# dict = collections.defaultdict(list)
+lst = []
+curMax = -math.inf
+for i in range(k - 1, len(preSum)):
+    for j in range(k - 1, len(preSum[0])):
+        cur = preSum[i][j] - preSum[i - k][j] - preSum[i][j - k] + preSum[i - k][j - k]
+        if cur > curMax:
+            lst = [(i - 1, j - 1)]
+        elif cur == curMax:
+            lst.append((i - 1, j - 1))
+        # dict[cur].append((i - 1, j - 1))
+        # res = max(res, preSum[i][j] - preSum[i - 1][j - 1]
+
+print(lst)
+# maxSum = max(dict, key = dict.get)
+# print(maxSum)
+res = set()
+# print(preSum[maxSum])
+for (i, j) in lst:
+    for x in range(i - k + 1, i + 1):
+        for y in range(j - k + 1, j + 1):
+            res.add(grid[x][y])
+print(res)
+
+'''15. * 频率：2
+给一个int[] num, 然后定义rev是把一个数reverse, 例如rev(23) = 32,
+求有多少个(i, j)可以满足num[i] + rev(num[j]) = num[j] + rev(num[i])
+num[i] - rev(num[i]) = num[j] - rev(num[j])
+int[] num: [12, 34] => 12+43 = 34+21 count = 1
+我的思路：先计算数组的reverse数组，然后与原数组相加，得到一个cha数组，遍历数组将相同的和存在map里记录个数
+然后根据map的个数计算pair对数，和36题思路一毛一样
+'''
+counter = collections.Counter() # 
+
+def reverse(s):
+    i = 0
+    while s[i] == '0':
+        i += 1
+    return int(s[i:] + '0' * i)
+
+nums = [12,34]
+for num in nums:
+    reverseNum = reverse(str(num)[::-1])
+    diff = num - reverseNum
+    counter[diff] += 1
+
+res = 0
+for key, val in counter.items():
+    if val > 1:
+        res += val * (val - 1) // 2
+
+print(res)
+
+
+'''16. *
+给定一个字符串s，找出符合s[i - 1] != s[ i ]且 s[ i ] != s[i+1] 且 s[i - 1] != s[i + 1]的三元组的个数
+白给
+'''
+
+'''17. ** 频率：2
+给定一个3行N列的整数矩阵，矩阵中只包含1-9这9个数字，假设有一个3 x 3的滑动窗口，从左到右滑过整个矩阵。
+如果当前滑动窗口中的9个值刚好为1-9这9个数字（顺序无所谓），且没有出现过重复, 则认为是true，否则是false.
+返回一个数组，按从左到右滑动的顺序依次填入true或false。
+[
+[1,2,3,4,5,6,7,8,9]
+[1,2,3,4,5,6,7,8,9]
+[1,2,3,4,5,6,7,8,9]]
+'''
+grid = [[1,3,7,4,4,7],[5,2,9,5,3,6],[4,8,6,2,1,9]]
+totalCol = len(grid[0])
+res = [False for i in range (totalCol - 2)]
+print(res)
+# seen = collections.defaultdict(list)
+for i in range(totalCol - 2):
+    cur = set()
+    for r in range(3):
+        for c in range(i, i + 3):
+            cur.add(grid[r][c])
+    print(cur)
+    if len(cur) == 9:
+        res[i] = True
+
+print(res)
+
+'''     18. ******
+/给你两个多维数组grid 和 strength，grid和strength的行列数是相同的，即如果grid 是 3 x 4，那么strength也是3 x 4。
+grid里只包含 '*', '.', '#' 3种字符，*代表障碍物， #代表箱子，. 代表空格子
+strength中的元素则代表grid中相应位置上如果是障碍物，则障碍物上方最多可以承受的箱子的个数
+每个箱子的重量相同，障碍物的承重只看箱子个数（即strength中对应位置上的值）。
+现在从上往下看，如果压在障碍物上面的格子数量超过了它的承重，那么障碍物会被压垮消失，
+此时箱子会继续往下掉，直到遇到承重更强的障碍物或者到底了又或者是下面也是箱子（箱子可以摞起来）。
+现在给定初始状态下的grid和strength，求最后grid的状态，返回修改之后的grid。 */
+思路：遍历矩阵，每一列从上到下遍历，遇到空白无视，遇到箱子累加箱子个数，遇到障碍物判断是否能承受累加的重量，如果
+'''
+
+'''     20. * 频率：4 你刷过了//////
+地理出现过很多次的三角形 - 简单判定 a+b>c, a+c>b, b+c>a即可
+'''
+
+'''     21. **** 俄罗斯方块老题 频率：3
+/* 俄罗斯方块 - 给你一个m*n的空矩阵，给你一俄罗斯方块图序列，比如1代表 。。。。4个小方格， 2代表凸（也是四个小方格）
+现在你需要根据序列把空矩阵填满。简单的遍历和暴力破解便可，这里需要优先考虑行而不是列
+'''
+
+'''     22. ***** 19 题变种 减变加
+给你一个二进制string， 然后有两种操作，一种是求里面一共有多少个1， 另外一种是对当前数字加1.
+函数类似于：public List<String> func(String num, String[] operations); */
+'''
+
+'''     23. * broken keyboard 老题 频率：2
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=723954
+/* 給定一個text string, 以及一個letters list，找出所有words 可以完全由letters拼出來的
+1. 每個單字都會被空格隔開
+2. 單字裡頭有special characters的不用算
+3. 單字會有大寫，但letters list裡頭只有小寫
+ex: s = "Hello, world!", letters = ["h", "e", "l", "o"]
+
+第一個字"Hello," 可以算，因為","不用被考慮
+我有一個case沒過，不知道是什麼沒考慮到*/
+思路：letters存在set里，对s进行tolowercase()，然后遍历s的每一个字符看是否在set里。非字母跳过。
+'''
+
+
+'''     24. 你刷过了
+就是給m, n 以及start, goal point
+從start 開始往斜對角走，碰到牆壁回彈
+回傳走到goal point的距離，找不到的話回傳 -1 */
+'''
+
+
+'''     25. *** 频率：2
+給一個array, 要求找出多少個subarray 可以滿足 最少有 >=k 的unique chars appeared only once
+ex:
+[1,2,3,4,1], k = 2
+[1,2]
+[1,2,3]
+[1,2,3,4]
+[2,3]
+[3,4,1]
+etc. */
+第一想法：brute force
+'''
+arr = [1,2,3,4,1,8,8,4,3]
+k = 2
+res = 0
+visited = set()
+for i in range(len(arr)):
+    for j in range(i, len(arr)):
+        if arr[j] not in visited:
+            visited.add(arr[j])
+        else:
+            break
+        if len(visited) >= k:
+            res += 1
+    visited = set()
+print(res)
+
+
+'''     26. ***
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=723218
+String的操作，有insert，copy，undo，paste，注意，undo只能返回上一次操作， insert x，插入x到当前string结尾处
+copy，clipboard里存储当前string undo撤销上一次操作，不会出现连续的，只能撤销上一次的
+paste粘贴clipboard中的string到结尾处 最后让你输出最后的string。
+'''
+cur = prev = ''
+clipboard = ''
+for op in ops:
+    arr = op.split()
+    if arr[0] == 'insert':
+        prev = cur
+        cur.append(arr[1])
+    elif arr[0] == 'copy':
+        clipboard = cur
+    elif arr[0] == 'undo':
+        cur = prev
+    elif arr[0] == 'paste':
+        prev = cur
+        cur.append(clipboard)
+print(cur)
+
+'''     27. *
+这个帖子👌
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=719472
+给两个字符串，输出一个合起来的字符串，第一个的字符占偶数位第二个占奇数位，如果还有剩余就补在最后的结果后面
+eg: given two strings, merge,
+ex:
+input: "abc", "12345", output: "a1b2c345"
+input: "abc", "1", output: "a1bc"
+'''
+# a = 'abc'
+a = 'abcdef'
+b = '1'
+na, nb = len(a), len(b)
+l = min(na, nb) * 2
+res = ['-']* l
+for i in range(min(na, nb) * 2):
+    if i % 2 == 0 and i < na * 2:
+        res[i] = a[i // 2]
+    if i % 2 == 1 and i < nb * 2:
+        res[i] = b[i // 2]
+rem = ''
+rem = a[nb:] if na > nb else b[na:]
+print(rem)  
+print(res)
+print('res: ', ''.join(res) + rem)
+
+
+'''     28. * 频率：3
+给一个长度为n的数组A，判断是不是由[1,2,...,n]或者[n,n-1,...,1]右移得来。比如[4,2,3,1]不是，[4,1,2,3]是
+'''
+# A = [7,9,10,2,3,6]
+# A = [4,2,3,1]
+A = [1,2,3]  # presorted
+
+def isSorted(num):
+    up = sorted(num)
+    down = sorted(num, reverse = True)
+    return num == up or num == down
+
+if isSorted(A):  print('FINAL', False)
+for i in range(len(A)):
+    print(A[i:] + A[:i])
+    if isSorted(A[i:] + A[:i]):
+        print('FINAL', True)
+print('FINAL', False)
+
+'''29. * 频率：3 与24题相同
+给你二维数组长和宽，起点坐标，终点坐标。一开始从起点按照(+1, +1)的方式走，x坐标出界就取相反数，y出界
+同理，走到角落就同时取反。问走到终点的步数，如果走不到返回-1. */
+'''
+
+
+'''     30. * 频率：3
+给一个数组，返回子数组个数，子数组满足：所有元素都出现至少2次。
+比如[1,2,1,2,4]返回1（[1,2,1,2]），[1,2,3,3,3,2,4]返回4（[3,3], [3,3], [3,3,3], [2,3,3,3,2]）*/
+'''
+import collections
+A = [1,2,3,3,3,2,4]
+res = []
+def dfs(nums):
+    for i in range(len(nums)):
+        for j in range(i, len(nums)):
+            res.append(nums[i : j])
+    return res
+
+dfs(A)
+print(res)
+cnt = 0
+s = set()
+for sub in res[1:]:
+    # s.add(''.join(sub))
+    print(str(sub))
+# print(res)
+# print(s)
+# for subArray in res:
+#     counter = collections.Counter(subArray)
+#     if counter[min(counter)] > 1:
+#         cnt += 1
+print(cnt)
+
+'''     31. *
+有a,b,c三个值，如果 a = b = c，则值乘以1000；如果 a = b 或者 b = c 或者 a = c， 则值乘以500；否则值乘以100。
+给定a, b, c三个数，求最后的值
+'''
+nums = [100,200,300]
+res = [num for num in nums]
+if nums[0] == nums[1] == nums[2]:
+    print([num * 1000 for num in nums])
+if nums[0] == nums[1]:
+    print([nums[0] * 500, nums[1] * 500])
+if nums[2] == nums[1]:
+    print([nums[2] * 500, nums[1] * 500])
+if nums[0] == nums[2]:
+    print([nums[0] * 500, nums[2] * 500])
+else:
+    print([num * 100 for num in nums])
+
+'''     32. ** 频率：2
+数组，每个数字都不相同，首先找到最小的峰值，然后作为第一个返回值，把最小峰值从原数组中删除，然后在新数组中再次找到最小峰值，以此 类推。
+'''
+import heapq
+nums = [1,4,5,3,8,6]
+heapq.heapify(nums)
+res = []
+while nums:
+    res.append(heapq.heappop(nums))
+    print(res)
+print(res)
+print(nums)
+
+'''// 33.
+判断两个string 是不是相似的。相似的定义是：
+1）其中任意一个string 上任意两个char 可以swap
+2）其中任意一个string 上任意两个char 出现的次数可以swap */
+我的想法：没懂
+'''
+
+'''
+// 34. **
+给一个包含正负数的数组，求所有pair的sum是一个perfect square的数量。
+比如 [-1, 0, 1, 18, 3]
+pair里的i, j 的条件是i <= j, 就是说同一个数字能够重复使用，在这个例子里 最大的pair sum就是36 (18 +18)，那么有可能出现的 perfect square就有0, 1, 4, 9, 16, 25, 36
+那么[-1, 1], [0,1],[1,3,], [18,18]就是所有的pair
+输出为4.
+我用了一个hashmap的解法，不知道为什么最后一个test case超时
+'''
+import collections, math
+nums = [-1, 0, 1, 18, 3]
+# square = collections.defaultdict(int)
+square = set()
+res = 0
+for i in range(0,len(nums)):
+    if nums[i] > 0:
+        cur = math.sqrt(nums[i] * 2)
+        if int(cur) == cur:
+            print(nums[i], 'X2')
+            res += 1
+    for j in range(i):
+        if nums[i] + nums[j] >= 0:
+            root = math.sqrt(nums[i] + nums[j])
+            if int(root) == root: 
+                print(nums[i], nums[j])
+                res += 1
+
+print(res)
+
+    
+'''35. *** 老题 频率：3
+新闻排版，input an array of lines, each line is an array of words. (array of array of string) 然后给你一个屏幕 宽度，每一行贪心地放 word，直到排满然后换行继续排，剩余的地方用空格去 padding，保证每一格都要凑够到屏幕宽度。没啥难的，就是细节比 较多（每一行前后都要加一个星号，最前面和最后面要加一排星号），写起来倒很快。
+比如给你 [["hello", "world"], ["I", "love", "cats", "and", "dogs"]]，宽度 12，第一行左对齐第二行右对齐，要求输出
+
+**************
+*hello world *
+* I love cats*
+*    and dogs*
+**************
+'''
+input = [["hello", "world"], ["I", "love", "cats", "and", "dogs"]]
+w = 14
+charCount = 0
+res = []
+for arr in input:
+    # res += arr
+    res.extend(arr)
+print(res)
+spaces = len(res) - 1
+charCount = sum(len(s) for s in res)
+print(charCount, spaces)
+r = 2 + (charCount + spaces) // (w - 2) + 1
+print(r)
+
+grid = [['*'] * w for _ in range(r)]
+for i in range(1, len(grid) - 1):
+    for j in range(1, w - 1):
+        grid[i][j] = ' '
+# print(grid)
+
+r = 1
+c = 1
+i = 0
+while i < len(res):
+    s = res[i]
+    if len(s) + c < w - 1:
+        for x in range(c, c + len(s)):
+            grid[r][x] = s[x - c] 
+        c += len(s) + 1
+        i += 1
+    else:
+        r += 1
+        c = 1
+
+print(grid)
+
+
+'''     36. ***
+给两个数组a和b，a的size和b的size相同，求对于pair i,j (i <= j)，
+
+这两个数组里的pair的数量 应该是a[i]-b[j]=a[j]-b[i]
+
+思路：变形为a[i] + b[i] = a[j] + b[j]，逻辑简单很多，我们只要把每个位置的和存下来看哪些是相同的即可，根据Map计算Pair的个数
+'''
+a = [1,2,3,4,5]
+b = [4,3,2,1,10]
+import collections
+res = 0
+freq = collections.defaultdict(int)
+for i in range(len(a)):
+    curSum = a[i] + b[i]
+    freq[curSum] += 1
+print(freq)
+for pair, cnt in freq.items():
+    if cnt >= 2:
+        for i in range(cnt - 1, 0, - 1):
+            res += i
+print(res)
+
+
+'''37. *
+给两个纯数字的字符串，如"987"和"654"，然后从最低位开始两两求和，输出最终的字符串，两个输入字符串都没有leading zeros。
+如"987"和"654"输出"151311"，我是先把字符串转成int数组，然后安位求和，最后再转换回string。
+'''
+a = '987' # 都没有leading zeros
+b = '6543333'
+l = min(len(a), len(b))
+res = ''
+for i in range(l):
+    cur = int(a[i]) + int(b[i])
+    res += (str(cur))
+if len(a) > l:
+    res += (a[l:])
+elif len(b) > l:
+    res += (b[l:])
+print(res)
+
+'''     38. *** 频率：2 老题
+/* 给一个二维矩阵，每一行的第一列的数字，称之为pivot，要求对这些pivot进行排序。
+排序的comparator不是基于这些pivot的值，而是他们的 “右上-右下-对角线sum”，
+这个对角线sum的定义是，从这个pivot 开始向右上方挪动，到顶之后再像右下方挪动直到到达右边界或者下边界，
+这样遍历下来的sum称之为对角线sum。
+这道题，我是写一个子程序计算给定位置的pivot值，然后返回一个tuple(pivot,val)这里val是原始位置的值（因为这个是最后要输出的）
+然后对第一列的每一行元素计算pivot，进行排序即可
+思路：分别计算所有pivot的值，根据值排序原坐标
+
+'''
+
+
+'''     // 39. **** https://leetcode.com/problems/group-anagrams/
+提供一个数组，数一下两两互为数字变形体的个数，
+数字变形体的定义是，如果一个数把把它每一个数字位置改变就能和另一个数相同，它们就是数字变形体比如"123"和"321"和"312"都是数字变形体。
+这道题我一开始写了个子函数，判断两个数字是否是变形体。然后暴力两层循环数一共有几对，通过了基本的测试，但是隐藏测试超时。
+后来，对每一个数进行编码，比如123 = 1*100+1*10+1,1123=2*100+1*10+1，类似counting sort的思想，
+这样直接比较两个数encoding后是否一样如果一样就是变形体，结果时间复杂度O(n^2)还是过不了所有的隐藏测试，
+最后采用类似hash map的思路，建一个count字典，记录每个编码到目前为止出现的次数，遍历整个数组，
+sum+=count[val]，最后返回sum。达到O(n)时间复杂度，通过了所有的测试。这道题类似力扣死侍酒。*/
+思路：数字变形体的本质其实是所有数字加起来和相同，可以用和来编码记录每个编码的个数，最后遍历map计算个数。和36题本质相同。
+'''
+
+'''     * 老题 频率：4  参考 https://leetcode.com/problems/rotate-image/
+方形的matrix旋转K次90度，求最后的矩阵什么样，对角线的元素跳过，比如[0][0], [1][1]这些点是不参与旋转的
+'''
+import collections
+k = 4
+A = [[1,2,3],[4,5,6],[7,8,9]]
+n = len(A)
+times = k % 4
+d = collections.defaultdict(int)
+for i in range(n):
+    d[(i, i)] = A[i][i]
+    d[(i, -1 - i)] = A[i][-1 - i]
+
+
+for i in range(times):
+    A = [[row[i] for row in A[::-1]] for i in range(len(A))]
+    # A = [list(col)[::-1] for col in zip(*A)]  另一种右旋转90度的 写法
+print(A)
+for (x, y), val in d.items():
+    A[x][y] = val
+print(A)
+
+
+'''41. *** https://leetcode.com/problems/word-break/
+地里的原题，给你一个list，给你另外一个list of list，问你从后面这个list of list里能否拼出前面这个list， 
+比如 [3,2,5,1,4] 
+[[5,1][3,2], [4]]就可以拼出来
+'''
+arr = [3,2,5,1,4]
+lst = [[5,1],[3,2], [4]]
+seen = set()
+for l in lst:
+    seen.add(''.join(map(str, l)))
+print(seen)
+dp = [False] * (len(arr) + 1)
+dp[0] = True
+for i in range(1, len(arr) + 1):
+    for j in range(i):
+        if dp[j] and ''.join(map(str, arr[j: i])) in seen:
+            a = ''.join(map(str, arr[j: i]))
+            print(a)
+            dp[i] = True
+            break
+print(dp)
