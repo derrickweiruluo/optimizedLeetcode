@@ -1,4 +1,45 @@
 import collections, math
+'''     1. *
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=728695 // 
+ 给定一个数组，返回一个zigzag数组， a[i] < a[i+1] > a[i+2] || a[i] > a[i+1] < a[i+2] => true。
+
+Ex. [1,3,4,2,5]
+return [false, true, true]
+'''
+arr = [1,3,4,2,5]
+res = [False] * (len(arr) - 2)
+for i in range(1, len(arr) - 1):
+    if arr[i - 1] < arr[i] and arr[i] > arr[i + 1] or arr[i - 1] > arr[i] and arr[i] < arr[i + 1]:
+        res[i - 1] = True
+print(res)
+
+'''   ✨✨✨✨  2. * 
+根据以下算法处理string 1）if s.length <= 3, return 2) if s.length > 3, split 成multiple subtring, 每个substring的length 是3 3）
+replace every substring with the sum of every digit, continue with 2) until 1) 
+
+Ex, str = "11122223445" 
+012 345 678 9 
+111 222 333 4 
+end index of each chunk: 0+2, 3+2, 6+2, 9+2 
+2 -> "111" "222" "234" "45" 
+3 -> "3" "6" "9" "9" -> "3699" 
+2 -> "369" "9" 
+3 -> "18" "9" -> "189" 
+return "189"
+'''
+s = "11122223445"
+output = ''
+while len(s) > 3:
+    cur = ""
+    res = 0
+    for i in range(len(s)):
+        res += int(s[i])
+        if i % 3 == 2 or i == len(s) - 1:
+            cur += str(res)
+            res = 0
+    s = cur
+print(s)
+
 
 
 '''     3. *** 频率：2 
@@ -716,3 +757,97 @@ for i in range(1, len(arr) + 1):
             dp[i] = True
             break
 print(dp)
+
+
+'''
+String 常用写法:
+s.isalpha()
+s.isdigit()
+s.isalnum()'''
+ 
+'''     **** 41 DFS solution (139. Word Break)
+地里的原题，给你一个list，给你另外一个list of list，问你从后面这个list of list里能否拼出前面这个list， 比如 [3,2,5,1,4] [[5,1][3,2], [4]]就可以拼出来'''
+s = [3,2,5,1,4]
+a = [[5,1],[3,2], [4]]
+s = ''.join(map(str, s))
+b = []
+for i in a:
+  b.append(''.join(map(str, i)))
+ 
+print(s)
+print(b)
+memo = {}
+wordSet = set(b)
+ 
+def dfs(idx, s, memo, wordSet):
+    if idx == len(s): return True
+    if s[idx:] in memo: return memo[s[idx:]]
+    for i in range(idx + 1, len(s) + 1):
+        if s[idx:i] in wordSet and dfs(i, s, memo, wordSet):
+            memo[s[idx:]] = True
+        return True
+    memo[s[idx:]] = False
+    return False
+ 
+ 
+print(dfs(0, s, memo, wordSet))
+ 
+ 
+'''**** 42. **
+/* 给一个字符串，找到长度大于2的prefix， 且这个prefix是一个palindrome.
+然后将这个前缀从字符串中删除。剩下的字符串重复之前操作，直到不能进行。比如： input: aaaabcbd output: d
+解释： aaaabcbd -> aaaa 是最长的prefix, 长度大于2，且是palindrome， 所以将其删除，剩下的字符串是 bcbd,
+bcbd -> bcb 是最长的prefix, 长度大于2，且是palindrome， 所以将其删除，剩下的字符串是 d
+d -> d 是palindrome, 但是长度小于2， 所以不可以继续删除 */'''
+ 
+s = 'aaaabcbd'
+def valid(s):
+  return s == s[::-1]
+ 
+while len(s) >= 2:
+    for i in range(1,len(s)):
+        if len(s[:i]) > 1 and valid(s[:i]):
+            s = s[i:]
+            print(s)
+print('final', s)
+ 
+ 
+'''**** 43. **** 频率：2 (similar to Leetcode 45)
+input 是 两个数组 a,b, 两个整数lower, upper， 求这样的pair (i, j)，lower<= a * a + b*b <= upper, brute force 超时，
+我sort了一下然后算left/right boundary， 也只过了8/13 要求 nlogn 否则超时 */
+另一种描述：两个unsorted array，a 和 b 找 lower bound <= a[i] * a[i] + b[j] * b[j] >= upper bound。返回符合这个条件的一个有多少个
+nlogn值得思考
+我的思路：sort两个数组，固定一个另一个用binary search找范围。和45题非常类似。'''
+
+'''     45. **** 
+https://leetcode.com/problems/ways-to-split-array-into-three-subarrays/
+input：一个数组，找到能够分成三个连续不为空的subarray的个数，
+条件：保证1st subarray的和 小于等于 2st subarray的和 小于等于 3st subarray的和
+注意这里是一个数组只分成三个subarray，
+ex: 输入：[1，2，3，3，0]
+输出：符合条件的个数 --> [1],[2],[3,3,0] 符合+1， [1,2],[3],[3,0]符合+1 etc. */
+'''
+class Solution:
+    def waysToSplit(self, nums: List[int]) -> int:
+        
+        res = 0
+        for i in range(1, len(nums)):
+            nums[i] += nums[i - 1]
+        j = 1
+        k = 1
+        
+        for i in range(len(nums) - 2):
+            while j <= i or j < len(nums) - 1 and nums[j] < nums[i] * 2:
+                j += 1
+            while k < j or k < len(nums) - 1 and nums[-1] - nums[k] >= nums[k] - nums[i]:
+                k += 1 
+            '''
+            j: left bound, which is stopped the start (inclusive) of the mid array
+            j += 1 until satisfy the left <= mid condition
+            k: right bount, which is stopped at the end (not inclusive) of the mid array
+            k += 1 until NOT satisfy the mid <= end condition
+            '''
+            midArrayLen = k - j  # 左开右闭区间
+            res = (res + midArrayLen) % (10**9 + 7)
+        
+        return res

@@ -4,13 +4,15 @@ dict sorting, return max, etc
 
 https://www.programiz.com/python-programming/methods/dictionary
 '''
-
+import collections
 dict = {1:200, 2:400}
+counter = collections.Counter()
 
 maxValue = max(dict.values())
 maxKey   = max(dict, dict.keys())
 maxKey   = max(dict, key=dict.get)
 maxKey   = max(d.keys())
+counter.elements()
 
 print(dict.keys(), dict.values())
 

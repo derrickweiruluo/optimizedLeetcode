@@ -26,25 +26,27 @@ For each point i, we find the minimum (j) and maximum (k) boundaries of the seco
 https://leetcode.com/problems/ways-to-split-array-into-three-subarrays/discuss/999257/C%2B%2BJavaPython-O(n)-with-picture
 '''
 
-class Solution:
+class Solution: # updated 10/25
     def waysToSplit(self, nums: List[int]) -> int:
         
-        res = 0 
-        j, k = 0, 0
-        n = len(nums)
-        preSum = nums
+        res = 0
         for i in range(1, len(nums)):
-            preSum[i] += preSum[i - 1]
+            nums[i] += nums[i - 1]
+        j = 1
+        k = 1
         
-        """j, k is the left bound and right bound of the second array
-        in preSum array, preSum[i] is firstSum, preSum[j/k] - preSum[i] is secondSum, preSum[-1] - preSum[j/k] is thirdSum"""
-        
-        for i in range(n - 2):
-            while j <= i or j < n - 1 and preSum[j] < preSum[i] * 2:
+        for i in range(len(nums) - 2):
+            while j <= i or j < len(nums) - 1 and nums[j] < nums[i] * 2:
                 j += 1
-            while k < j or k < n - 1 and preSum[-1] - preSum[k] >= preSum[k] - preSum[i]:
-                k += 1
-            window = k - j 
-            res = (res + window) % (10 ** 9 + 7)
+            while k < j or k < len(nums) - 1 and nums[-1] - nums[k] >= nums[k] - nums[i]:
+                k += 1 
+            '''
+            j: left bound, which is stopped the start (inclusive) of the mid array
+            j += 1 until satisfy the left <= mid condition
+            k: right bount, which is stopped at the end (not inclusive) of the mid array
+            k += 1 until NOT satisfy the mid <= end condition
+            '''
+            midArrayLen = k - j  # 左开右闭区间
+            res = (res + midArrayLen) % (10**9 + 7)
         
         return res
