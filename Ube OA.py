@@ -42,7 +42,7 @@ print(s)
 
 
 
-'''     3. *** 频率：2 
+'''  ✨✨✨✨ 3. *** 频率：2 
 /* 给一个matrix, 找出所有radius = k的sum的三个最大值 radius的定义是像上下左右辐射k个距离的菱形
 '''
 # 菱形题目， 找半径为k的最大的三个菱形面积
@@ -52,27 +52,26 @@ k = 1
 m, n = len(matrix), len(matrix[0])
 heap = []
 
-def findSum(grid, x, y, k):
-    sum = 0
+def area(grid, x, y, k):
+    res = 0
     for i in range(x - k, x + k + 1):
-        diff = abs(i - x)
-        for j in range(y - k + diff, y + k + 1 - diff):
-            sum += grid[i][j]
-    return sum
+        diff = abs(x - i)
+        for j in range(y- k + diff, y + k - diff + 1):
+            res += grid[i][j]
+    return res
 
-for i in range(k, m - k):
-    for j in range(k, n - k):
-        cur = findSum(matrix, i, j, k)
+for i in range(1, m - 1):
+    for j in range(1, n - 1):
+        cur = area(matrix, i, j, k)
         heap.append(-cur)
 res = []
 heapq.heapify(heap)
 for i in range(3):
     res.append(-1 * heapq.heappop(heap))
-
 print(res)
 
 
-'''     4. ** 频率：2
+'''    ✨✨  4. ** 频率：2
 There are a number of piles arranged in a row, and each pile has a positive integer number of stones piles[i]. Alice and Bob take turns, with Alice starting first. On each player's turn, that player can take 2 consecutive stones where piles[i] = piles[i+1]. The game continues until noboday can make any move. return winner 
 Ex. [1,2,2,3,3,1,1] Alice take [2,2], Bob [3,3], Alice [1,1]. 剩下一个1没办法take，Alice 赢 */ // 翻译：就是轮流从数组中拿相邻的值又相同的一对，直到拿完为止，最后一个拿的获胜 // 我的思路：brute force每轮从头遍历到尾，找到相邻的相同一对删除，直到不能删
 '''
@@ -82,16 +81,17 @@ i = j = 0
 player = -1 # for default, if cur player can take one pair, -1 --> 1
 n = len(stones)
 stack = []
+res = -1
 while i < n:
-    if not stack or stones[i] != stack[-1]:
+    if not stack or stack[-1] != stones[i]:
         stack.append(stones[i])
     else:
         stack.pop()
-        player *= -1
-        print(i, player, '####')
+        res *= -1
+        print(res)
     i += 1
+print('final winner is: ', res)
 
-print(player == 1)
 
 '''
 5. * 频率：3
@@ -121,14 +121,13 @@ print(up or down)
 Q: 给定一个numbers arrays of array, 将裡面所有number 按照题目规则reverse后，将所有结果加总。
 Example:
 Input: numbers =[ [7, 20, 73200], [12, 23, 15]]
+                  23700 + 20 + 7  21 + 32 + 51
 Output: 23709 + 104 = 23813
-
 '''
-
 input = [[7, 20, 73200], [12, 23, 15]]
 res = 0
 def convert(s):
-    res = ''
+    s = str(s)[::-1]            # 转换成reverse str
     i = 0
     while s[i] == '0':
         i += 1
@@ -137,7 +136,7 @@ def convert(s):
 for arr in input:
     cur = 0
     for num in arr:
-        cur += int(convert(str(num)[::-1])) # 转换成reverse str
+        cur += int(convert(num)) 
     print(cur)
     res += cur
     cur = 0
@@ -145,7 +144,10 @@ for arr in input:
 print(res)
 
 '''     7. *************** 频率：2 俄罗斯方块变种
+
 '''
+
+
 
 '''     8.  * operations in array (easy)
 Q: 给一个operations in array 以及一个numbers array, 有以下三种operations
@@ -168,19 +170,20 @@ nums = [1, 12, 5, 7]
 ops = [[2], [0, 1], [1, 2], [2]]
 res = 0
 
-heapq.heapify(nums)
-curMin = heapq.heappop(nums)
-
+# heapq.heapify(nums)
+# curMin = heapq.heappop(nums)
+curMin = min(nums)
 for op in ops:
-    if op == [2]:
+    if len(op) == 1:
         res += curMin
         print(curMin)
-    if len(op) == 2:
+    elif len(op) == 2:
         if op[0] == 0:
             curMin += op[1]
-        elif op[0] == 1:
+        else:
             curMin *= op[1]
 print(res)
+
 
 '''     9. **   二进制数字大数字加法
 可能会特别大所以用string表示。求两个二进制数的和 sum(string s1, string s2); */
@@ -192,18 +195,16 @@ print(res)
 把一个string 每两个char reverse 操作， e.g. abcde => badce
 白给
 '''
-
 s = 'abcde' # --> 'badce
 res = ''
 for i in range(len(s)):
     if i % 2 == 0:
         if i != len(s) - 1:
             res += (s[i + 1])
-            res += (s[i])
+            res += s[i]
         else:
             res += (s[i])
 print(res)
-
 
 '''     11. *
 给一个数组a, 返回数组b 表示a 中连续三个数是否是单调的， length(b) = length(a) - 2,
@@ -233,10 +234,11 @@ for i in range(len(arr)):
 
 print (res)
 
-'''13. **
+'''     13. **
 给两个String[], 检查是否第二个String[]里所有的String都是第一个String[]里 
-    ###    0 到 某个element的concatination    ###
-String[] a, String[] b, check if b[j] = a[0] + a[1] +.. + a
+0 到 某个element的concatination 
+String[] a, String[] b, check if b[j] = a[0] + a[1] +.. + a[i]
+
 Example a = ["one", "twoThree", "four"], b = ["one", "onetwoThree"] true
 a = ["one", "twoThree", "four"], b = ["onetwo"] false */
 
@@ -268,30 +270,33 @@ grid = [[1,2,3,9,0],[0,1,2,3,5],[3,4,5,6,7]]
 [[1,2,3,9,0],
  [0,1,2,3,5],
  [3,4,5,6,7]]
+
+ [[0, 0, 0,  0,  0,  0], 
+  [0, 1, 3,  6,  15, 15], 
+  [0, 1, 4,  9,  21, 26], 
+  [0, 4, 11, 21, 39, 51]]
 '''
 m, n = len(grid), len(grid[0])
-preSum = [[0 for i in range(n + 1)] for i in range(m + 1)]
+preSum = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
+# preSum = [[0] * (n + 1) for i in range(m + 1)]
+print(preSum)
 for i in range(m):
     for j in range(n):
         preSum[i + 1][j + 1] = preSum[i + 1][j] + preSum[i][j + 1] + grid[i][j] - preSum[i][j]
 print(preSum)
 
-# dict = collections.defaultdict(list)
 lst = []
+import math
 curMax = -math.inf
-for i in range(k - 1, len(preSum)):
-    for j in range(k - 1, len(preSum[0])):
+for i in range(k, len(preSum)):
+    for j in range(k, len(preSum[0])):
         cur = preSum[i][j] - preSum[i - k][j] - preSum[i][j - k] + preSum[i - k][j - k]
         if cur > curMax:
+            curMax = cur
             lst = [(i - 1, j - 1)]
         elif cur == curMax:
             lst.append((i - 1, j - 1))
-        # dict[cur].append((i - 1, j - 1))
-        # res = max(res, preSum[i][j] - preSum[i - 1][j - 1]
-
-print(lst)
-# maxSum = max(dict, key = dict.get)
-# print(maxSum)
+print(curMax, lst)
 res = set()
 # print(preSum[maxSum])
 for (i, j) in lst:
