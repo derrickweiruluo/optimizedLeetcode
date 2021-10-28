@@ -257,7 +257,10 @@ for elem in b:
         print(False)
 print(True)
 
-'''     14. *** 频率：2
+
+
+
+'''   ✨✨✨✨ 14. *** 频率：2
 给一个matrix 和一个int k, 找到所有总和最大的k * k的submatrix，返回这些subarray里的distinct element 
 [[1, 2, 3]
  [3, 2, 1] k = 2, 有两个sum为8的submatrix, distinct element为{1, 2, 3}
@@ -276,41 +279,44 @@ grid = [[1,2,3,9,0],[0,1,2,3,5],[3,4,5,6,7]]
   [0, 1, 4,  9,  21, 26], 
   [0, 4, 11, 21, 39, 51]]
 '''
+
+import math
 m, n = len(grid), len(grid[0])
-preSum = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
-# preSum = [[0] * (n + 1) for i in range(m + 1)]
-print(preSum)
-for i in range(m):
-    for j in range(n):
-        preSum[i + 1][j + 1] = preSum[i + 1][j] + preSum[i][j + 1] + grid[i][j] - preSum[i][j]
+preSum = [[0] * (n + 1) for _ in range(m + 1)]
+for i in range(1, len(preSum)):
+    for j in range(1, len(preSum[0])):
+        preSum[i][j] = grid[i - 1][j - 1] + preSum[i - 1][j] + preSum[i][j - 1] - preSum[i - 1][j - 1]
 print(preSum)
 
-lst = []
-import math
 curMax = -math.inf
+lst = []
 for i in range(k, len(preSum)):
     for j in range(k, len(preSum[0])):
-        cur = preSum[i][j] - preSum[i - k][j] - preSum[i][j - k] + preSum[i - k][j - k]
-        if cur > curMax:
-            curMax = cur
+        curArea = preSum[i][j] - preSum[i - k][j] - preSum[i][j - k] + preSum[i - k][j - k]
+        print(curArea)
+        if curArea > curMax:
+            curMax = curArea
             lst = [(i - 1, j - 1)]
-        elif cur == curMax:
+        elif curArea == curMax:
             lst.append((i - 1, j - 1))
-print(curMax, lst)
 res = set()
-# print(preSum[maxSum])
-for (i, j) in lst:
-    for x in range(i - k + 1, i + 1):
-        for y in range(j - k + 1, j + 1):
-            res.add(grid[x][y])
+for x, y in lst:
+    for i in range(x - k + 1, x + 1):
+        for j in range(y - k + 1, y + 1):
+            res.add(grid[i][j])
+
 print(res)
 
-'''15. * 频率：2
+
+
+'''    ✨✨ 15. * 频率：2
 给一个int[] num, 然后定义rev是把一个数reverse, 例如rev(23) = 32,
 求有多少个(i, j)可以满足num[i] + rev(num[j]) = num[j] + rev(num[i])
-num[i] - rev(num[i]) = num[j] - rev(num[j])
 int[] num: [12, 34] => 12+43 = 34+21 count = 1
-我的思路：先计算数组的reverse数组，然后与原数组相加，得到一个cha数组，遍历数组将相同的和存在map里记录个数
+
+我的思路：
+num[i] - rev(num[i]) = num[j] - rev(num[j])
+先计算数组的reverse数组，然后与原数组相加，得到一个cha数组，遍历数组将相同的和存在map里记录个数
 然后根据map的个数计算pair对数，和36题思路一毛一样
 '''
 counter = collections.Counter() # 
@@ -330,6 +336,7 @@ for num in nums:
 res = 0
 for key, val in counter.items():
     if val > 1:
+        # 数学公式 1-5之间两两组合的总个数
         res += val * (val - 1) // 2
 
 print(res)
@@ -376,7 +383,7 @@ strength中的元素则代表grid中相应位置上如果是障碍物，则障�
 思路：遍历矩阵，每一列从上到下遍历，遇到空白无视，遇到箱子累加箱子个数，遇到障碍物判断是否能承受累加的重量，如果
 '''
 
-'''     20. * 频率：4 你刷过了//////
+'''     20. * 频率：4 你刷过了
 地理出现过很多次的三角形 - 简单判定 a+b>c, a+c>b, b+c>a即可
 '''
 
@@ -403,6 +410,27 @@ ex: s = "Hello, world!", letters = ["h", "e", "l", "o"]
 思路：letters存在set里，对s进行tolowercase()，然后遍历s的每一个字符看是否在set里。非字母跳过。
 '''
 
+s = "Hello, world!"
+letters = ["h", "e", "l", "o"]
+wordSet = set()
+for c in letters: wordSet.add(c)
+
+res = []
+for sub in s.lower().split():
+    cur = ''
+    for char in sub:
+        if char.isalpha():
+            if char not in wordSet:
+                print(char)
+                break
+            else:
+                cur += (char)
+    print(cur)
+    if cur:
+        res.append(cur)
+print(res)
+
+
 
 '''     24. 你刷过了
 就是給m, n 以及start, goal point
@@ -423,20 +451,22 @@ ex:
 etc. */
 第一想法：brute force
 '''
-arr = [1,2,3,4,1,8,8,4,3]
+# arr = [1,2,3,4,1,8,8,4,3]
+arr = [1,1,1,1,1,1,1,1,10,1]
 k = 2
 res = 0
-visited = set()
+
 for i in range(len(arr)):
+    seen = set()  # 每次循环都清空set
     for j in range(i, len(arr)):
-        if arr[j] not in visited:
-            visited.add(arr[j])
+        if arr[j] not in seen:
+            seen.add(arr[j])
         else:
-            break
-        if len(visited) >= k:
+            break   # start searching from next index
+        if len(seen) >= k:
             res += 1
-    visited = set()
 print(res)
+
 
 
 '''     26. ***
@@ -517,29 +547,30 @@ print('FINAL', False)
 给一个数组，返回子数组个数，子数组满足：所有元素都出现至少2次。
 比如[1,2,1,2,4]返回1（[1,2,1,2]），[1,2,3,3,3,2,4]返回4（[3,3], [3,3], [3,3,3], [2,3,3,3,2]）*/
 '''
+ 
 import collections
 A = [1,2,3,3,3,2,4]
 res = []
+seen = set()
 def dfs(nums):
     for i in range(len(nums)):
         for j in range(i, len(nums)):
-            res.append(nums[i : j])
-    return res
-
+            cur = ''.join(map(str, nums[i : j]))
+            if cur not in seen:
+                res.append(cur)
+                seen.add(cur)
 dfs(A)
 print(res)
 cnt = 0
-s = set()
-for sub in res[1:]:
-    # s.add(''.join(sub))
-    print(str(sub))
-# print(res)
-# print(s)
-# for subArray in res:
-#     counter = collections.Counter(subArray)
-#     if counter[min(counter)] > 1:
-#         cnt += 1
-print(cnt)
+ 
+#[3,3], [3,3], [3,3,3], [2,3,3,3,2]
+ans = []
+for s in res[1:]:
+    c = collections.Counter(s)
+    if c[min(c)] >= 2:
+        ans.append(list(map(int, s)))
+ 
+print(ans)
 
 '''     31. *
 有a,b,c三个值，如果 a = b = c，则值乘以1000；如果 a = b 或者 b = c 或者 a = c， 则值乘以500；否则值乘以100。
@@ -703,8 +734,35 @@ print(res)
 这道题，我是写一个子程序计算给定位置的pivot值，然后返回一个tuple(pivot,val)这里val是原始位置的值（因为这个是最后要输出的）
 然后对第一列的每一行元素计算pivot，进行排序即可
 思路：分别计算所有pivot的值，根据值排序原坐标
-
 '''
+A = [[1,2,3],[4,5,6],[7,8,9],[100,200,300]]
+
+def pivot(A, i, j):
+    res = A[i][j]
+    dir = [-1, 1]
+    m, n = len(A), len(A[0])
+    while i > 0 and j < n - 1:
+        i += dir[0]
+        j += dir[1]
+        res += A[i][j]
+    dir = [1, 1]
+    while j < n - 1 and i < m - 1:
+        i += dir[0]
+        j += dir[1]
+        res += A[i][j]
+    return res
+
+res = []
+for i, arr in enumerate(A):
+    a = pivot(A, i, 0)
+    res.append((i, arr[0], a))
+    # res.append((pivot, arr[0]))
+
+ans = [val for (r, val, p) in sorted(res, key = lambda x: x[2])]
+print(res)
+print(ans)
+
+
 
 
 '''     // 39. **** https://leetcode.com/problems/group-anagrams/
@@ -719,10 +777,10 @@ sum+=count[val]，最后返回sum。达到O(n)时间复杂度，通过了所有�
 '''
 
 '''     * 老题 频率：4  参考 https://leetcode.com/problems/rotate-image/
-方形的matrix旋转K次90度，求最后的矩阵什么样，对角线的元素跳过，比如[0][0], [1][1]这些点是不参与旋转的
+矩阵旋转老算法，提前记录对角线初始值，最后转完改回来就行
 '''
 import collections
-k = 4
+k = 1
 A = [[1,2,3],[4,5,6],[7,8,9]]
 n = len(A)
 times = k % 4
@@ -763,58 +821,56 @@ for i in range(1, len(arr) + 1):
             break
 print(dp)
 
-
-'''
-String 常用写法:
-s.isalpha()
-s.isdigit()
-s.isalnum()'''
  
 '''     **** 41 DFS solution (139. Word Break)
-地里的原题，给你一个list，给你另外一个list of list，问你从后面这个list of list里能否拼出前面这个list， 比如 [3,2,5,1,4] [[5,1][3,2], [4]]就可以拼出来'''
-s = [3,2,5,1,4]
-a = [[5,1],[3,2], [4]]
+地里的原题，给你一个list，给你另外一个list of list，问你从后面这个list of list里能否拼出前面这个list， 
+比如 [3,2,5,1,4] [[5,1][3,2], [4]]就可以拼出来'''
+s = [3,3,3,2,5,1,4]
+a = [[5,1],[3,2], [3],[4]]
 s = ''.join(map(str, s))
-b = []
-for i in a:
-  b.append(''.join(map(str, i)))
- 
-print(s)
-print(b)
+wordSet = set()
 memo = {}
-wordSet = set(b)
- 
+for arr in a:
+    wordSet.add(''.join(map(str, arr)))
+
 def dfs(idx, s, memo, wordSet):
     if idx == len(s): return True
     if s[idx:] in memo: return memo[s[idx:]]
     for i in range(idx + 1, len(s) + 1):
-        if s[idx:i] in wordSet and dfs(i, s, memo, wordSet):
+        if s[idx: i] in wordSet and dfs(i, s, memo, wordSet):
             memo[s[idx:]] = True
-        return True
+            return True
     memo[s[idx:]] = False
     return False
+
+res = dfs(0, s, memo, wordSet)
+print(res)
+
  
  
-print(dfs(0, s, memo, wordSet))
- 
- 
-'''**** 42. **
+'''      42. **
 /* 给一个字符串，找到长度大于2的prefix， 且这个prefix是一个palindrome.
 然后将这个前缀从字符串中删除。剩下的字符串重复之前操作，直到不能进行。比如： input: aaaabcbd output: d
 解释： aaaabcbd -> aaaa 是最长的prefix, 长度大于2，且是palindrome， 所以将其删除，剩下的字符串是 bcbd,
 bcbd -> bcb 是最长的prefix, 长度大于2，且是palindrome， 所以将其删除，剩下的字符串是 d
 d -> d 是palindrome, 但是长度小于2， 所以不可以继续删除 */'''
  
-s = 'aaaabcbd'
+s = 'aaaaabcbd'
 def valid(s):
   return s == s[::-1]
  
 while len(s) >= 2:
-    for i in range(1,len(s)):
-        if len(s[:i]) > 1 and valid(s[:i]):
-            s = s[i:]
-            print(s)
-print('final', s)
+    idx = 0
+    for i in range(2,len(s)):
+        stopIdx = i
+        if valid(s[:i]):
+            print(i, s)
+            stopIdx = i
+            idx = stopIdx
+    s = s[idx:]
+    print(s)
+
+print('final == ', s)
  
  
 '''**** 43. **** 频率：2 (similar to Leetcode 45)
@@ -823,6 +879,76 @@ input 是 两个数组 a,b, 两个整数lower, upper， 求这样的pair (i, j)�
 另一种描述：两个unsorted array，a 和 b 找 lower bound <= a[i] * a[i] + b[j] * b[j] >= upper bound。返回符合这个条件的一个有多少个
 nlogn值得思考
 我的思路：sort两个数组，固定一个另一个用binary search找范围。和45题非常类似。'''
+import bisect
+left, right = 50, 200
+a = [1,2,3,4,5,6,7,32]
+b = [3,6,10,14]
+
+nums1 = [num ** 2 for num in sorted(a, key = lambda x: abs(x))]
+nums2 = [num ** 2 for num in sorted(b, key = lambda x: abs(x))]
+print(nums1)
+print(nums2)
+
+n = len(nums1)
+m = len(nums2)
+res = 0
+for i in range(n):
+    left_bound, right_bound = left - nums1[i] - 0.01, right - nums1[i] + 0.01
+    l = bisect.bisect_left(nums2, left_bound)
+    r = bisect.bisect_right(nums2, right_bound)
+    print(nums1[i], l, r)
+    if l == m or r == 0: continue
+    len = r - l
+    res += len
+print(res)
+
+
+
+'''   44. ******
+https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=702470
+You are given a string str containing only the letters W, D, and L. Your task is to construct a new string from the characters of str, according to the following algorithm:
+1. Begin with an empty string output = "".
+2. If str contains a W, then remove it and concatenate a W to the end of output.
+3. If str contains a D, then remove it and concatenate a D to the end of output.
+4. If str contains an L, then remove it and concatenate an L to the end of output.
+5. If str is empty, end the algorithm; otherwise go back to step 2.
+Return the value of output after the algorithm is complete.
+Note that it doesn't matter from where you remove the letter from the string, only the count of the letters left in the string matters. */
+翻译：输入是一个string，里面只有WDL三种字母，要根据这个string造一个新string。
+从空string “” 开始，1. 如果遇到W，删除之并且在新string的结尾加一个W
+2. 如果遇到D，删除之并且在新string的结尾加一个D
+3. 如果遇到L，删除之并且在新string的结尾加一个L
+这仨玩意儿是按顺序执行的，举个栗子：
+For str = "LDWDL", the output should be equallyRearranging(str) = "WDLDL".
+For str = "DLDD", the output should be equallyRearranging(str) = "DLDD".
+input：DWWDWL ->output：WDLWDW
+看着长其实白给 
+'''
+# s = 'DWWDWL'
+# s = 'DLDD'
+s = 'WDLDL'
+res = ''
+idx = 0
+order = 'WDL'
+while s:
+    for i in range(len(s)):
+        if idx == 0 and s[i] == 'W':
+            res += s[i]
+            s = s[:i] + s[i + 1:]
+            break
+        if idx == 1 and s[i] == 'D':
+            res += s[i]
+            s = s[:i] + s[i + 1:]
+            break
+        if idx == 2 and s[i] == 'L':
+            res += s[i]
+            s = s[:i] + s[i + 1:]
+            break
+    idx = (idx + 1) % 3
+print(res)
+
+
+
 
 '''     45. **** 
 https://leetcode.com/problems/ways-to-split-array-into-three-subarrays/
@@ -832,27 +958,22 @@ input：一个数组，找到能够分成三个连续不为空的subarray的个�
 ex: 输入：[1，2，3，3，0]
 输出：符合条件的个数 --> [1],[2],[3,3,0] 符合+1， [1,2],[3],[3,0]符合+1 etc. */
 '''
+nums = [1,2,3,3,0]
 class Solution:
     def waysToSplit(self, nums: List[int]) -> int:
         
+        nums = [1,2,3,3,0]
         res = 0
-        for i in range(1, len(nums)):
+        for i in range(1, len(nums)):   # 先prefix sum
             nums[i] += nums[i - 1]
-        j = 1
-        k = 1
-        
-        for i in range(len(nums) - 2):
+
+        j = k = 1   # boundary of the 2nd array
+        for i in range(len(nums) - 2): #留两个空位给 第二第三
             while j <= i or j < len(nums) - 1 and nums[j] < nums[i] * 2:
                 j += 1
-            while k < j or k < len(nums) - 1 and nums[-1] - nums[k] >= nums[k] - nums[i]:
-                k += 1 
-            '''
-            j: left bound, which is stopped the start (inclusive) of the mid array
-            j += 1 until satisfy the left <= mid condition
-            k: right bount, which is stopped at the end (not inclusive) of the mid array
-            k += 1 until NOT satisfy the mid <= end condition
-            '''
-            midArrayLen = k - j  # 左开右闭区间
-            res = (res + midArrayLen) % (10**9 + 7)
-        
+            while k < j or k < len(nums) - 1 and nums[k] - nums[i] <= nums[-1] - nums[k]:
+                k += 1
+            midArrayLen = k - j
+            res = (res + midArrayLen) % (10 ** 9 + 7)
+        print(res)
         return res

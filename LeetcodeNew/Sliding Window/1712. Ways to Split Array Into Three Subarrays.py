@@ -30,16 +30,15 @@ class Solution: # updated 10/25
     def waysToSplit(self, nums: List[int]) -> int:
         
         res = 0
-        for i in range(1, len(nums)):
+        for i in range(1, len(nums)):   # 先prefix sum
             nums[i] += nums[i - 1]
-        j = 1
-        k = 1
-        
-        for i in range(len(nums) - 2):
+
+        j = k = 1   # boundary of the 2nd array
+        for i in range(len(nums) - 2): #留两个空位给 第二第三
             while j <= i or j < len(nums) - 1 and nums[j] < nums[i] * 2:
                 j += 1
-            while k < j or k < len(nums) - 1 and nums[-1] - nums[k] >= nums[k] - nums[i]:
-                k += 1 
+            while k < j or k < len(nums) - 1 and nums[k] - nums[i] <= nums[-1] - nums[k]:
+                k += 1
             '''
             j: left bound, which is stopped the start (inclusive) of the mid array
             j += 1 until satisfy the left <= mid condition

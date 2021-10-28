@@ -1,7 +1,6 @@
 '''
 dict sorting, return max, etc
 
-
 https://www.programiz.com/python-programming/methods/dictionary
 '''
 import collections
@@ -9,6 +8,8 @@ dict = {1:200, 2:400}
 counter = collections.Counter()
 
 maxValue = max(dict.values())
+maxKey = max(dict)
+print(maxKey, maxValue)
 maxKey   = max(dict, dict.keys())
 maxKey   = max(dict, key=dict.get)
 maxKey   = max(d.keys())
@@ -31,3 +32,19 @@ for i in range(times):
 
 print(A)
 print(A1)
+
+
+
+####### String -- Array conversion
+A = [1,2,3,3,3,2,4]
+cur = ''.join(map(str, A[0 : 3]))
+print(cur)
+int_arr = list(map(int, cur))
+print(int_arr, 'This is an int array')
+
+
+
+######## String 常用写法:
+s.isalpha()
+s.isdigit()
+s.isalnum()
