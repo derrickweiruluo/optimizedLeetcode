@@ -14,7 +14,7 @@ for i in range(1, len(arr) - 1):
         res[i - 1] = True
 print(res)
 
-'''   ✨✨✨✨  2. * 
+'''  ✨✨✨✨  2. * 
 根据以下算法处理string 1）if s.length <= 3, return 2) if s.length > 3, split 成multiple subtring, 每个substring的length 是3 3）
 replace every substring with the sum of every digit, continue with 2) until 1) 
 
