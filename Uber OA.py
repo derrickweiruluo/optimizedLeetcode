@@ -281,25 +281,33 @@ grid = [[1,2,3,9,0],[0,1,2,3,5],[3,4,5,6,7]]
 '''
 
 import math
+k = 2
+grid = [[1,2,3,9,0],[0,1,2,3,5],[3,13,5,6,7]]
+'''
+[[1,2,3,9,0],
+ [0,1,2,3,5],
+ [3,13,5,6,7]]
+'''
+
 m, n = len(grid), len(grid[0])
 preSum = [[0] * (n + 1) for _ in range(m + 1)]
 for i in range(1, len(preSum)):
     for j in range(1, len(preSum[0])):
         preSum[i][j] = grid[i - 1][j - 1] + preSum[i - 1][j] + preSum[i][j - 1] - preSum[i - 1][j - 1]
-print(preSum)
 
 curMax = -math.inf
 lst = []
 for i in range(k, len(preSum)):
     for j in range(k, len(preSum[0])):
-        curArea = preSum[i][j] - preSum[i - k][j] - preSum[i][j - k] + preSum[i - k][j - k]
-        print(curArea)
-        if curArea > curMax:
-            curMax = curArea
+        cur = preSum[i][j] - preSum[i - k][j] - preSum[i][j - k] + preSum[i - k][j - k]
+        if cur > curMax:
+            curMax = cur
             lst = [(i - 1, j - 1)]
-        elif curArea == curMax:
+        elif cur == curMax:
             lst.append((i - 1, j - 1))
+
 res = set()
+print('maxArea is: ', curMax)
 for x, y in lst:
     for i in range(x - k + 1, x + 1):
         for j in range(y - k + 1, y + 1):
@@ -501,21 +509,24 @@ input: "abc", "12345", output: "a1b2c345"
 input: "abc", "1", output: "a1bc"
 '''
 # a = 'abc'
-a = 'abcdef'
-b = '1'
+a = 'abcdefg'
+b = '12'
+# b = '1234567'
 na, nb = len(a), len(b)
-l = min(na, nb) * 2
-res = ['-']* l
-for i in range(min(na, nb) * 2):
-    if i % 2 == 0 and i < na * 2:
+l = min(na, nb)
+res = ['-'] * l * 2
+for i in range(l * 2):
+    if i % 2 == 0:
         res[i] = a[i // 2]
-    if i % 2 == 1 and i < nb * 2:
+    if i % 2 == 1:
         res[i] = b[i // 2]
-rem = ''
-rem = a[nb:] if na > nb else b[na:]
-print(rem)  
+
+
 print(res)
-print('res: ', ''.join(res) + rem)
+if na == nb: print(res)
+rem = a[l:] if na > nb else b[l:]
+print(rem)
+print(''.join(res) + rem)
 
 
 '''     28. * 频率：3
@@ -576,29 +587,28 @@ print(ans)
 有a,b,c三个值，如果 a = b = c，则值乘以1000；如果 a = b 或者 b = c 或者 a = c， 则值乘以500；否则值乘以100。
 给定a, b, c三个数，求最后的值
 '''
-nums = [100,200,300]
-res = [num for num in nums]
-if nums[0] == nums[1] == nums[2]:
-    print([num * 1000 for num in nums])
-if nums[0] == nums[1]:
-    print([nums[0] * 500, nums[1] * 500])
-if nums[2] == nums[1]:
-    print([nums[2] * 500, nums[1] * 500])
-if nums[0] == nums[2]:
-    print([nums[0] * 500, nums[2] * 500])
-else:
-    print([num * 100 for num in nums])
+nums = [200,200,300]
+seen = set()
+for num in nums: seen.add(num)
+if len(seen) == 1:
+    print([a * 1000 for a in nums])
+if len(seen) == 2:
+    print([a * 500 for a in nums])
+if len(seen) == 3:
+    print([a * 100 for a in nums])
 
 '''     32. ** 频率：2
 数组，每个数字都不相同，首先找到最小的峰值，然后作为第一个返回值，把最小峰值从原数组中删除，然后在新数组中再次找到最小峰值，以此 类推。
 '''
 import heapq
 nums = [1,4,5,3,8,6]
-heapq.heapify(nums)
 res = []
+print(res)
+print(nums)
+heapq.heapify(nums)
 while nums:
     res.append(heapq.heappop(nums))
-    print(res)
+    # print(res)
 print(res)
 print(nums)
 
@@ -649,6 +659,7 @@ print(res)
 *    and dogs*
 **************
 '''
+import math
 input = [["hello", "world"], ["I", "love", "cats", "and", "dogs"]]
 w = 14
 charCount = 0
@@ -660,14 +671,13 @@ print(res)
 spaces = len(res) - 1
 charCount = sum(len(s) for s in res)
 print(charCount, spaces)
-r = 2 + (charCount + spaces) // (w - 2) + 1
+r = 2 + math.ceil((charCount + spaces) / (w - 2))
 print(r)
 
 grid = [['*'] * w for _ in range(r)]
 for i in range(1, len(grid) - 1):
     for j in range(1, w - 1):
         grid[i][j] = ' '
-# print(grid)
 
 r = 1
 c = 1
@@ -682,15 +692,28 @@ while i < len(res):
     else:
         r += 1
         c = 1
+for i in range(2, len(grid) - 1):
+    content = ''.join(grid[i][1:-1])
+    last = 12
+    while grid[i][last] == ' ': last -= 1
+    content = content[last:] + content[: last]
+    content = '*' + content + '*'
+    grid[i] = list(content)
 
 print(grid)
+
+'''[
+['*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'], 
+['*', 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', ' ', '*'], 
+['*', 'I', ' ', 'l', 'o', 'v', 'e', ' ', 'c', 'a', 't', 's', ' ', '*'], 
+['*', ' ', ' ', ' ', 'a', 'n', 'd', ' ', 'd', 'o', 'g', 's', ' ', '*'], 
+['*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*']]
+'''
 
 
 '''     36. ***
 给两个数组a和b，a的size和b的size相同，求对于pair i,j (i <= j)，
-
 这两个数组里的pair的数量 应该是a[i]-b[j]=a[j]-b[i]
-
 思路：变形为a[i] + b[i] = a[j] + b[j]，逻辑简单很多，我们只要把每个位置的和存下来看哪些是相同的即可，根据Map计算Pair的个数
 '''
 a = [1,2,3,4,5]
@@ -704,27 +727,30 @@ for i in range(len(a)):
 print(freq)
 for pair, cnt in freq.items():
     if cnt >= 2:
-        for i in range(cnt - 1, 0, - 1):
-            res += i
+        res += cnt * (cnt - 1) // 2
 print(res)
-
 
 '''37. *
 给两个纯数字的字符串，如"987"和"654"，然后从最低位开始两两求和，输出最终的字符串，两个输入字符串都没有leading zeros。
 如"987"和"654"输出"151311"，我是先把字符串转成int数组，然后安位求和，最后再转换回string。
 '''
-a = '987' # 都没有leading zeros
+a = '987' 
 b = '6543333'
+leading = ''
 l = min(len(a), len(b))
+if len(a) > l:
+    leading = a[: len(a) - l]
+    a = a[len(a) - l:]
+if len(b) > l:
+    leading = b[: len(b) - l]
+    b = b[len(b) - l:]
+print(a, b, leading)
 res = ''
 for i in range(l):
     cur = int(a[i]) + int(b[i])
     res += (str(cur))
-if len(a) > l:
-    res += (a[l:])
-elif len(b) > l:
-    res += (b[l:])
-print(res)
+
+print(leading + res)
 
 '''     38. *** 频率：2 老题
 /* 给一个二维矩阵，每一行的第一列的数字，称之为pivot，要求对这些pivot进行排序。
