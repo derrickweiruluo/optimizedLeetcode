@@ -1,4 +1,5 @@
 import collections, math
+from typing import Tuple
 '''     1. *
 https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=728695 // 
  给定一个数组，返回一个zigzag数组， a[i] < a[i+1] > a[i+2] || a[i] > a[i+1] < a[i+2] => true。
@@ -772,23 +773,19 @@ def pivot(A, i, j):
         j += dir[1]
         res += A[i][j]
     dir = [1, 1]
-    while j < n - 1 and i < m - 1:
+    while i < m - 1 and j < n - 1:
         i += dir[0]
         j += dir[1]
         res += A[i][j]
     return res
 
-res = []
+nums = []
 for i, arr in enumerate(A):
-    a = pivot(A, i, 0)
-    res.append((i, arr[0], a))
-    # res.append((pivot, arr[0]))
-
-ans = [val for (r, val, p) in sorted(res, key = lambda x: x[2])]
+    p = pivot(A, i, 0)
+    nums.append((arr[0], p))
+print(nums)
+res = [val for val, p in sorted(nums, key = lambda x: x[1])]
 print(res)
-print(ans)
-
-
 
 
 '''     // 39. **** https://leetcode.com/problems/group-anagrams/
@@ -858,23 +855,24 @@ wordSet = set()
 memo = {}
 for arr in a:
     wordSet.add(''.join(map(str, arr)))
+res = True
 
-def dfs(idx, s, memo, wordSet):
+def dfs(s, idx, wordSet, memo):
     if idx == len(s): return True
     if s[idx:] in memo: return memo[s[idx:]]
     for i in range(idx + 1, len(s) + 1):
-        if s[idx: i] in wordSet and dfs(i, s, memo, wordSet):
+        if s[idx: i] in wordSet and dfs(s, i, wordSet, memo):
             memo[s[idx:]] = True
             return True
     memo[s[idx:]] = False
     return False
 
-res = dfs(0, s, memo, wordSet)
+res = dfs(s, 0, wordSet, memo)
 print(res)
 
  
  
-'''      42. **
+'''      42. **  (需要复习)
 /* 给一个字符串，找到长度大于2的prefix， 且这个prefix是一个palindrome.
 然后将这个前缀从字符串中删除。剩下的字符串重复之前操作，直到不能进行。比如： input: aaaabcbd output: d
 解释： aaaabcbd -> aaaa 是最长的prefix, 长度大于2，且是palindrome， 所以将其删除，剩下的字符串是 bcbd,
@@ -888,11 +886,9 @@ def valid(s):
 while len(s) >= 2:
     idx = 0
     for i in range(2,len(s)):
-        stopIdx = i
         if valid(s[:i]):
             print(i, s)
-            stopIdx = i
-            idx = stopIdx
+            idx = i
     s = s[idx:]
     print(s)
 
@@ -918,19 +914,19 @@ print(nums2)
 n = len(nums1)
 m = len(nums2)
 res = 0
-for i in range(n):
+for i in range(n):  # assuming a比较长
     left_bound, right_bound = left - nums1[i] - 0.01, right - nums1[i] + 0.01
     l = bisect.bisect_left(nums2, left_bound)
     r = bisect.bisect_right(nums2, right_bound)
     print(nums1[i], l, r)
-    if l == m or r == 0: continue
-    len = r - l
+    if l == m or r == 0: continue  # 无效情况： 左边界在尾端 or 右边界在头部
+    len = r - l # 分开的计算的left right idx， 所以 r - l 就是长度
     res += len
 print(res)
 
 
 
-'''   44. ******
+'''   44. ***
 https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=702470
 You are given a string str containing only the letters W, D, and L. Your task is to construct a new string from the characters of str, according to the following algorithm:
 1. Begin with an empty string output = "".
@@ -950,9 +946,9 @@ For str = "DLDD", the output should be equallyRearranging(str) = "DLDD".
 input：DWWDWL ->output：WDLWDW
 看着长其实白给 
 '''
-# s = 'DWWDWL'
+s = 'DWWDWL'
 # s = 'DLDD'
-s = 'WDLDL'
+s = 'LDWDL'
 res = ''
 idx = 0
 order = 'WDL'
@@ -972,8 +968,6 @@ while s:
             break
     idx = (idx + 1) % 3
 print(res)
-
-
 
 
 '''     45. **** 
@@ -1003,3 +997,55 @@ class Solution:
             res = (res + midArrayLen) % (10 ** 9 + 7)
         print(res)
         return res
+
+'''https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=701576
+// 46. ***** 股票机器银儿 leetcode: https://leetcode.com/problems/grumpy-bookstore-owner/
+/* You've decided to create a bot for handling stock trades. For now, you have a simple prototype which handles trades for just one stock. Each day, it's programmed to either buy or sell one share of the stock.
+You are given prices, an array of positive integers where prices[i] represents the stock price on the ith day. You're also given algo, an array of 0s and 1s representing the bot's schedule, where 0 means buy and 1 means sell.
+In order to improve the bot's performance, you'd like to choose a range of k consecutive days where the bot will be programmed to sell; in other words, set a range of k consecutive elements from algo to 1. Your task is to choose the interval such that it maximizes the bot's total revenue. The revenue is defined as the sum of all selling prices minus the sum of all buying prices (in other words, the difference between the end and start amount). */
+// NOTE: Assume you begin with enough shares of the stock that it's always possible to sell.
+'''
+customers = [1,0,1,2,1,1,7,5]
+grumpy = [0,1,0,1,0,1,0,1]
+X = 3
+
+n = len(customers)
+originalGain = 0
+maxGain = curSave = 0
+
+for i in range(n):
+    # 叠加原来的gain when 老板开心
+    if grumpy[i] == 0:
+        originalGain += customers[i] 
+    
+    # sliding window of potential saving 
+    curSave += grumpy[i] * customers[i] 
+    if i > X - 1:
+        curSave -= customers[i-X] * grumpy[i-X] # 左边界被减去得到新的 gain
+    maxGain = max(maxGain, curSave)
+
+print(originalGain + maxGain)
+
+
+''' 47. ** 频率：3 https://leetcode.com/problems/spiral-matrix/
+// 给一个NxN 的矩阵, 一圈一圈从外到内分别排序然后放回原大小的矩阵, 返回这个新的矩阵. 类似lc54
+// 下面这个不是答案，是洋葱圈遍历
+'''
+
+
+
+
+'''     48. ** 频率：2
+/* 两个数组的绝对差的定义：两个数组每个对应位置的数字的差的绝对值之和.
+两个给定数组a, b, 保证长度相等, 然后a 中的每个数字可以被a 中任意不同位置的数字所代替,
+在只允许在a 里最多做一次这种替代的情况下输出可能的最小的两个数组的绝对差 */
+'''
+
+a = [1,2,30]
+b = [100, 200, 300]
+res = 0
+mapping = {}
+for i in range(len(a)):
+    mapping[i] = abs(a[i] - b[i])
+    # res += abs(a[i] - b[i])
+
