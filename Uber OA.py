@@ -658,7 +658,7 @@ for i in range(0,len(nums)):
             if int(root) == root: 
                 print(nums[i], nums[j])
                 res += 1
-
+##
 print(res)
 
     
