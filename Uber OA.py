@@ -164,7 +164,6 @@ Explain:
 [1, 2] => numbers = [4, 26, 12, 16]
 [2] => result = [1, 4]
 return = 1 + 4 = 5
-
 '''
 import heapq
 nums = [1, 12, 5, 7] 
@@ -190,6 +189,20 @@ print(res)
 可能会特别大所以用string表示。求两个二进制数的和 sum(string s1, string s2); */
 我的思路：经典大数加法
 '''
+a = "1010"
+b = "1011"
+carry = 0
+res = ''
+a, b = list(a), list(b)
+while a or b or carry:
+    if a:
+        carry += int(a.pop())
+    if b:
+        carry += int(b.pop())
+    res += str(carry % 2)
+    carry = carry // 2
+
+print(res[::-1])
 
 
 '''10. *
@@ -207,9 +220,8 @@ for i in range(len(s)):
             res += (s[i])
 print(res)
 
-'''     11. *
+'''     11. *  白给
 给一个数组a, 返回数组b 表示a 中连续三个数是否是单调的， length(b) = length(a) - 2,
-白给
 '''
 nums = [1,2,3,4,5,6,7,8,0,2,4]
 
@@ -885,12 +897,11 @@ def valid(s):
  
 while len(s) >= 2:
     idx = 0
-    for i in range(2,len(s)):
+    for i in range(2, len(s) + 1):
         if valid(s[:i]):
-            print(i, s)
             idx = i
+    if s == s[idx:]:break
     s = s[idx:]
-    print(s)
 
 print('final == ', s)
  
