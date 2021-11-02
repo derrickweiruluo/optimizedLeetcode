@@ -29,16 +29,17 @@ The time complecxity for this problem is O(HLogN) where H is the height of the t
 """
 class Solution:
     def findLeaves(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []  # [[level 1 nodes], [level 2 nodes], [level 3 nodes]]
         
-        res = []
-        
-        def dfs(node):
-            if not node:
+        def dfs(root):
+            if not root:
                 return 0
-            depth = max(dfs(node.left), dfs(node.right)) + 1
-            if len(res) < depth:  # len is 1 indexed, depth is zero-indexed
+            left = dfs(root.left)
+            right = dfs(root.right)
+            depth = max(left, right) + 1
+            if depth > len(res):
                 res.append([])
-            res[depth - 1].append(node.val)
+            res[depth - 1].append(root.val)
             return depth
         
         dfs(root)
