@@ -42,7 +42,7 @@ class Solution:
                     # 然后以此类推BFS， 每一层都 length + 1
                     nextWord = word[:i] + char + word[i + 1:]
                     if nextWord in wordList:
-                        wordList.remove(nextWord)
+                        wordList.remove(nextWord)  # to prevent 重复查找
                         queue.append([nextWord, length + 1])
         
         return 0

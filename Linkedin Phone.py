@@ -39,4 +39,8 @@ DFS 还需细细琢磨
 
 366 leaves level  遍历
 DFS 返回depth， update res based on depth
+
+360. Sort Transformed Array, time O(n)解法不会
+
+
 '''
