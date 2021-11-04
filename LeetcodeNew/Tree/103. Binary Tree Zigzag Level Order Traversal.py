@@ -12,12 +12,14 @@ Given the root of a binary tree, return the zigzag level order traversal of its 
 #         self.left = left
 #         self.right = right
 
-class Solution:  # more concised code
+class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
+        
+        if not root: return []
+        
         res = []
         queue = collections.deque([root])
+        
         while queue:
             cur = []
             for _ in range(len(queue)):
@@ -30,8 +32,9 @@ class Solution:  # more concised code
             res.append(cur)
         
         for i in range(len(res)):
-            if i % 2:
-                res[i] = res[i][::-1]
+            if i % 2: res[i] = res[i][::-1]
+        
+        return res
 
 
 class Solution2:  # older code
