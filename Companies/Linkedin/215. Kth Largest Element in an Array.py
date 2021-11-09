@@ -24,16 +24,15 @@ class Solution:
         comparision in the recursive call is between pos + 1 vs k, where k
         is 1-indexed
         
-        Each partion call will rearrange the nums
+        !!!! Each partion call will rearrange the nums   !!!!
         """
-        
         pos = self.partition(nums)
         if pos + 1 == k:
             return nums[pos]
         elif pos + 1 > k:
             return self.findKthLargest(nums[:pos], k)
         else:
-            return self.findKthLargest(nums[pos + 1:], k - 1 - pos)
+            return self.findKthLargest(nums[pos + 1:], k - (pos + 1))
 
     # partition function return a 0-index based K-largest position
     def partition(self, nums):
