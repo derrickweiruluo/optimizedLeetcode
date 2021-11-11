@@ -1,8 +1,8 @@
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         
-        res = [0] * n  # total of n function calls
-        stack = []
+        res = [0] * n   # total of 0 ~ n - 1 function calls
+        stack = []      # stack of 'start' && fcn_id
         prev_time = 0
         
         # logs[i] represents the ith log message formatted as a string "{function_id}:{"start" | "end"}:{timestamp}"

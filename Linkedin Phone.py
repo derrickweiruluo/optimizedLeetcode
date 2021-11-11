@@ -1,3 +1,11 @@
+'''
+https://www.1point3acres.com/bbs/thread-816224-1-1.html
+https://www.1point3acres.com/bbs/thread-813582-2-1.html
+
+
+'''
+
+
 ''' Leetcode
 215
 28
@@ -41,6 +49,5 @@ DFS 还需细细琢磨
 DFS 返回depth， update res based on depth
 
 360. Sort Transformed Array, time O(n)解法不会
-
 
 '''
