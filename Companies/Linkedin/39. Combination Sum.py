@@ -11,7 +11,7 @@ DFS构建每一个子解
 input array是unique的，且允许多次使用同一个nums[i]
 input array里都是正数
 """
-class Solution1:  # 11/12/2021
+class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
         def dfs(nums, path, target):
@@ -27,6 +27,17 @@ class Solution1:  # 11/12/2021
         res = []
         dfs(candidates, [], target)
         return res
+    
+#     [2,3,5]
+#     2
+#     22
+#     222
+#     2222,   yes, 2, 22, 222 go to next unique num
+    
+#     ---
+#     23
+#     233,    yes, 23 go to next unique num
+#     2333,   X
 
 
 class Solution:
