@@ -22,16 +22,17 @@ Input: n = 32
 Output: [[2,16],[4,8],[2,2,8],[2,4,4],[2,2,2,4],[2,2,2,2,2]]
 '''
 
-class Solution:
+class Solution:  # 下面是comment 一样的solution
     def getFactors(self, n: int) -> List[List[int]]:
         
-        def dfs(n, start, path):
+        res = []
+        def dfs(x, start, path):
             if path:
-                res.append(path)
-            for i in range(start, int(n ** 0.5) + 1):
-                if n % i == 0:
-                    dfs(n // i, i, path + [i])
-        
+                res.append(path + [x])
+            for i in range(start, int(x ** 0.5) + 1):
+                if x % i == 0:
+                    dfs(x // i, i, path + [i])
+
         dfs(n, 2, [])
         return res
     

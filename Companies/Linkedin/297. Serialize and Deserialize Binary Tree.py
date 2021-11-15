@@ -1,24 +1,22 @@
-"""
-Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+'''
+IMO, time complexity = o(n) and space complexity=O(h), where h is the height of the tree (since it is recursive call, and needs stack space)
 
-Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
-
-Clarification: The input/output format is the same as how LeetCode serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
-
-"""
+Yes, both time complexity and space complexity are O(n). Time complexity is O(n) since it has to traverse through all nodes. Space complexity is O(n) since the recursive stack may go up to n, in case the tree is completely skewed.
+'''
 
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Codec:
 
     def serialize(self, root):
-        if not root: return ""
+        if not root:
+            return ''
         queue = collections.deque([root])
         res = []
         while queue:
@@ -26,25 +24,27 @@ class Codec:
             if node:
                 queue.append(node.left)
                 queue.append(node.right)
-            res.append(str(node.val) if node else "#")
-        return ",".join(res)
+                res.append(str(node.val))
+            else:
+                res.append('#')
+        print(','.join(res))
+        return ','.join(res)
         
 
     def deserialize(self, data):
         if not data: return None
-        nodes = data.split(",")
-        root = TreeNode(int(nodes[0]))
+        data = data.split(',')
+        root = TreeNode(int(data[0]))
         queue = collections.deque([root])
         idx = 1
         while queue:
             node = queue.popleft()
-            if nodes[idx] is not "#":
-                node.left = TreeNode(int(nodes[idx]))
+            if data[idx] != '#':
+                node.left = TreeNode(int(data[idx]))
                 queue.append(node.left)
             idx += 1
-            
-            if nodes[idx] is not "#":
-                node.right = TreeNode(int(nodes[idx]))
+            if data[idx] != '#':
+                node.right = TreeNode(int(data[idx]))
                 queue.append(node.right)
             idx += 1
         return root
