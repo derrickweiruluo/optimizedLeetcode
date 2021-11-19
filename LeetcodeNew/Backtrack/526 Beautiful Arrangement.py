@@ -4,21 +4,25 @@ Suppose you have n integers labeled 1 through n. A permutation of those n intege
 perm[i] is divisible by i.
 i is divisible by perm[i].
 Given an integer n, return the number of the beautiful arrangements that you can construct.
-
 '''
+
+# Time O(k), k refers to the number of valid permutations
+# Space O(n), visited array of size n is used. The depth of recursion tree will also go upto n. Here, n refers to the given integer n.
 
 class Solution:
     def countArrangement(self, n: int) -> int:
-        self.res = 0
         
-        def dfs(n, pos, visited):
-            if pos > n: self.res += 1
+        self.res = 0
+        visited = [0] * (n + 1)  # 1-idx, therefore only 1 to n in interest
+        
+        def search(n, pos):
+            if pos > n: # when search finished
+                self.res += 1
             for i in range(1, n + 1):
                 if visited[i] == 0 and (pos % i == 0 or i % pos == 0):
                     visited[i] = 1
-                    dfs(n, pos + 1, visited)
+                    search(n, pos + 1)
                     visited[i] = 0
         
-        visited = [0] * (n + 1)
-        dfs(n, 1, visited)
+        search(n, 1)
         return self.res

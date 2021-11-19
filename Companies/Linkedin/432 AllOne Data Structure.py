@@ -19,10 +19,10 @@ import collections
 class Node:
     
     def __init__(self, val, prev = None, next = None):
-        self.val = val
+        self.val = val      # counter of frequency 
         self.prev = prev
         self.next = next
-        self.keys = set()
+        self.keys = set()   # a set of keys @ this frequency
 
 class AllOne:
 
@@ -30,8 +30,8 @@ class AllOne:
         self.head = Node(0)
         self.tail = Node(0, self.head)
         self.head.next = self.tail
-        # {key: node}, each node stores a set of strings
-        self.mapping = collections.defaultdict(lambda: self.head)
+        # {frequency: node}, where each node stores a set of strings
+        self.mapping = collections.defaultdict(lambda: self.head) # frequency default to be 0
 
     def inc(self, key: str) -> None:
         # 每次inc/dec 操作，都要先提取该node，然后断掉mapping[key]
@@ -78,13 +78,13 @@ class AllOne:
             cur.prev.next, cur.next.prev = cur.next, cur.prev
 
     def getMaxKey(self) -> str:
-        if self.tail.prev.val == 0: return ''
+        if self.tail.prev.val == 0: return ''   # tail.prev is the maxFreq IF tail.prev != head
         key = self.tail.prev.keys.pop()
         self.tail.prev.keys.add(key)
         return key
 
     def getMinKey(self) -> str:
-        if self.head.next.val == 0: return ''
+        if self.head.next.val == 0: return ''   # head.next is the minFreq IF head.next != tail
         key = self.head.next.keys.pop()
         self.head.next.keys.add(key)
         return key
