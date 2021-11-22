@@ -48,3 +48,15 @@ class Solution:
                 idx += 1    # when a < 0. idx start from 0
         
         return res # non-decreasing
+    
+    
+#     # case 1: a > 0, delta = -1
+#             # compare nums[p1] * - 1 * -1 VS nums[p2] * -1 * -1
+#             # case 2; a < 0, nums  
+            
+#             if nums[p1] * -delta > nums[p2] * -delta:
+#                 res[idx] = nums[p1]
+#                 p1 += 1
+#             else:
+#                 res[idx] = nums[p2]
+#                 p2 -= 1

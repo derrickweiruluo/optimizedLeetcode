@@ -25,7 +25,7 @@ class Solution:
         if sum(nums) % k != 0: return False
         
         target = sum(nums) / k
-        visited = [0] * n
+        visited = [0] * n  # # store the used/notUsed status of nums' idx
         nums.sort(reverse = True)
         
         def dfs(k, index, currSum):
@@ -35,15 +35,14 @@ class Solution:
                 # 试探curSum成功了，就 k -= 1， 继续搜索，visited来查重
                 return dfs(k - 1, 0, 0)
             
-            for i in range(index, n):
+            for i in range(index, n): # start from idx because above will restart k - 1 from idx 0
                 # 每次都试探把curSum 加到target
                 if visited[i] == 0 and currSum + nums[i] <= target:
                     visited[i] = 1
                     if dfs(k, i + 1, currSum + nums[i]):
                         return True
-                    visited[i] = 0
-            
-            return False
+                    visited[i] = 0  # if the dfs trial fail, reset that idx back to 0
+            return False            # if all trial fail--> no feasible partition method
                     
         
         return dfs(k, 0, 0)
