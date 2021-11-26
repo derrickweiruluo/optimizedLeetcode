@@ -17,6 +17,11 @@ Constraints:
 The frequency of each element is in the range [1, 4].
 
 '''
+# Backtracking
+
+
+# Time: k * 2 ^ n
+# Once the first subset is found, we go on to find the second, which would take 2^N operations roughly (because some numbers have been marked as visited).
 
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:

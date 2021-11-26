@@ -37,7 +37,7 @@ class AllOne:
         # 每次inc/dec 操作，都要先提取该node，然后断掉mapping[key]
         cur = self.mapping[key]
         cur.keys.discard(key)
-        self.mapping.pop(key)
+        del self.mapping[key]
         
         if cur.val + 1 == cur.next.val:
             curNext = cur.next
@@ -59,7 +59,7 @@ class AllOne:
         # 每次inc/dec 操作，都要先提取该node，然后断掉mapping[key]
         cur = self.mapping[key]
         cur.keys.discard(key)
-        self.mapping.pop(key)
+        del self.mapping[key]
         
         if cur.val > 1:
             if cur.val - 1 == cur.prev.val:

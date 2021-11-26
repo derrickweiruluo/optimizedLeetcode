@@ -1,4 +1,24 @@
+'''
+如题，找最长回文串
+'''
 
+class Solution:  # 面试用这个, 1D
+    def longestPalindromeSubseq(self, s: str) -> int:
+        # https://leetcode.com/problems/longest-palindromic-subsequence/discuss/99129/Python-DP-O(n)-space-O(n2)-time
+        
+        n = len(s)
+        dp = [1] * n
+        for j in range(1, len(s)):
+            prev = dp[j] # the outer loop, the right index, start from 1
+            for i in range(j - 1, -1, -1):
+                temp = dp[i]
+                if s[i] == s[j]:
+                    dp[i] = 2 + prev if i + 1 < j else 2
+                else:
+                    dp[i] = max(dp[i + 1], dp[i])
+                prev = temp  # prev become the early dp solution as index i moving left
+                    
+        return dp[0]
 
 class Solution: # 2D DP
     def longestPalindromeSubseq(self, s: str) -> int:        
@@ -21,23 +41,7 @@ class Solution: # 2D DP
 
 
 
-class Solution:  # TOO advance DP, 1D
-    def longestPalindromeSubseq(self, s: str) -> int:
-        # https://leetcode.com/problems/longest-palindromic-subsequence/discuss/99129/Python-DP-O(n)-space-O(n2)-time
-        
-        n = len(s)
-        dp = [1] * n
-        for j in range(1, len(s)):
-            prev = dp[j]
-            for i in range(j - 1, -1, -1):
-                temp = dp[i]
-                if s[i] == s[j]:
-                    dp[i] = 2 + prev if i + 1 < j else 2
-                else:
-                    dp[i] = max(dp[i + 1], dp[i])
-                prev = temp
-                    
-        return dp[0]
+
         
         
         

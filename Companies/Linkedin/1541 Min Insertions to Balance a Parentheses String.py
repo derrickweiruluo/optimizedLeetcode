@@ -22,9 +22,7 @@ class Solution:
         (2) case '('
         If we meet a left parentheses,
         we check if we have odd number ')' before.
-        If we right, we have odd ')' before,
-        but we want right parentheses in paires.
-        So add one ')' here, then update right--; res++;.
+        If so, we add one ')' here, then update right--; res++;.
         Note that this part is not necessary if two consecutive right parenthesis not required.
 
         Because we have ), we update right += 2.
@@ -48,5 +46,7 @@ class Solution:
                     res += 1
         
         return res + right
+            
+                
             
                 

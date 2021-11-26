@@ -27,7 +27,7 @@ class Solution:
         n = len(nums)
         res = [0] * n
         p1, p2 = 0, n - 1
-        idx, delta = (0, 1) if a < 0 else (n - 1, -1)  # for direction depending on a
+        idx = 0 if a < 0 else n - 1  # for direction depending on a
         while p1 <= p2:
             l , r = nums[p1], nums[p2]
             if a >= 0:

@@ -18,6 +18,37 @@ Constraints:
 Time complexity :O(N) in the average case, O(N^2) in the worst case.
 Space complexity : O(1).
 """
+
+class Solution:  # 最优解，quickselect with random pivot 
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        # https://leetcode.com/submissions/detail/592804245/
+        # partition without random pivot
+        
+        # https://leetcode.com/submissions/detail/592820805/
+        # this one has random partition
+        
+        pos = self.partition(nums, k)
+        
+        if pos + 1 == k:
+            return nums[pos]
+        elif pos + 1 < k:
+            return self.findKthLargest(nums[pos + 1:], k - pos - 1)
+        else:
+            return self.findKthLargest(nums[:pos], k)
+        
+    def partition(self, nums, k):
+        # i, pivot = 0, nums[-1]
+        i, pivot = 0, random.randint(0, len(nums) - 1)
+        pivot_val = nums[pivot]
+        nums[pivot], nums[-1] = nums[-1], nums[pivot]
+        for j in range(len(nums) - 1):
+            if nums[j] > pivot_val:
+                nums[j], nums[i] = nums[i], nums[j]
+                i += 1
+        nums[-1], nums[i] = nums[i], nums[-1]
+        return i
+
+
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """the partition function is 0-index based partition, thus all

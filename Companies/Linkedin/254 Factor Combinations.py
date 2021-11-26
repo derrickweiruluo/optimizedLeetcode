@@ -21,6 +21,21 @@ Example 4:
 Input: n = 32
 Output: [[2,16],[4,8],[2,2,8],[2,4,4],[2,2,2,4],[2,2,2,2,2]]
 '''
+class Solution: # SAME SOLUTION
+    def getFactors(self, n: int) -> List[List[int]]:
+        
+        res = []
+        
+        def dfs(div, cur, path):
+            if path:
+                res.append(path + [cur])
+            for i in range(div, int(cur ** 0.5) + 1):
+                if cur % i == 0:
+                    dfs(i, cur // i, path + [i])
+        
+        dfs(2, n, [])
+        return res
+
 
 class Solution:  # 下面是comment 一样的solution
     def getFactors(self, n: int) -> List[List[int]]:

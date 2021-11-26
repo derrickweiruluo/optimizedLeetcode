@@ -22,20 +22,44 @@ Example 3:
 Input: nums = [1,-5,-20,4,-1,3,-6,-3], k = 2
 Output: 0
 '''
+import collections
+# https://www.youtube.com/watch?v=M_PzYd59_kk
 
-class Solution:
+# Monotonic queue: stores unique values of dp[i - k + 1 : i] in DESC order
+
+class Solution:  # Huahua, MUCH efficient
+    def maxResult(self, nums: List[int], k: int) -> int:
+        
+        n = len(nums)
+        dp = [0] * n
+        dp[0] = nums[0]
+        queue = collections.deque([0])  # deque of idx in nums
+        
+        for i in range(1, n):
+            dp[i] = nums[i] + dp[queue[0]]
+            while queue and dp[i] >= dp[queue[-1]]:
+                queue.pop() # keep desc order in queue
+            while queue and i - queue[0] >= k:
+                queue.popleft()  # maintain a sliding window of size k
+            queue.append(i)
+        
+        return dp[n - 1]
+
+
+
+class Solution: # early solution 05/2021
     def maxResult(self, nums: List[int], k: int) -> int:
         n = len(nums)
-        score = [0] * n
-        score[0] = nums[0]
-        dq = deque()
-        dq.append(0)
+        dp = [0] * n
+        dp[0] = nums[0]
+        queue = collections.deque()
+        queue.append(0)
         
         for i in range (1, n):
-            while dq and dq[0] + k < i:
-                dq.popleft()
-            score[i] = score[dq[0]] + nums[i]
-            while dq and score[dq[-1]] <= score[i]:
-                dq.pop()
-            dq.append(i)
-        return score[-1]
+            while queue and queue[0] + k < i:
+                queue.popleft()
+            dp[i] = dp[queue[0]] + nums[i]
+            while queue and dp[queue[-1]] <= dp[i]:
+                queue.pop()
+            queue.append(i)
+        return dp[-1]

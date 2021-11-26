@@ -4,14 +4,16 @@ Output: [[1,2],[1,4],[1,6]]
 Explanation: The first 3 pairs are returned from the sequence: [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
 
 '''
+
 import heapq
-class Solution:
+class Solution:  # klog(k), k operations, and each time heappush is logk
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
         
-        heap = [(nums1[0] + nums2[0], 0, 0)]
-        m, n = len(nums1), len(nums2)
         res = []
+        heap = [(nums1[0] + nums2[0], 0, 0)]
         visited = set()
+        
+        m, n = len(nums1), len(nums2)
         
         # 每个iteration heappop一个解，且把下两个最小的push 进 heap
         # heap of (small, idx_i, idx_j)

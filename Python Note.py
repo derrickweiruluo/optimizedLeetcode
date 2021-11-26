@@ -45,6 +45,26 @@ print(int_arr, 'This is an int array')
 
 
 ######## String 常用写法:
+s = ''
 s.isalpha()
 s.isdigit()
 s.isalnum()
+
+
+###### Array copy 
+# https://www.programiz.com/python-programming/shallow-deep-copy
+cur = [1,24,5]
+copy1 = cur[:]
+copy2 = cur
+
+
+copy1[0] = 999
+print('cur', cur)
+print('copy1', copy1)
+
+copy2[0] = 100
+
+print('cur', cur)
+print('copy1', copy1)
+print('copy2', copy2)
+
