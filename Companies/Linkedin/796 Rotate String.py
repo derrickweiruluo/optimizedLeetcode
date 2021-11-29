@@ -16,13 +16,19 @@ Input: s = "abcde", goal = "abced"
 Output: false
 '''
 
+# https://leetcode.com/problems/rotate-string/discuss/678931/Best-Solution-for-an-Interview-Java-Thoughts-and-takeaways
 
 class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
-        for i in range(len(s)):
-            if s[i:] + s[:i] == goal:
-                return True
-        return False
+
+        if not s and not gaol:  
+            return False
+        if len(s) != len(goal):
+            return False
+        if not s:
+            return True
+
+        return goal in s + s
 
 """
 KMP algorithm

@@ -17,26 +17,37 @@ Output: 9
 
 '''
 
+'''
+First turn the input into a set of numbers. That takes O(n) and then we can ask in O(1) whether we have a certain number.
+
+Then go through the numbers. If the number x is the start of a streak (i.e., x-1 is not in the set), then test y = x+1, x+2, x+3, ... and stop at the first number y not in the set. The length of the streak is then simply y-x and we update our global best with that. Since we check each streak only once, this is overall O(n). 
+'''
+
 class Solution:  #一样的解,小小的cleanup而已
     def longestConsecutive(self, nums: List[int]) -> int:
         # https://leetcode.com/submissions/detail/531368877/
+        # https://leetcode.com/problems/longest-consecutive-sequence/discuss/41057/Simple-O(n)-with-Explanation-Just-walk-each-streak
         
+
+        # only check the increasing streak, at num when num - 1 is valid, we skip
+        # it because eventually, we will scan the increasing streak from its min
         if not nums:
             return 0
         
+        validNums = set(nums)
         res = 0
-        seen = set(nums)
+        
         for num in nums:
-            if num - 1 not in seen:
+            if num - 1 not in validNums:
                 nextNum = num + 1
-                if nextNum not in seen:
+                if nextNum not in validNums:
                     continue
                 else:
-                    while nextNum in seen:
+                    while nextNum in validNums:
                         nextNum += 1
                     res = max(res, nextNum - num)
         
-        return res if res != 0 else 1
+        return res if res else 1
 
 
 class Solution:

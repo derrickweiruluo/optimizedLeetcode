@@ -31,6 +31,12 @@ Steps:
     - node has both left and right - find the minimum value in the right subtree, set that value to the currently found node, then recursively delete the minimum value in the right subtree
 """
 
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
 class Solution:
     def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
         if not root:

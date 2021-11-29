@@ -23,9 +23,9 @@ class Solution:
                 cur = prev = 0   # restart the same at beginning
                 sign = 1         # restart the same at beginning
             elif char == ')':
-                prev += cur * sign  # close a local (inner) calculation
-                prev *= stack.pop()
-                prev += stack.pop()
-                cur = 0             # restart cur
+                prev += cur * sign      # close a local inner calculation
+                prev *= stack.pop()     # right * sign, sign from stack
+                prev += stack.pop()     # left + right, left from stack
+                cur = 0
         
         return prev + sign * cur

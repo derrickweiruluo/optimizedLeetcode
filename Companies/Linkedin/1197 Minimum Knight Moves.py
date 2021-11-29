@@ -13,6 +13,11 @@ class Solution:
         
         x, y = abs(x), abs(y)
         res = 0
+        dirs = [(2,1), (2,-1), (-2,1), (-2,-1), (1,2), (1,-2), (-1,2), (-1,-2)]
+        queue = collections.deque([(0, 0, 0)]) # queue of (cur_X, cur_Y, steps)
+
+
+        # Greedy step to shortern runtime
         while x > 5 or y > 5: # greedy approach, can be any number, just to BFS start from closer
             res += 1
             if x > y:
@@ -21,9 +26,8 @@ class Solution:
             else:
                 x -= 1 if x >= 1 else -1    # when case x >> y,, to prevent go negative
                 y -= 2
-        
-        dirs = [(2,1), (2,-1), (-2,1), (-2,-1), (1,2), (1,-2), (-1,2), (-1,-2)]
-        queue = collections.deque([(0, 0, 0)]) # queue of (cur_X, cur_Y, steps)
+
+
         while queue:
             i, j, steps = queue.popleft()
             if i == x and j == y:
