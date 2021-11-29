@@ -3,7 +3,7 @@ Given a string s containing only three types of characters:
 '(', ')' and '*', 
 
 "*" can be treated as a magic char
-
+'*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
 return true if s is valid.
 
 '''
@@ -26,21 +26,20 @@ class Solution:
         cmax will never be negative.
         cmin is 0 at the end
         '''
-        closing_max, closing_min = 0, 0
-        for i in s:
-            if i == '(':
-                closing_max += 1
-                closing_min += 1
-                
-            if i == '*':
-                closing_max += 1
-                closing_min = max(closing_min - 1, 0)
-                
-            if i == ')':
-                closing_max -= 1
-                closing_min = max(closing_min - 1, 0)
-                
-            if closing_max < 0:
+        closingMax, closingMin = 0, 0
+        for char in s:
+            if char == '(':
+                closingMax += 1
+                closingMin += 1
+            if char == "*":
+                # '*' could be treated as a single right parenthesis ')' or 
+                # a single left parenthesis '(' or an empty string "".
+                closingMax += 1
+                closingMin = max(closingMin - 1, 0)
+            if char == ')':
+                closingMax -= 1
+                closingMin = max(closingMin - 1, 0)
+            if closingMax < 0:
                 return False
-            
-        return closing_min == 0
+        
+        return closingMin == 0

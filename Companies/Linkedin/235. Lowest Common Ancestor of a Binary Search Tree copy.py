@@ -26,12 +26,17 @@ p != q
 p and q will exist in the BST.
 
 """
+
+'''
+For the time complexity, I agree it should be O(n) considering the worst case when all node only has one child and p,q are near the bottom. For a balanced BST, the time complexity may be O(log(n)) since we reduce the nodes to check by half after each step.
+'''
+
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 class Solution: # recursive
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':

@@ -48,20 +48,20 @@ class Solution:
 
 class Solution:  #UF
     def countComponents(self, n: int, edges) -> int:
-        result = n
-        nums = [-1] * n
-        for u, v in edges:
+        res = n
+        nums = [-1] * n         # nums[i] is the root of i
+        for u, v in edges:      # union each u-v edge
             if self.union(nums, u, v):
-                result -= 1
-        return result
-
+                res -= 1
+        return res
+    
     def find(self, nums, i):
         if nums[i] == -1:
             return i
         return self.find(nums, nums[i])
-
-    def union(self, nums, i, j):
-        x, y = self.find(nums, i), self.find(nums, j)
+    
+    def union(self, nums, u, v):
+        x, y = self.find(nums, u), self.find(nums, v)
         if x == y:
             return False
         nums[x] = y

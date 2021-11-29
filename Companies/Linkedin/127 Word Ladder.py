@@ -18,17 +18,20 @@ class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         
         queue = collections.deque([(beginWord, 1)])
-        valid = set(wordList)
+        validWords = set(wordList)
+        lowercase = string.ascii_lowercase
+        # lowercase = 'abcdefghijklmnopqrstuvwxyz'
         
         while queue:
             cur, length = queue.popleft()
             if cur == endWord:
                 return length
             for i in range(len(cur)):
-                for c in 'abcdefghijklmnopqrstuvwxyz':
-                    nextWord = cur[:i] + c + cur[i + 1:]
-                    if nextWord in valid:
-                        valid.remove(nextWord)
+                for char in lowercase:
+                    nextWord = cur[:i] + char + cur[i + 1:]
+                    if nextWord in validWords:
+                        validWords.remove(nextWord)
                         queue.append((nextWord, length + 1))
+        
         
         return 0

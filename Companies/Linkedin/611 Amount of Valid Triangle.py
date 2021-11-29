@@ -2,7 +2,8 @@
 给你一堆数组，求可以组成valid 三角形的数量
 
 '''
-
+# Time nlogn + n^2 --> O(n^2)
+# Space: O(n) because of sorting
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
         

@@ -6,7 +6,7 @@ On the third round, you toggle every third bulb (turning on if it's off or turni
 Return the number of bulbs that are on after n rounds.
 '''
 
-
+import math
 class Solution:
     def bulbSwitch(self, n: int) -> int:
         
@@ -23,5 +23,6 @@ class Solution:
         9th : 1 0 0 0 1 0 0 1 0  --> 3
         '''
 
-        return math.floor(n ** 0.5)
-        return int(n ** 0.5)
+        # You can see that, after each round, all bulbs before that round will not be touched anymore.
+        return math.floor(n ** 0.5) # perfect square
+        # return int(n ** 0.5)

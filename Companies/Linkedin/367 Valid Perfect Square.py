@@ -14,7 +14,7 @@ Example 2:
 Input: num = 14
 Output: false
 '''
-
+# Time O(log N), space O(1)
 class Solution:
     def isPerfectSquare(self, num: int) -> bool:
         
@@ -30,3 +30,14 @@ class Solution:
                 right = mid
         
         return left ** 2 == num
+
+
+class Solution: # Math solution only
+    def isPerfectSquare(self, num: int) -> bool:
+        if num < 2:
+            return True
+        
+        x = num // 2
+        while x * x > num:
+            x = (x + num // x) // 2
+        return x * x == num

@@ -31,7 +31,7 @@ class Solution:
                 while i < j and counter[s[i]] < 0:
                     counter[s[i]] += 1
                     i += 1
-                if end == 0 or j - i < end - start:
+                if end == 0 or j - i < end - start - 1:
                     start, end = i, j + 1
                     
                 counter[s[i]] += 1

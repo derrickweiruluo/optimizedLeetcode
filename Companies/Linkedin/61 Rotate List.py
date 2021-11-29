@@ -14,12 +14,12 @@ class Solution:
         cur.next = head
         
         # step 2: Advance the head to new head's PREV
-        temp = head
+        cur2 = head
         for _ in range(length - k - 1):
-            temp = temp.next
+            cur2 = cur2.next
         
-        res = temp.next
 
         # Step 3: break the new tail and new head's connection
-        temp.next = None
-        return res
+        newHead = cur2.next
+        cur2.next = None
+        return newHead

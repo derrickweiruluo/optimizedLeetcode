@@ -2,22 +2,24 @@
 如题，找最长回文串
 '''
 
-class Solution:  # 面试用这个, 1D
+class Solution:  # 面试用这个 
     def longestPalindromeSubseq(self, s: str) -> int:
-        # https://leetcode.com/problems/longest-palindromic-subsequence/discuss/99129/Python-DP-O(n)-space-O(n2)-time
         
         n = len(s)
         dp = [1] * n
-        for j in range(1, len(s)):
-            prev = dp[j] # the outer loop, the right index, start from 1
+        
+        for j in range(1, n):
+            prev = dp[j]  # start from 1 in outter loop
             for i in range(j - 1, -1, -1):
                 temp = dp[i]
                 if s[i] == s[j]:
-                    dp[i] = 2 + prev if i + 1 < j else 2
+                    dp[i] = 2 + prev if i < j - 1 else 2
                 else:
-                    dp[i] = max(dp[i + 1], dp[i])
-                prev = temp  # prev become the early dp solution as index i moving left
-                    
+                    dp[i] = max(dp[i], dp[i + 1])
+                # prev here is the previous i + 1 @ j - 1 (before processed the current j)
+                prev = temp 
+        
+            # print(dp)
         return dp[0]
 
 class Solution: # 2D DP

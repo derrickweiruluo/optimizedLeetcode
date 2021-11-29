@@ -17,7 +17,8 @@ class Solution:
     def canIWin(self, maxChoosableInteger: int, desiredTotal: int) -> bool:
         # just cleanner codes this time
         def canWin(choices, rem):
-            cur = str(choices)
+            cur = str(choices) # 下面是另一种方法
+            # cur = ','.join(map(str, choices))
             if choices[-1] >= rem:
                 seen[cur] = True
                 return seen[cur]

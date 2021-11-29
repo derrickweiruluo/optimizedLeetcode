@@ -2,10 +2,7 @@
 Input: nestedList = [[1,1],2,[1,1]]
 Output: [1,1,2,1,1]
 Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
-
 '''
-
-
 #class NestedInteger:
 #    def isInteger(self) -> bool:
 #        """
@@ -25,6 +22,25 @@ Explanation: By calling next repeatedly until hasNext returns false, the order o
 #        """
 
 class NestedIterator:
+    def __init__(self, nestedList): # : [NestedInteger]
+        self.queue = collections.deque(nestedList)
+    
+    def next(self) -> int:
+        return self.queue.popleft().getInteger()
+    
+    def hasNext(self) -> bool:
+        while self.queue:
+            top = self.queue[0]
+            if top.isInteger():
+                return True
+            # if top of the stack is a nested List, keep unzip it
+            # we ONLY manipulate the top of the stack
+            top = self.queue.popleft().getList()
+            self.queue.extendleft(top[::-1])
+        return False
+
+
+class NestedIterator: # stack
     def __init__(self, nestedList): #NestedInteger
         self.stack = nestedList
     
