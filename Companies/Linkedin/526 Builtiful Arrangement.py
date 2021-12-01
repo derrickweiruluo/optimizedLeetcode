@@ -10,6 +10,27 @@ Beautiful::
 class Solution:
     def countArrangement(self, n: int) -> int:
         
+        self.cache = {}
+        def helper(i, X):
+            if i == 1:
+                return 1
+            key = (i, X)
+            if key in self.cache:
+                return self.cache[key]
+            
+            total = 0
+            for j in range(len(X)):
+                if X[j] % i == 0 or i % X[j] == 0:
+                    total += helper(i - 1, X[:j] + X[j + 1:])
+            self.cache[key] = total
+            return total
+        return helper(n, tuple(range(1, n + 1)))
+
+
+
+class Solution:
+    def countArrangement(self, n: int) -> int:
+        
         self.res = 0
         visited = [0] + [0] * n
         

@@ -26,26 +26,25 @@ The frequency of each element is in the range [1, 4].
 
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
-        n = len(nums)
+        total, n = sum(nums), len(nums)
         if n < k: return False
-        if sum(nums) % k != 0: return False
+        if total % k != 0: return False
         
-        target = sum(nums) / k
-        visited = [0] * n  # # store the used/notUsed status of nums' idx
-        nums.sort(reverse = True)
+        target = total / k
+        visited = [0] * n
         
-        def dfs(k, index, currSum):
+        def dfs(k, idx, curSum):
             if k == 1:
                 return True
-            if currSum == target:
+            if curSum == target:
                 # 试探curSum成功了，就 k -= 1， 继续搜索，visited来查重
                 return dfs(k - 1, 0, 0)
             
-            for i in range(index, n): # start from idx because above will restart k - 1 from idx 0
+            for i in range(idx, n): # start from idx because above will restart k - 1 from idx 0
                 # 每次都试探把curSum 加到target
-                if visited[i] == 0 and currSum + nums[i] <= target:
+                if visited[i] == 0 and curSum + nums[i] <= target:
                     visited[i] = 1
-                    if dfs(k, i + 1, currSum + nums[i]):  #这里用的 i 不是 idx
+                    if dfs(k, i + 1, curSum + nums[i]):  #这里用的 i 不是 idx
                         return True
                     visited[i] = 0  # if the dfs trial fail, reset that idx back to 0
             return False            # if all trial fail--> no feasible partition method

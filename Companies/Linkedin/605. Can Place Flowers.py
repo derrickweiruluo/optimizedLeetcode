@@ -16,6 +16,22 @@ Output: false
 
 '''
 
+class Solution: # BEST
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        
+        length = len(flowerbed)
+        res = 0
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0 and (i == 0 or flowerbed[i - 1] == 0) and (i == length - 1 or flowerbed[i + 1] == 0):
+                res += 1
+                flowerbed[i] = 1
+            if res >= n:
+                return True
+        
+        return False
+
+
+
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         
