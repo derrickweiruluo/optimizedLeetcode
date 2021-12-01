@@ -13,6 +13,31 @@ Before: [1,6,2]
 After:  [1,7,9]
 by ratio: (0, 1], (1, 7], (7, 9]
 '''
+
+class Solution:
+
+    def __init__(self, w: List[int]):
+        self.w = w
+        for i in range(1, len(w)):
+            self.w[i] += self.w[i - 1]
+        self.total = self.w[-1]
+        self.n = len(w)
+
+    def pickIndex(self) -> int:
+        randWeight = random.randint(1, self.total)
+        left, right = 0, self.n - 1
+        while left < right:
+            mid = (left + right) // 2
+            if self.w[mid] < randWeight:
+                left = mid + 1
+            else:
+                right = mid
+        return left
+
+
+
+
+
 class Solution:
 
     def __init__(self, w: List[int]):

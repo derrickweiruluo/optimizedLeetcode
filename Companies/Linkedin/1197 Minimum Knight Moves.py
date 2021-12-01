@@ -33,6 +33,7 @@ class Solution:
             if i == x and j == y:
                 return res + steps
             for dx, dy in dirs:
+                # 条件是只要有一个方向是朝着正方向，就算合理
                 if (x - i) * dx > 0 or (y - j) * dy > 0:    # move towards (x, y) at least in one direction
                     queue.append((i + dx, j + dy, steps + 1))
         

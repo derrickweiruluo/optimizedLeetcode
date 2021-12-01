@@ -33,7 +33,10 @@ class TimeMap:
                 right = mid
             else:
                 left = mid + 1
-                
+
+
+        # left is next greater, left - 1 is the answer
+        # but check if satisfy the requirement prev <= time       
         if data[left - 1][1] > timestamp: return ""
         return data[left - 1][0]
         
