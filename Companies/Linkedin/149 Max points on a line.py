@@ -8,6 +8,8 @@ class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
         
         def inline(a, b, c):
+            # (a[1] - b[1]) / (a[0] - b[0]) == (a[1] - c[1]) / (a[0] - c[0])
+            # to avoid divide zero
             return (a[1] - b[1]) * (a[0] - c[0]) == (a[1] - c[1]) * (a[0] - b[0])
             
         
@@ -16,9 +18,12 @@ class Solution:
         if n <= 2: return n
         
         for i in range(n):
+            # EACH outter loop has a memo, and counting duplicates  
             dic = collections.defaultdict(int)
             countSame = 0
-            for j in range(i + 1, n):
+
+            # the inner loop counter under (i & j), 
+            for j in range(i + 1, n):   
                 if points[j] == points[i]:
                     countSame += 1
                     continue
@@ -33,4 +38,6 @@ class Solution:
             curMax = max(dic.values()) if dic else 0
             # curMax = max(list(dic.values()) + [0])
             res = max(res, curMax + countSame + 1)
+            print(not memo, curMax + countDuplicate + 1)
+
         return res

@@ -9,7 +9,80 @@ We can use a TreeMap mapping values to a list of nodes to answer this question. 
 
 '''
 
+
+
+# https://leetcode.com/problems/max-stack/discuss/1373061/Python-pure-TreeMap-Solution-with-detailed-explanation
+from sortedcontainers import SortedDict
+
+class Node:
+    
+    def __init__(self, val = None, prev = None, next = None):
+        self.val = val
+        self.prev = prev
+        self.next = next
+
 class MaxStack:
+
+    def __init__(self):
+        self.head = Node()
+        self.tail = Node(prev = self.head)
+        self.head.next = self.tail
+        self.sortedDict = SortedDict()
+        
+    def push(self, x: int) -> None: # O(log(n))
+        newNode = Node(x)
+        newNode.prev = self.tail.prev
+        self.tail.prev.next = newNode
+        newNode.next = self.tail
+        self.tail.prev = newNode
+        
+        if x not in self.sortedDict:
+            self.sortedDict[x] = [newNode]
+        else:
+            self.sortedDict[x].append(newNode)
+
+    def pop(self) -> int: # O(log(n))
+        removedNode = self.tail.prev
+        removedNode.prev.next = self.tail
+        self.tail.prev = removedNode.prev
+        
+        self.sortedDict[removedNode.val].pop()
+        if not self.sortedDict[removedNode.val]:
+            del self.sortedDict[removedNode.val]
+        return removedNode.val
+
+    def top(self) -> int: # O(1)
+        return self.tail.prev.val
+
+    def peekMax(self) -> int: # O(log(n))
+        return self.sortedDict.peekitem()[0]
+
+    def popMax(self) -> int: # O(log(n))
+        maxVal = self.peekMax()
+        removedNode = self.sortedDict[maxVal].pop()
+        removedNode.prev.next, removedNode.next.prev = removedNode.next, removedNode.prev
+        
+        if not self.sortedDict[maxVal]:
+            del self.sortedDict[maxVal]
+        return maxVal
+
+
+
+
+
+
+
+
+# https://leetcode.com/submissions/detail/583091722/
+# https://leetcode.com/submissions/detail/595120631/
+
+# This solution
+
+# import collections, heapq
+# https://leetcode.com/problems/max-stack/discuss/1003655/Python-O(logN)-use-double-linked-list-%2B-heap-%2B-dictionary
+#Java TreeMap
+# https://leetcode.com/problems/max-stack/discuss/129922/Java-simple-solution-with-strict-O(logN)-push()popMax()pop()
+class MaxStack:  # not thie one
 
     def __init__(self):
         # stack of [(cur_Val, maxIdx)]

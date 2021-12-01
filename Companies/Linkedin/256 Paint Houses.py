@@ -24,9 +24,9 @@ class Solution:
     '''
     
     def minCost(self, costs):
-        red = blue = green = 0 #  start from zero, so we can use the color with prev cost is zero
-        for r, g, b in costs:
-            # current color selection's cost = prevMin other colors' cost + cur color cost
-            red, green, blue = min(green, blue) + r, min(red, blue) + g, min(red, green) + b
+        red = green = blue = 0
+        for curRed, curGreen, curBlue in costs:
+            # color_path = current selection + the minimum selection previously
+            red, green, blue = curRed + min(green, blue), curGreen + min(red, blue), curBlue + min(red, green)
         
         return min(red, green, blue)

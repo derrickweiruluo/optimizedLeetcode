@@ -21,7 +21,7 @@ Example 4:
 Input: n = 32
 Output: [[2,16],[4,8],[2,2,8],[2,4,4],[2,2,2,4],[2,2,2,2,2]]
 '''
-class Solution: # SAME SOLUTION
+class Solution: # 用这个
     def getFactors(self, n: int) -> List[List[int]]:
         
         res = []
@@ -35,6 +35,11 @@ class Solution: # SAME SOLUTION
         
         dfs(2, n, [])
         return res
+
+
+
+
+
 
 
 class Solution:  # 下面是comment 一样的solution

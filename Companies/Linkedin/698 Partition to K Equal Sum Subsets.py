@@ -20,8 +20,9 @@ The frequency of each element is in the range [1, 4].
 # Backtracking
 
 
-# Time: k * 2 ^ n
-# Once the first subset is found, we go on to find the second, which would take 2^N operations roughly (because some numbers have been marked as visited).
+# I think the time complexity is O(k * 2^n), at least it's an upper bound. Because it takes the inner recursion 2^n time to find a good subset. Once the 1st subset is found, we go on to find the second, which would take 2^n roughly (because some numbers have been marked as visited). So T = 2^n + 2^n + 2^n + ... = k * 2^n.
+
+# Space complexity: O(n)
 
 class Solution:
     def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
@@ -44,7 +45,7 @@ class Solution:
                 # 每次都试探把curSum 加到target
                 if visited[i] == 0 and currSum + nums[i] <= target:
                     visited[i] = 1
-                    if dfs(k, i + 1, currSum + nums[i]):
+                    if dfs(k, i + 1, currSum + nums[i]):  #这里用的 i 不是 idx
                         return True
                     visited[i] = 0  # if the dfs trial fail, reset that idx back to 0
             return False            # if all trial fail--> no feasible partition method
