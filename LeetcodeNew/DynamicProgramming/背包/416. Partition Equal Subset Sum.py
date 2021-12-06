@@ -19,30 +19,10 @@ Constraints:
 '''
 DP解法 01背包问题, 一维空间 from 0 to target
 残酷刷题群群主的模板
+# https://leetcode.com/problems/partition-equal-subset-sum/discuss/462699/Whiteboard-Editorial.-All-Approaches-explained.
+https://leetcode.com/problems/partition-equal-subset-sum/discuss/90592/01-knapsack-detailed-explanation
 '''
 class Solution:
-    def canPartition(self, nums: List[int]) -> bool:
-        numSum = sum(nums)
-        # if weight not divisible by two, we cannot possibly have two equal sets
-        if numSum % 2 != 0:
-            return False
-        
-        # target is weight of the knapsack
-        target = numSum // 2
-        
-        # dp init
-        dp = [False for _ in range(target + 1)]
-        dp[0] = True
-        
-        for i in range(len(nums)): # 遍历背包物品
-            for j in range(target + 1): # 遍历容量
-                if dp[j - i]:
-                    dp[j] = True
-        
-        return dp[target]
-
-
-class SolutionDP:
     def canPartition(self, nums: List[int]) -> bool:
         numSum = sum(nums)
         # if weight not divisible by two, we cannot possibly have two equal sets
@@ -61,11 +41,18 @@ class SolutionDP:
         for i in range(len(nums)):
             # reversal neessary, because if we go in non-reversed order, we will overwrite
             # dp[] calculations from the previous iteration of outer loop. thus we go small to big to preserve previous iteration
-            for j in reversed(range(1, target + 1)):
+            for j in range(target, 0, -1):
                 if j - nums[i] >= 0:
                     dp[j] = dp[j] or dp[j - nums[i]]
+            
+            # print(dp)
         
         return dp[target]
+    
+
+
+
+
 
 class SolutionDFS:
     def canPartition(self, nums: List[int]) -> bool:
