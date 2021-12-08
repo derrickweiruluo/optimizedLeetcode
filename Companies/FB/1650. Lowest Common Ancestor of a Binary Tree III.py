@@ -24,6 +24,18 @@ For LCA of (5,6)
 only searched: [3,5,1,0,8], does not print out the LCA, 默认是local解
 '''
 
+class Solution: # 最优解
+    def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
+        
+        p1, p2 = p, q
+        while p1 != p2:
+            p1 = p1.parent if p1.parent else q
+            p2 = p2.parent if p2.parent else p
+        
+        return p1
+
+
+
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         root = self.findRoot(p, q)

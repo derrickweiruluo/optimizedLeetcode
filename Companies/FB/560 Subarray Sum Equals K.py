@@ -3,18 +3,18 @@ Given an array of integers nums and an integer k, return the total number of con
 
 '''
 
-class Solution:
+class Solution:  # 
     def subarraySum(self, nums: List[int], k: int) -> int:
         
         res = 0
-        prefix = collections.defaultdict(int)
-        prefix[0] = 1  # 这一部很需要，prefix == 0 要 intialize 为 1
-        cur = 0
+        preSum = collections.Counter()
+        preSum[0] = 1  # 这一部很需要，prefix == 0 要 intialize 为 1
+        curSum = 0
         
-        for i in range(len(nums)):
-            cur += nums[i]
-            res += prefix[cur - k]
-            prefix[cur] += 1
+        for num in nums:
+            curSum += num
+            res += preSum[curSum - k]
+            preSum[curSum] += 1
         
         return res
 
