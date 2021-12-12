@@ -7,6 +7,8 @@ Output: 3
 Explanation: The LCA of nodes 5 and 1 is 3.
 
  
+
+
 Constraints:
 
 The number of nodes in the tree is in the range [2, 105].
@@ -14,7 +16,6 @@ The number of nodes in the tree is in the range [2, 105].
 All Node.val are unique.
 p != q
 p and q will exist in the tree.
-
 """
 # ##思路：
 # DFS, leave's info will pass recursively back

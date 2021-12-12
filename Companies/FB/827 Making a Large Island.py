@@ -14,12 +14,15 @@ https://leetcode.com/problems/making-a-large-island/discuss/127032/C%2B%2BJavaPy
 Explanation
 Only 2 steps:
 
-Explore every island using DFS, count its area, give it an island index and save the result to a {index: area} map.
-Loop every cell == 0, check its connected islands and calculate total islands area.
+Only 2 steps:
+
+1. Explore every island using DFS, count its area, give it an island index and save the result to a {index: area} map. Note the grid elements are updated with their corresponding island index. Since the grid has elements 0 or 1. The island index is initialized with 2
+
+2. Loop every cell == 0, check its connected island index and calculate total islands area. The possible connected island index is stored in a set to remove duplicate index.
 
 Complexity
-Time O(N^2)
-Space O(N^2)
+Time O(N^2), N is the lwidth
+Space O(N^2), additional space used in DFS and mapping of {islandId: area}
 '''
 class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
@@ -39,7 +42,7 @@ class Solution:
                     res += dfs(i, j, islandID)
             return res + 1
             
-        islandID = 2
+        islandID = 2                    # 题目是0, 1
         mapping = {0 : 0}               # hashmap of 大陆ID: 面积
         for x in range(width):
             for y in range(width):
@@ -47,11 +50,11 @@ class Solution:
                     mapping[islandID] = dfs(x, y, islandID)
                     islandID += 1
         
-        maxArea = max(mapping.values())   # corner case，当当前已经是最大的时候
+        maxArea = max(mapping.values())   # corner case，当当前已经有最大岛屿(没有case是flip one make bigger)
         for x in range(width):            # 找非陆地，测试sum of (相邻面积 + 1)
             for y in range(width):
                 if grid[x][y] == 0:
-                    possibleNext = set(grid[i][j] for i, j in validNext(x, y))
-                    maxArea = max(maxArea, sum(mapping[index] for index in possibleNext) + 1)
+                    possibleIslandIDs = set(grid[i][j] for i, j in validNext(x, y))
+                    maxArea = max(maxArea, sum(mapping[islandID] for islandID in possibleIslandIDs) + 1)
                     
         return maxArea

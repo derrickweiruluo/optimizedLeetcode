@@ -24,8 +24,8 @@ class Solution:
         self.n = len(w)
 
     def pickIndex(self) -> int:
-        randWeight = random.randint(1, self.total)
-        left, right = 0, self.n - 1
+        randWeight = random.randint(1, self.total) # 
+        left, right = 0, self.n - 1 # idx range from 0 to n - 1
         while left < right:
             mid = (left + right) // 2
             if self.w[mid] < randWeight:

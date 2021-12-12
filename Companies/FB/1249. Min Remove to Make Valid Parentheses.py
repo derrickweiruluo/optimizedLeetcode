@@ -51,6 +51,7 @@ class Solution:   # 最优解 O(N), O(1)
                 res += (strArr[i])
         
         return res
+        return ''.join(char for char in strArr if char != '#')
 
 
 class Solution:  #Both O(N)

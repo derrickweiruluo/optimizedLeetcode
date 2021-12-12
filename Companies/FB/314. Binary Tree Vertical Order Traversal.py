@@ -4,25 +4,31 @@ Given the root of a binary tree, return the vertical order traversal of its node
 If two nodes are in the same row and column, the order should be from left to right.
 
 """
-
+import collections
 
 class Solution:  # Both O(N), 最优解
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        
         if not root: return []
+        
         queue = collections.deque([(root, 0)])
         mapping = collections.defaultdict(list)
-        left = right = 0
+        # 因为left right边界是由范围的，BFS记录范围，最后就用sort dict了
+        left, right = 0, 0
+        
         
         while queue:
-            node, col = queue.popleft()
-            if node:
+            for _ in range(len(queue)):
+                node, col = queue.popleft()
                 mapping[col].append(node.val)
                 left = min(left, col)
                 right = max(right, col)
-                queue.append((node.left, col - 1))
-                queue.append((node.right, col + 1))
+                if node.left:
+                    queue.append((node.left, col - 1))
+                if node.right:
+                    queue.append((node.right, col + 1))
         
-        return [mapping[x] for x in range(left, right + 1)]
+        return [mapping[i] for i in range(left, right + 1)]
 
 
 

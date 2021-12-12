@@ -24,6 +24,9 @@ For LCA of (5,6)
 only searched: [3,5,1,0,8], does not print out the LCA, 默认是local解
 '''
 
+'''
+The idea is fairly simple (and the same as finding the convergence point of 2 linked lists). We keep two pointers, p1 and p2. Originally, these pointers point to q and p, respectively. Then we follow their parent pointers until they point to the same node. When either of the pointers points to root, we set it to the other original starting node. For example, when p1 points to root (i.e p1.parent is None), assign q to p1.
+'''
 class Solution: # 最优解
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
         

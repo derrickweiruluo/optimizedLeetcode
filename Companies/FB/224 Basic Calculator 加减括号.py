@@ -1,4 +1,14 @@
+'''
+###  只包含加减括号
 
+
+###  Contraints
+s consists of digits, '+', '-', '(', ')', and ' '.
+s represents a valid expression.
+'+' is not used as a unary operation (i.e., "+1" and "+(2 + 3)" is invalid).
+'-' could be used as a unary operation (i.e., "-1" and "-(2 + 3)" is valid).
+There will be no two consecutive operators in the input.
+'''
 
 class Solution:
     def calculate(self, s: str) -> int:

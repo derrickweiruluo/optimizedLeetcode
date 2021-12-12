@@ -10,6 +10,12 @@ For example, if s = "()))", you can insert an opening parenthesis to be "(()))" 
 Return the minimum number of moves required to make s valid.
 '''
 
+
+'''
+Constriants:
+string only contains "(",")"
+'''
+
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
         '''
@@ -24,12 +30,14 @@ class Solution:
         When right is already 0, we increment left, Return left + right in the end
         '''
         left = right = 0
+        
         for char in s:
             if char == '(':
                 right += 1
-            else:
+            elif char == ')':
                 if right:
                     right -= 1
                 else:
                     left += 1
+        
         return left + right
