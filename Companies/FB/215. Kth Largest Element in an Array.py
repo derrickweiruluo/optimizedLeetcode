@@ -48,6 +48,37 @@ class Solution:  # 最优解，quickselect with random pivot
         nums[-1], nums[i] = nums[i], nums[-1]
         return i
 
+'''
+[6,5,5,4,3,3,2] --> K = 7th largest
+if K > required k:
+    nums[: K] --> quick select again, same k
+else:
+    nums[k + 1:] --> quick select again, k = k - K
+
+# 0,1,2,3,4,5,6,7,8
+ [3,2,3,1,2,4,5,5,6] --> randinx 2, pivot_val = 3
+ [3,2,6,1,2,4,5,5,3] --> swap with the back
+ j = 0, i = 0
+ j = 1, i = 0
+ j = 2, i = 0:  nums[j] <-> nums[i], i ++
+ [6,2,3,1,2,4,5,5,3]
+ j = 3, i = 1
+ j = 4, i = 1
+ j = 5, i = 1: nums[j] <-> nums[i], i ++
+ [6,4,3,1,2,2,5,5,3]
+ j = 6, i =2: nums[j] <-> nums[i], i ++
+ [6,4,5,1,2,2,3,5,3]
+ j = 7, i =3: nums[j] <-> nums[i], i ++
+ [6,4,5,5,2,2,3,1,3]
+ j = 8, i = 4is the pivot
+ at the end, swap -1, i
+ [6,4,5,5,3,2,3,1,2], 比三大的都在左边，且i = 4（0-indexed, 第五大）
+ 
+ 
+ 下一次搜 [6,4,5,5,3]
+'''
+
+
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:

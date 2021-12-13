@@ -11,6 +11,17 @@ Return the exclusive time of each function in an array, where the value at the i
 
 '''
 
+
+
+'''
+Constrinats:
+No two start events will happen at the same timestamp.
+No two end events will happen at the same timestamp.
+Each function has an "end" log for each "start" log.
+'''
+
+
+# In a more conventional approach, let's look between adjacent events, with duration time - prev_time. If we started a function, and we have a function in the background, then it was running during this time. Otherwise, we ended the function that is most recent in our stack.
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
         
