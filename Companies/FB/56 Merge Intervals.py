@@ -9,8 +9,29 @@ Output: [[1,6],[8,10],[15,18]]
 Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
 
 '''
+class Solution:  # inplace
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        
+        # modified in place
+        if len(intervals) < 2:
+            return intervals
+        
+        intervals.sort(key=lambda x: x[0]) # in-place sorting
+        
+        prev_index = 0
+        curr_index = 1
+        while curr_index<len(intervals):
+            if intervals[curr_index][0] > intervals[prev_index][1]:
+                prev_index = curr_index
+                curr_index += 1
+            else:
+                intervals[prev_index][1] = max(intervals[prev_index][1], intervals[curr_index][1])
+                intervals.pop(curr_index) # this should reduce array size, hence no need to increase curr_index
+        
+        return intervals
 
-class Solution:
+
+class Solution: # 2nd best
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         
         intervals.sort()

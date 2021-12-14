@@ -23,10 +23,10 @@ class Solution:
         left, right = 0, len(nums) - 1
         while left < right:
             mid = (left + right) // 2
-            if nums[mid] >= nums[mid + 1]:
-                right = mid
-            else:
-                left = mid + 1
+            if nums[mid] >= nums[mid + 1]:  # 假如右peak满足
+                right = mid                 # 搜索右边，包含mid
+            else:                           # 假如不满足
+                left = mid + 1              # 搜索左边，不包含mid，因为不符合条件
         
-        # minimal k that satisfy the 斜率 condition
+        
         return left

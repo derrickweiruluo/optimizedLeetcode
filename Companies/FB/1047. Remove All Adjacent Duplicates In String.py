@@ -13,24 +13,26 @@ Output: "ay"
 class Solution: # O(1) space 
     def removeDuplicates(self, s: str) -> str:
         
+        # O(1) space, one pass
         s = list(s)
+        i = 0
         
-        slow = fast = 0
-        
-        while fast < len(s):
-            if slow == 0:  # similar to stack is empty
-                s[slow] = s[fast]
-                slow += 1
+        for j in range(len(s)):
+            # 利用 i pointer 作为 一个stack， modified and rearrange s[:i]
+            # i += 1, -= 1 as appending/popping to stack
+            if i == 0:              # as if stack if empty
+                s[i] = s[j]
+                i += 1
             else:
-                char1, char2 = s[slow - 1], s[fast]
-                if char1 == char2:  # similar to stack[-1] == cur
-                    slow -= 1
-                else:               
-                    s[slow] = s[fast]
-                    slow += 1
-            fast += 1
+                char1, char2 = s[i - 1], s[j]
+                if char1 == char2:  # find matching stack[-1] to cur
+                    i -= 1          # stack.pop()
+                else:
+                    s[i] = s[j]     # append to stack
+                    i += 1          # advance the stack idx
+            
         
-        return "".join(s[:slow])
+        return "".join(s[:i])
 
 
 

@@ -13,17 +13,24 @@ Explanation:
 Since "d" does not appear in order, it can be at any position in the returned string. "dcba", "cdba", "cbda" are also valid outputs.
 '''
 
+
+
+# Time & Space: O(N), where N is length the string
+# Time == order + s, s dominates usually
+# Space is fix-size since only 26 keys
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
         
         counter = collections.Counter(s)
         res = []
         
-        for i, char in enumerate(order):
+        for char in order:    # by ordering, construct the res
             if counter[char]:
                 res += [char * counter.pop(char)]
+                # res.append(char * counter.pop(char))
         
-        for char, freq in counter.items():
-            res += [char * freq]
-        
+        for char, freq in counter.items():  # leftover char not in "order", 
+            res += [char * freq]            # append by count in any order
+            # res.append(char * freq)
+            
         return ''.join(res)

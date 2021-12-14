@@ -36,7 +36,7 @@ class Solution:
     def isGreater(self, word1, word2):
         m, n = len(word1), len(word2)
         for i in range(min(n, m)):
-            if word1[i] != word2[i]:
+            if word1[i] != word2[i]: # check char by char if not equal
                 return self.charOrder[word1[i]] > self.charOrder[word2[i]]
         
         return n < m

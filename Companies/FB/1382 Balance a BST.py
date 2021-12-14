@@ -17,11 +17,11 @@ Output: [2,1,3]
 '''
 
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 class Solution:  # O(1) space
     def balanceBST(self, root: TreeNode) -> TreeNode:
