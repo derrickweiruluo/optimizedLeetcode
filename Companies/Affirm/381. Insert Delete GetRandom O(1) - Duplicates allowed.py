@@ -1,15 +1,28 @@
+'''
+HR轮后第一轮电面，对面是affirm的一名tech lead。
+题很简单，要implement一个randomMap class
+需要支持的api是
+
+put, 
+get, 
+remove,
+get_random_uniqueValue‌‌‌‌‌‌‌
+get_random_value_by_freq
+'''
+
 class RandomizedCollection:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
+        
+        # list of all value
+        # hashtable of {val: set of occurred indexes}
+
         self.lst = []
         self.dic = collections.defaultdict(set) # using set for random set.pop()
 
     def insert(self, val: int) -> bool:
         """
-        Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
+        insert a value, if Exist? False : True
         """
         self.dic[val].add(len(self.lst))
         self.lst.append(val)
@@ -21,6 +34,7 @@ class RandomizedCollection:
         Removes a value from the collection. Returns true if the collection contained the specified element.
         """
         if not self.dic[val]: return False
+
         # dic[val].pop() 随机remove他的一个index
         last_elem, idx = self.lst[-1], self.dic[val].pop() 
         self.lst[idx] = last_elem
@@ -30,9 +44,8 @@ class RandomizedCollection:
         return True
 
     def getRandom(self) -> int:
-        """
-        Get a random element from the collection.
-        """
+        
+        # return a random_val by frequency
         return choice(self.lst)
 
 

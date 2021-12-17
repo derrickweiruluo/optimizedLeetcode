@@ -8,34 +8,8 @@ Design 付款系统
 
 
 
-'''Q1  + 3
+'''Q1  + 6
 https://www.1point3acres.com/bbs/thread-821210-1-1.html
-
-Affirm partners with a lot of merchants today and many users will make purchases at more than one merchant.
-We'd like to analyze that cross purchasing behavior to make recommendations to new user about where else they might like to shop.
-Imagine we have a list where each entry is an individual user's history of purchases,
-We want to take that list and find, for any merchant with at least one purchase, what other merchant(s) are most frequently seen in users' shopping behavior.
-
-
-  e.g. [['Casper', 'Purple', 'Wayfair'],['Purple',‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌ 'Wayfair', 'Tradesy'],['Wayfair', 'Tradesy', 'Peloton']]
-
- [['Casper', 'Purple', 'Wayfair'],['Purple', 'Wayfair', 'Tradesy'],['Wayfair', 'Tradesy', 'Peloton']] =>
-  {
-    'Casper': ['Purple', 'Wayfair'],
-    'Purple': ['Wayfair'],
-    'Wayfair': ['Purple', 'Tradesy'],
-    'Tradesy': ['Wayfair'],
-    'Peloton': ['Wayfa‍‍‌‌‌‍‌‌‌‍‌‌‍‍‌‌ir', 'Tradesy']
-}
-'''
-
-
-
-
-
-
-
-'''Q2 +  3
 https://www.1point3acres.com/bbs/thread-810853-1-1.html
 https://www.1point3acres.com/bbs/thread-795276-1-1.html
 
@@ -44,6 +18,16 @@ a -> b,c
 b -> c
 c -> c,d
 e -> c,d
+
+e.g. [['Casper', 'Purple', 'Wayfair'],['Purple',‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌ 'Wayfair', 'Tradesy'],['Wayfair', 'Tradesy', 'Peloton']]
+
+ [['Casper', 'Purple', 'Wayfair'],['Purple', 'Wayfair', 'Tradesy'],['Wayfair', 'Tradesy', 'Peloton']] =>
+  {
+    'Casper': ['Purple', 'Wayfair'],
+    'Purple': ['Wayfair'],
+    'Wayfair': ['Purple', 'Tradesy'],
+    'Tradesy': ['Wayfair'],
+    'Peloton': ['Wayfa‍‍‌‌‌‍‌‌‌‍‌‌‍‍‌‌ir', 'Tradesy']
 '''
 import collections
 arr = [['a', 'b', 'c'],['b', 'c', 'd'], ['c', 'd', 'e']]
@@ -81,7 +65,36 @@ wo player card game "war", 给52张（value: [1,52]）卡牌分别随机分给�
 edge case：如果得分一样，手上拥有最大卡牌的胜利。
 further：player不止两个人‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌的时候怎么改代码？
 '''
-
+def getRoundResult(winning_suit, suit1, number1, suit2, number2):
+    win1, win2, draw = "Player 1 wins", "Player 2 wins", "Draw"
+    
+    if suit1 == suit2:
+        if suit1 == winning_suit:
+            if number1 > number2:
+                return win1
+            elif number2 > number1:
+                return win2
+            else:
+                return draw
+        elif suit1 != winning_suit:
+            if number1 > number2:
+                return win1
+            elif number2 > number1:
+                return win2
+            else:
+                return draw
+            
+    elif suit1 != suit2:
+        if suit1 == winning_suit:
+            return win1
+        elif suit2 == winning_suit:
+            return win2
+        elif number1 > number2:
+            return win1
+        elif number2 > number1:
+            return win2
+        else:
+            return draw
 
 
 '''Q4
@@ -135,6 +148,9 @@ Round 1 coding (新題)
 '''
 
 
+
+
+
 ''' Q6
 https://www.1point3acres.com/bbs/thread-726848-1-1.html
 
@@ -158,7 +174,10 @@ sheet.filter(['color', '=', 'green'])
 
 
 
-'''  Decision Tree
+
+'''  Q7
+
+Decision Tree
 //   signal_value                  constant
 //                        X1 < 3
 //                       ------------
