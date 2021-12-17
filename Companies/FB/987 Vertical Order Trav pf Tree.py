@@ -17,17 +17,17 @@ class Solution:  #BEST
 
     # https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/discuss/777584/Python-Simple-dfs-explained
 
-    '''
-    Complexity: 
+    '''  Complexity:  O(NlogN) and O(N)
     Time: Usual dfs traversal will take O(n) time. However we need to sort each level, before we give final result. Let us have w_1, ..., w_h nodes on each layer. then we need to do w_1 log w_1 + ... + w_h log w_h < n * log W operations, where W is width of the biggest layer. So, complexity is O(n log W), which potentially can be O(n log n), because the widest level can have upto n/2 nodes. 
     Space complexity is O(n).
     '''
 
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         
-        queue = collections.deque([(root, 0, 0)])
-        mapping = collections.defaultdict(list)  # {col: listOfNodeVal}
+        # queue = collections.deque([(root, 0, 0)])
+        mapping = collections.defaultdict(list)  # {col: (listOfNodeVal, depth)}
         self.left, self.right = math.inf, -math.inf
+        res = []
         
         # while queue:
         #     node, column, depth = queue.popleft()
@@ -38,18 +38,19 @@ class Solution:  #BEST
         #     queue.append((node.left, column - 1, depth + 1))
         #     queue.append((node.right, column + 1, depth + 1))
         
-        def dfs(node, column, depth):
-            self.left, self.right = min(self.left, column), max(self.right, column)
-            mapping[column].append((node.val, depth))
-            if node.left:  dfs(node.left,  column - 1, depth + 1)
-            if node.right: dfs(node.right, column + 1, depth + 1)
+        def dfs(node, col, depth):
+            if not node: return
+            self.left = min(self.left, col)
+            self.right = max(self.right, col)
+            mapping[col].append((depth, node.val))
+            dfs(node.left, col - 1, depth + 1)
+            dfs(node.right, col + 1, depth + 1)
         
-        dfs(root, 0, 0)
-        
-        res = []
-        for i in range(self.left, self.right + 1):
-            res += [[val for val, col in sorted(mapping[i], key = lambda x: (x[1], x[0]))]]
+        dfs(root, 0, 0)  # root at col 0, depth 0
 
+        for i in range(self.left, self.right + 1):              # by col
+            res += [[val for depth, val in sorted(mapping[i])]]   # by depth, then by value
+        
         return res
 
 
@@ -57,25 +58,28 @@ class Solution:  #BEST
 
 
 
-class Solution: #Naive
+class Solution: # BFS
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         
+        mapping = collections.defaultdict(list)
         queue = collections.deque([(root, 0, 0)])
-        mapping = collections.defaultdict(list)  # {col: listOfNodeVal}
+        left, right = math.inf, -math.inf
+        res = []
         
         while queue:
-            node, column, depth = queue.popleft()
-            if not node:
-                continue
-            mapping[column].append((node.val, depth))
-            queue.append((node.left, column - 1, depth + 1))
-            queue.append((node.right, column + 1, depth + 1))
+            for _ in range(len(queue)):
+                node, col, depth = queue.popleft()
+                mapping[col].append((depth, node.val))
+                left = min(left, col)
+                right = max(right, col)
+                if node.left:
+                    queue.append((node.left, col - 1, depth + 1))
+                if node.right:
+                    queue.append((node.right, col + 1, depth + 1))
         
-        res = [[None]] * len(mapping)
-        idx = 0
-        for col, lst in sorted(mapping.items()):
-            lst.sort(key = lambda x: (x[1], x[0]))
-            res[idx] = [val for val, depth in lst]
-            idx += 1
-
-        return res
+        # res = []
+        # for i in range(left, right + 1):
+        #     res += [[val for depth, val in sorted(mapping[i])]]
+        # return res
+        
+        return [[val for depth, val in sorted(mapping[i])] for i in range(left, right + 1)]

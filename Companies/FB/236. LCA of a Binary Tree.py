@@ -24,7 +24,11 @@ p and q will exist in the tree.
 # 只有一边有解， 就把该解传上去，如果传到顶点还是只有一个解，then LCA 
 # 因为另一个 target在 LCA的子树里面
 
-class Solution:
+
+
+# time O(N), worse case iterate the whole tree with no early return
+# space O(H), worse case O(N) when the tree is extremely skewed (recursive stack spaces)
+class Solution:  # recursive
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
             return
@@ -36,3 +40,36 @@ class Solution:
         if left and right: return root
         if left: return left
         if right: return right
+
+
+
+# Time Complexity : O(N), where N is the number of nodes in the binary tree. In the worst case we might be visiting all the nodes of the binary tree.
+
+# Space Complexity : O(N). In the worst case space utilized by the stack, the parent pointer dictionary and the ancestor set, would be NN each, since the height of a skewed binary tree could be N.
+
+class Solution:  # iterative
+    
+    #3 Recursive
+    # https://leetcode.com/submissions/detail/600409983/
+    
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # Iterative
+        stack = [root]
+        parent = {root: None}
+        
+        while p not in parent or q not in parent:
+            node = stack.pop()
+            if node.left:
+                parent[node.left] = node
+                stack.append(node.left)
+            if node.right:
+                parent[node.right] = node
+                stack.append(node.right)
+        visited = set()
+        while p:
+            visited.add(p)
+            p = parent[p]
+        while q and q not in visited:
+            q = parent[q]
+        
+        return q

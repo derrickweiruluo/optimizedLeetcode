@@ -1,5 +1,15 @@
 
 
+''' Clarification
+You may return the answer in any order. 
+The answer is guaranteed to be unique (except for the order that it is in).
+'''
+
+import heapq
+
+
+# Heap solution
+# O(NlogK) for time, O(k) space for heap
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         
@@ -11,7 +21,7 @@ class Solution:
         # NlogK Solution
         heap = []
         for x, y in points:
-            dist = -1 * (x*x + y*y)
+            dist = -1 * (x*x + y*y)  # heap is Min Heap
             if len(heap) == k:
                 heapq.heappushpop(heap, (dist, x, y))
             else:

@@ -29,15 +29,15 @@ class Solution:
         if c == ')', we decrement right.
         When right is already 0, we increment left, Return left + right in the end
         '''
-        left = right = 0
+        needLeft = needRight = 0
         
         for char in s:
             if char == '(':
-                right += 1
+                needRight += 1
             elif char == ')':
-                if right:
-                    right -= 1
+                if needRight:
+                    needRight -= 1
                 else:
-                    left += 1
-        
-        return left + right
+                    needLeft += 1
+            # print(needRight, needLeft)
+        return needLeft + needRight

@@ -45,6 +45,29 @@ b -> c
 c -> c,d
 e -> c,d
 '''
+import collections
+arr = [['a', 'b', 'c'],['b', 'c', 'd'], ['c', 'd', 'e']]
+
+graph = collections.defaultdict(collections.Counter)
+# counter = collections.Counter()
+for lst in arr:
+    counter = collections.Counter(list(set(lst)))
+    for elem in counter:
+        counter[elem] -= 1
+        graph[elem] += counter
+        counter[elem] += 1
+    print(counter)
+
+
+print(graph)
+
+for elem in graph:
+    max_value = max(graph[elem].values())
+    res = [k for k,v in graph[elem].items() if v == max_value]
+    # print(max_value)
+    print(elem, "-->", res)
+
+
 
 # Undirected graph 解法
 
@@ -65,18 +88,39 @@ further：player不止两个人‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍�
 https://www.1point3acres.com/bbs/thread-777237-1-1.html
 
 1轮coding：找出字符串的唯一缩写， 假设无冲突
-输入： 【白红月亮， 白黄月亮， 黄阳，太阳， 星星】
-输出： 【红，白黄，黄阳， 太，星】
+Example:
 
-唯一缩写：最短的的子串，并且该子串只出现在当前字符串的子串。
+Input: ["cheapair", "cheapoair", "peloton", "pelican"]
+Output:
+"cheapair": "pa"  // every other 1-2 length substring overlaps with cheapoair
+"cheapoair": "po" // "oa" would also be acceptable
+"pelican": "ca"   // "li", "ic", or "an" would also be acceptable
+"peloton": "t"    // this single letter doesn't occur in any other string
+扩展： open question， 自定义解决冲突的方法
 
-”太阳“的子串： ”太“， ”阳“， ”太阳“
-太 能唯一标识”太阳“，其他输入字符串没有 太 这个子串
-
-”黄阳“, "黄"‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌和”阳“都出现在其他字串里
-
-扩展： open question， 自定义解决冲突的方法。
 '''
+arr = ["cheapair", "cheapoair", "peloton", "pelican"]
+
+dic = {}
+for s in arr:  # O(N)
+    dic[s] = s 
+    for i in range(len(s)): # O(N * K)
+        for j in range(i + 1, len(s)): # O(N * K * K)
+            subStr = str(s[i:j])
+            flag = True
+            for s2 in arr:  # O(N^2 K^2)
+                if s2 == s:
+                    continue
+                if subStr in s2:
+                    flag = False
+                    break
+
+            if flag and len(subStr) < len(dic[s]) and subStr not in dic.values():
+                dic[s] = subStr
+
+print(dic.values())
+# dict_values(['pa', 'po', 't', 'li'])
+
 
 
 
@@ -111,44 +155,6 @@ sheet.filter(['color', '=', 'green'])
 注意， 颜色可能有duplicate.
 
 '''
-
-
-
-''' Q7
-https://leetcode.com/discuss/interview-question/447215/affirm-phone-shortest-unique-substring
-
-Given an input list of names, for each name, find the shortest substring that only appears in that name.
-
-Example:
-
-Input: ["cheapair", "cheapoair", "peloton", "pelican"]
-Output:
-"cheapair": "pa"  // every other 1-2 length substring overlaps with cheapoair
-"cheapoair": "po" // "oa" would also be acceptable
-"pelican": "ca"   // "li", "ic", or "an" would also be acceptable
-"peloton": "t"    // this single letter doesn't occur in any other string
-'''
-arr = ["cheapair", "cheapoair", "peloton", "pelican"]
-
-dic = {}
-for s in arr:
-    dic[s] = s
-    for i in range(len(s)):
-        for j in range(i + 1, len(s), 1):
-            subStr = str(s[i:j])
-            flag = True
-            for s2 in arr:
-                if s2 == s:
-                    continue
-                if subStr in s2:
-                    flag = False
-                    break
-
-            if flag and len(subStr) < len(dic[s]):
-                dic[s] = subStr
-
-print(dic)
-
 
 
 
