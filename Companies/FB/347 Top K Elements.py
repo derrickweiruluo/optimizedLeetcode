@@ -32,6 +32,7 @@ It is guaranteed that the answer is unique.
 Complexity: time complexity is O(n), because we first iterate over nums once and create buckets, then we flatten list of lists with total number of elements O(n) and finally we return last k elements. Space complexity is also O(n).
 '''
 
+
 # It is guaranteed that the answer is unique.
 # which means, no conflict if there is tie
 
@@ -47,6 +48,7 @@ class Solution:  # both O(N)
         counter = collections.Counter(nums)
         buckets = collections.defaultdict(list)
         maxFreq = 0
+        
         res = []
         
         for num, freq in counter.items():
@@ -57,9 +59,7 @@ class Solution:  # both O(N)
             if freq in buckets:
                 res += buckets[freq]
             if len(res) == k:
-                break
-        
-        return res
+                return res
 
 
 class Solution:  # bucket sort, O(N) both

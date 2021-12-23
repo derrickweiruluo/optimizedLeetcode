@@ -32,23 +32,26 @@ class Solution1:
         if not grid or not grid[0]: return -1
         m, n = len(grid), len(grid[0])
         buildingCnt = sum(val for r in grid for val in r if val == 1)
-        distSum = collections.defaultdict(list)
+        distSum = collections.defaultdict(list) # 记录每一块空地到bldg 的list of [dist]
         res = math.inf
         
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == 1:  # start from building
+                if grid[i][j] == 1:  # start BFS from building
                     if not self.bfs(grid, i, j, distSum, buildingCnt):
                         return -1
         
         for (i, j), lst in distSum.items():
+            # 如果某一块空地 可达到所有building， update res
             if len(lst) == buildingCnt:
                 res = min(res, sum(lst))
-        # print(distSum)
+
         return res if res != math.inf else -1
     
     
     def bfs(self, grid, i, j, distSum, cnt):
+        # BFS from a building, access all empty space
+        # on each visited empty space, store dict {position: dist_to_bldg}
         queue = collections.deque([(i, j, 0)])
         visited = [[False] * len(grid[0]) for _ in range(len(grid))]
         visited[i][j] = True
@@ -67,7 +70,7 @@ class Solution1:
         return res == cnt
 
 
-
+##################
 import collections, math
 class Solution:
     def shortestDistance(self, grid: List[List[int]]) -> int:

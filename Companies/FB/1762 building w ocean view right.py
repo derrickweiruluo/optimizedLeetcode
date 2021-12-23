@@ -11,7 +11,7 @@ class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
         
         n = len(heights)
-        res = collections.deque([n - 1])
+        res = collections.deque([n - 1]) # initialize with the rightMost idx
         
         for i in range(n - 1, -1, -1):
             if heights[i] > heights[res[0]]:

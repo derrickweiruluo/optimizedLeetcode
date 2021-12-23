@@ -23,24 +23,31 @@ class Solution:
     def maximumSwap(self, num: int) -> int:
         
         if num < 12: return num
+        # nums = list(map(int, str(num)))
+        nums = list(str(num))
+        n = len(nums)
         
-        s = list(str(num))
-        n = len(s)
-        for i in range(n - 1):                                # find index where s[i] < s[i+1], meaning a chance to flip
-            if s[i] < s[i + 1]: break
+        # step 1: get the first dip and the curMax
+        for i in range(n - 1): 
+            if nums[i + 1] > nums[i]:
+                break
             if i == n - 2:
-                return num                                    # if nothing find, return num
-                                     
-        max_idx, max_val = i+1, s[i + 1]                      # keep going right, find the maximum value index
+                return num
+        # step 2 store and update the maxIdx and maxVal
+        max_val, max_idx = nums[i + 1], i + 1
         for j in range(i + 1, n):
-            if max_val <= s[j]: 
-                max_idx, max_val = j, s[j]
-        left_idx = i                                        # going right from i, find most left value that is less than max_val
-        for j in range(i, -1, -1):    
-            if s[j] < max_val: 
+            if nums[j] >= max_val:
+                max_val, max_idx = nums[j], j
+                
+        # step 3 look to the left, get the leftmost smaller than maxVal
+        left_idx = i
+        for j in range(left_idx, -1, -1):
+            if nums[j] < max_val:
                 left_idx = j
-        s[max_idx], s[left_idx] = s[left_idx], s[max_idx]   # swap maximum after i and most left less than max
-        return int(''.join(s))                              # re-create the integer
+                
+        # Step 4: do the swap
+        nums[left_idx], nums[max_idx] = nums[max_idx], nums[left_idx]
+        return int(''.join(nums))                           # re-create the integer
 
 
 

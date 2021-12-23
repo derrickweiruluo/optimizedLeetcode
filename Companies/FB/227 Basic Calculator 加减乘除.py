@@ -24,30 +24,32 @@ class Solution: # O(1) space
     def calculate(self, s: str) -> int:
         
         # O(1) space 解法
-        prev, cur = 0, 0    # prev is lower level, cur is high level 
-        prevSign = 1        # prevSign is for lower level operation with prev
-        op, num = 0, 0      # op is for the high level operation with cur
-        # op in [0, 1, -1], for "+-", "x","/" respectively  
+        prev, cur = 0, 0    # prev is outer level, cur is inner level 
+        outerSign = 1       
+        innerSign = 0
+        num = 0             
+        # innerSign in [0, 1, -1], for "+-", "x","/" respectively
+        # outerSign is for lower level operation with prev
         
         for i, char in enumerate(s):
             if char.isdigit(): # 所有运算都在这一步
                 num = num * 10 + int(char)
                 if i == len(s) - 1 or not s[i + 1].isdigit():
-                    if op == 0: cur = num
-                    if op == 1: cur *= num
-                    if op == -1: cur = int(cur /num)
+                    if innerSign == 0: cur = num
+                    if innerSign == 1: cur *= num
+                    if innerSign == -1: cur = int(cur /num)
             
             elif char in "*/":
-                op = 1 if char == '*' else -1
+                innerSign = 1 if char == '*' else -1
                 num = 0
             
             elif char in "+-":  # reset back to default state (op, num, cur)
-                prev += prevSign * cur
-                prevSign = 1 if char == "+" else -1
-                cur = num = op = 0
+                prev += outerSign * cur
+                outerSign = 1 if char == "+" else -1
+                cur = num = innerSign = 0
         
         # When at the end, the result of high-level become prev or cur
-        return prev + prevSign * cur
+        return prev + outerSign * cur
 
 
 

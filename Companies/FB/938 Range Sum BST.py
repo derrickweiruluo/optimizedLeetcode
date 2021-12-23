@@ -23,20 +23,28 @@ class Solution:  # O(1) Space, via Morris Traversal
         # Morris order traversal
         res = 0
         while root:
+            
+            # step A
             if not root.left:
                 # do sth
                 if low <= root.val <= high:
                         res += root.val
                 root = root.right
+                
+            # step B
             else:
                 predecessor = root.left
+                
+                # step B1, find left-subtree's rightmost node, but not itself
                 while predecessor.right != root and predecessor.right:
                     predecessor = predecessor.right
-                    
+                
+                # step B2, build the temporary conn
                 if not predecessor.right:  # 第一次还不存在 predeessor -> node link, build it, go left
                     predecessor.right = root
                     root = root.left       # 继续走左道
-                    
+                
+                # step B3, remove the tempo conn
                 else:  # 第2次visit, break the temp link of a node's predecesor
                     # do sth
                     if low <= root.val <= high:

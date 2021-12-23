@@ -29,15 +29,6 @@ class Solution:  #BEST
         self.left, self.right = math.inf, -math.inf
         res = []
         
-        # while queue:
-        #     node, column, depth = queue.popleft()
-        #     if not node:
-        #         continue
-        #     mapping[column].append((node.val, depth))
-        #     self.left, self.right = min(self.left, column), max(self.right, column)
-        #     queue.append((node.left, column - 1, depth + 1))
-        #     queue.append((node.right, column + 1, depth + 1))
-        
         def dfs(node, col, depth):
             if not node: return
             self.left = min(self.left, col)

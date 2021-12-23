@@ -23,7 +23,9 @@ class Solution: # BEST, O(1) Space
         
         
         
-class Solution: # O(N) space solution
+class Solution: 
+    # Time: O(M+N), 
+    # Space: Extra Space (without counting output as space): O(1)
     def addStrings(self, num1: str, num2: str) -> str:
         carry = 0
         res = []

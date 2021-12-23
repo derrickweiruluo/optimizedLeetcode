@@ -16,18 +16,26 @@ A sparse vector is a vector that has mostly zero values, you should store the sp
 
 class SparseVector:  #最优解
     def __init__(self, nums: List[int]):
-        self.seen = {}
+        self.memo = {}
+        self.length = len(nums)
         for i, val in enumerate(nums):
             if val != 0:
-                self.seen[i] = val
+                self.memo[i] = val
 
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
         
+        d1, d2 = {}, {}  # only iterate the shorter vector by comparing length
+        
+        if self.length > vec.length:
+            d1, d2 = vec.memo, self.memo
+        else:
+            d1, d2 = self.memo, vec.memo
+        
         res = 0
-        for i, val in vec.seen.items():
-            if i in self.seen:
-                res += val * self.seen[i]
+        for idx in d1:
+            if d1[idx] and idx in d2:
+                res += d1[idx] * d2[idx]
         
         return res
 

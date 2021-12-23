@@ -16,8 +16,6 @@ The following are not valid abbreviations:
 "s0ubstitution" (replaces an empty substring)
 Given a string word and an abbreviation abbr, return whether the string matches the given abbreviation.
 
-A substring is a contiguous non-empty sequence of characters within a string.
-
  
 
 Example 1:
@@ -33,6 +31,14 @@ Explanation: The word "apple" cannot be abbreviated as "a2e".
 
 '''
 
+
+### Clarification:
+'''
+word consists of only lowercase English letters.
+abbr consists of lowercase English letters and digits.
+Abbr could be invalid
+'''
+
 class Solution:
     def validWordAbbreviation(self, word: str, abbr: str) -> bool:
         
@@ -44,13 +50,13 @@ class Solution:
                 i += 1
                 j += 1
             else:
-                if abbr[j] == "0":
+                if abbr[j] == '0': # case 1: no leading zero
                     return False
                 elif abbr[j].isdigit():
                     k = j
                     while k < n and abbr[k].isdigit():
                         k += 1
-                    i += int(abbr[j: k])
+                    i += int(abbr[j: k]) # index k not include since already non-digit
                     j = k
                 else:
                     return False

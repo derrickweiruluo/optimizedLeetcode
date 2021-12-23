@@ -9,49 +9,48 @@ void put(int key, int value) Update the value of the key if the key exists. Othe
 The functions get and put must each run in O(1) average time complexity.
 """
 
-# Deque and HashMap, deque.remove() is O(1)
+class Node:
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.deque = collections.deque([])
-        self.cache = {}
         self.capacity = capacity
+        self.cache = {}
+        self.head = Node(0, 0)
+        self.tail = Node(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
     def get(self, key: int) -> int:
         if key not in self.cache:
             return -1
-        self.deque.remove(key)  # O(1) deque is DLL implemented
-        self.deque.append(key)
-        return self.cache[key]
+        node = self.cache[key]
+        self.remove(node)
+        self.add(node)
+        return node.val
 
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
-            self.deque.remove(key)
-        elif len(self.cache) == self.capacity:
-            val = self.deque.popleft()
-            self.cache.pop(val)
-        self.deque.append(key)
-        self.cache[key] = value
-
-
-### BAD, orderdict should not used
-from collections import OrderedDict
-class LRUCache:
-
-    def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.key_dict = OrderedDict()
-
-    def get(self, key: int) -> int:
-        if key not in self.key_dict:
-            return -1
-        self.key_dict.move_to_end(key, last = True)
-        return self.key_dict[key]
+            self.remove(self.cache[key])
+        node = Node(key, value)
+        self.add(node)
+        self.cache[key] = node
+        if len(self.cache) > self.capacity:
+            LRUNode = self.head.next
+            self.remove(LRUNode)
+            del self.cache[LRUNode.key]
         
-
-    def put(self, key: int, value: int) -> None:
-        if key in self.key_dict:
-            self.key_dict.move_to_end(key, last = True)
-        self.key_dict[key] = value
-        if len(self.key_dict) > self.capacity:
-            self.key_dict.popitem(last = False)
+    def remove(self, node):
+        prevNode, nextNode = node.prev, node.next
+        prevNode.next, nextNode.prev = nextNode, prevNode
+    
+    def add(self, node):
+        prevNode = self.tail.prev
+        node.next = self.tail
+        node.prev = prevNode
+        prevNode.next, self.tail.prev = node, node

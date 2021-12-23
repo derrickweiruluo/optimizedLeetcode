@@ -10,7 +10,7 @@ Example 2:
 Input: s = "azxxzy"
 Output: "ay"
 '''
-class Solution: # O(1) space 
+class Solution: # Time O(N), Space O(1)
     def removeDuplicates(self, s: str) -> str:
         
         # O(1) space, one pass
@@ -21,15 +21,15 @@ class Solution: # O(1) space
             # 利用 i pointer 作为 一个stack， modified and rearrange s[:i]
             # i += 1, -= 1 as appending/popping to stack
             if i == 0:              # as if stack if empty
-                s[i] = s[j]
+                s[i] = s[j]         # advance the i pointer
                 i += 1
             else:
                 char1, char2 = s[i - 1], s[j]
                 if char1 == char2:  # find matching stack[-1] to cur
                     i -= 1          # stack.pop()
                 else:
-                    s[i] = s[j]     # append to stack
-                    i += 1          # advance the stack idx
+                    s[i] = s[j]     # advance the i pointer (append to stack)
+                    i += 1          
             
         
         return "".join(s[:i])

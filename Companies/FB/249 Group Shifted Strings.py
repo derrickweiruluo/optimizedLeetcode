@@ -25,17 +25,15 @@ class Solution:
         
         mapping = collections.defaultdict(list)
         
+        def convert(s):
+            hashKey = []
+            for i in range(len(s) - 1):
+                diff = (ord(s[i + 1]) - ord(s[i])) % 26
+                hashKey.append(str(diff))
+            return '#'.join(hashKey)
+        
         for s in strings:
-            key = self._hash(s)
-            mapping[key].append(s)
+            mapping[convert(s)].append(s)
         
-        print(mapping)
+        # print(mapping)
         return mapping.values()
-    
-    def _hash(self, s):
-        key = []
-        for i in range(len(s) - 1):
-            diff = (ord(s[i + 1]) - ord(s[i])) % 26
-            key.append(str(diff))
-        
-        return '#'.join(key)

@@ -20,6 +20,10 @@ class TreeNode:
         self.left = None
         self.right = None
 
+Complexity
+
+# Time: O(N), where N <= 100 is the nunber of nodes in the binary tree.
+# Space: O(H), where H is the height of the binary tree, it's the depth of stack memory
 
 class Solution: #DFS, O(N) and O(H)
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:

@@ -26,26 +26,27 @@ Output: false
 若map[m] + 1 < i，则返回True
 """
 
+# We iterate through the input array exactly once, 
+# keeping track of the running sum mod k of the elements in the process. 
+# If we find that a running sum value at index j has been previously seen before in some earlier index i in the array, then we know that the sub-array (i,j] contains a desired sum.
 
-'''
-0 <= nums[i] <= 10^9
-'''
+
+
 # Time complexity: O(n), 
 # space complexity: O(min(k, n)) if k != 0, else O(n)
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         
-        prefixRem = 0
-        seen = collections.defaultdict(list)
-        seen[0].append(-1)
+        curSum = 0
+        prefixRem = collections.defaultdict(list)
+        prefixRem[0].append(-1) # initialize 0:-1, in for subarray start from -1
         
-        for idx, num in enumerate(nums):
-            prefixRem = (prefixRem + num) % k
-            if prefixRem in seen:
-                if idx - seen[prefixRem][-1] > 1:
-                    # print(idx, seen[prefixRem][-1])
+        for i, num in enumerate(nums):
+            curSum = (curSum + num) % k
+            if curSum in prefixRem:
+                if i - prefixRem[curSum][-1] > 1:
                     return True
             else:
-                seen[prefixRem].append(idx)
+                prefixRem[curSum].append(i)
         
         return False

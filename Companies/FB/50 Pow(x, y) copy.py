@@ -17,7 +17,7 @@ Constraints:
 -104 <= xn <= 104
 
 '''
-class Solution: # Iterative approach,but O(1) space
+class Solution: # Iterative approach,log(N) time but O(1) space
     def myPow(self, x: float, n: int) -> float:
         if n < 0:
             x = 1 / x
@@ -26,8 +26,9 @@ class Solution: # Iterative approach,but O(1) space
         while n:
             if n % 2:
                 res *= x
-            x *= x
-            n //= 2
+            x = x * x
+            n = n // 2
+        
         return res
 
 

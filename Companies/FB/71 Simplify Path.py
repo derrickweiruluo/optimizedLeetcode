@@ -5,35 +5,35 @@ Given a string path, which is an absolute path (starting with a slash '/') to a 
 In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
 
 The canonical path should have the following format:
+'''
 
+
+
+'''Clarification:w
 The path starts with a single slash '/'.
 Any two directories are separated by a single slash '/'.
 The path does not end with a trailing '/'.
 The path only contains the directories on the path from the root directory to the target file or directory (i.e., no period '.' or double period '..')
 Return the simplified canonical path.
-'''
-
-
-
-'''
-Constraints:
-
-1 <= path.length <= 3000
 path consists of English letters, digits, period '.', slash '/' or '_'.
-path is a valid absolute Unix path.w
+path is a valid absolute Unix path
+
+format of periods such as '...' are treated as file/directory names
 '''
 
 class Solution:
     def simplifyPath(self, path: str) -> str:
         stack = []
         
-        for element in path.split("/"):
-            if stack and element == "..":
+        for directory in path.split("/"):
+            if stack and directory == "..":
                 stack.pop()
-            elif element not in ["", ".", ".."]:
-                stack.append(element)
+            else:
+                # 当不再：当前dir '.', //导致的空白char, '..'
+                if directory not in [".", "", ".."]:
+                    stack.append(directory)
         
-        return "/" + "/".join(stack)
+        return '/' + '/'.join(stack)
     
     
 # When you see this problem, you should think about stack. Why? Because we have directories and you can go deeper or come back and when you come back, you basically forgot about all element after and stack is ideal simulation of this process. Also in python you can use .split("/") function, which will split our string into parts, separated by / symbol.

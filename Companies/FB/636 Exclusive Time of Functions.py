@@ -30,18 +30,28 @@ class Solution:
         prev = 0
         
         for log in logs:
-            fcn_id, fcn_type, log_time = log.split(':')
-            fcn_id, log_time = int(fcn_id), int(log_time)
+            log_id, fcn_type, log_time = log.split(':')
+            log_id, log_time = int(log_id), int(log_time)
             
             if fcn_type == 'start':
                 if stack:
-                    time_used = log_time - prev
-                    res[stack[-1]] += time_used
-                stack.append(fcn_id)
-                prev = log_time
+                    res[stack[-1]] += log_time - prev
+                    prev = log_time
+                    stack.append(log_id)
+                else:
+                    stack.append(log_id)
+                    prev = log_time
             else:
                 time_used = log_time - prev + 1
                 res[stack.pop()] += time_used
                 prev = log_time + 1
         
         return res
+
+    # 0: s: 0. -> [0], prev = 0
+    # 1: s: 2: -> [0, 1], res[0] += [0<>2), prev = 2
+    # 1: e: 5: -> [0], res[1] += [2<>5], prev = 5 + 1, 5 advanced because 5 is used
+    # 0: e: 6: -> [], res[0] += [6<>6], prev = 6 + 1
+    
+    # res[0] = [0<>2) + [6<>6] = 2 + 1
+    # res[1] = [2<>5] = 4

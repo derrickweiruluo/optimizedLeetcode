@@ -15,11 +15,12 @@ class Solution:
         n = len(nums)
         p1 = n -1
         
-        # 第一步, p1(left) 从右走到第一个 降落点(mono-increasing)
+        # 第一步, p1(left) 从右走到第一个降落点(mono-increasing)
+        #  的悬崖边
         while p1 and nums[p1 -1] >= nums[p1]:
             p1 -= 1
         
-        # 第二步, p2(right) 从右走到第一个 比当前p1 dip要大的
+        # 第二步, p2(right) 从右走到第一个 p1 - 1 (第一个dip)要大的
         p2 = n -1
         while p1 and p2 > p1 and nums[p2] <= nums[p1 - 1]:
             p2 -= 1
@@ -36,3 +37,18 @@ class Solution:
             p1 += 1
             p3 -= 1
         
+    # sample test case:
+    # i:0,1,2,3,4,5,6,7
+    # --------------------
+    #  [1,2,3,4,6,5,1,0]
+    # 右边数起第一个dip
+    # p1 (从右边扫悬崖边), idx = 4, num = 6
+    # p2 (从右边扫比第一个dip大): idx = 5, num = 5
+    # p1 - 1 <--> p2
+    #  [1,2,3,5,6,4,1,0]
+    # 把 p1 到 p3 的 互换顺序
+    # 因为 p1 是第一个悬崖点，意味着 p1开始的有半段 保证 non-increasing
+
+    # [1,2,3,5] + [6,4,1,0]
+    
+    # [1,2,3,5] = [0,1,4,6]
