@@ -12,6 +12,29 @@ Follow up:
 
 Could you implement next() and hasNext() to run in average O(1) time and use O(h) memory, where h is the height of the tree?
 '''
+
+class BSTIterator: # BEST1
+
+    def __init__(self, root: Optional[TreeNode]):
+        self.stack = []
+        self.cur = root
+    
+    def next(self) -> int:
+        while self.cur:
+            self.stack.append(self.cur)
+            self.cur = self.cur.left
+        self.cur = self.stack.pop()
+        curVal = self.cur.val
+        self.cur = self.cur.right
+        return curVal
+    
+    def hasNext(self) -> bool:
+        # at leaf node, stack is not null
+        # when backtrack to root(sub-root), stack is empty but cur is not
+        return self.stack or self.cur
+
+
+
 class BSTIterator:  # BEST
 
     def __init__(self, root: Optional[TreeNode]):

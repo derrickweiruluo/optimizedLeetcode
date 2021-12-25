@@ -25,23 +25,23 @@ Space complexity: O(1).
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
         
+        
         left, right = max(weights), sum(weights)
         
-        # return how many days 
-        def timeTaken(weights, mid):
+        def valid(load, weights):
             res = 1
             cur = 0
             for w in weights:
-                cur += w
-                if cur > mid:
+                if cur + w > load:
+                    cur = 0
                     res += 1
-                    cur = w
-            return res
+                cur += w
+            return res <= days
         
         
         while left < right:
             mid = (left + right) // 2
-            if timeTaken(weights, mid) > days:
+            if not valid(mid, weights):
                 left = mid + 1
             else:
                 right = mid

@@ -24,19 +24,23 @@ All characters in words[i] and order are English lowercase letters.
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
         
-        self.charOrder = {}
+        charOrder = {}
         for idx, char in enumerate(order):
-            self.charOrder[char] = idx
-            
+            charOrder[char] = idx
+        
         for i in range(1, len(words)):
-            if self.isGreater(words[i - 1], words[i]):
+            if self.isGreater(words[i - 1], words[i], charOrder):
                 return False
+        
         return True
     
-    def isGreater(self, word1, word2):
+    def isGreater(self, word1, word2, charOrder):
         m, n = len(word1), len(word2)
-        for i in range(min(n, m)):
-            if word1[i] != word2[i]: # check char by char if not equal
-                return self.charOrder[word1[i]] > self.charOrder[word2[i]]
+        for i in range(min(m, n)):
+            if word1[i] != word2[i]:
+                # the first different character will return the result
+                return charOrder[word1[i]] > charOrder[word2[i]]
         
-        return n < m
+        return n < m 
+        # corner case of abcd, abc. abcd is greater than abc, 
+        # thus final length check

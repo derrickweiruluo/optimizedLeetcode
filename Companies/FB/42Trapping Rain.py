@@ -7,23 +7,23 @@ Explanation: The above elevation map (black section) is represented by array [0,
 class Solution:
     def trap(self, height: List[int]) -> int:
         
-        n = len(height)
-        if n < 3:
-            return 0
+        if len(height) < 3: return 0
         
-        left_bound, right_bound = height[0], height[-1]
         volume = 0
+        leftBound, rightBound = height[0], height[-1]
+        left, right = 0, len(height) - 1
         
-        left, right = 0, n - 1
         while left < right:
-            left_bound = max(left_bound, height[left])
-            right_bound = max(right_bound, height[right])
+            leftBound = max(leftBound, height[left])
+            rightBound = max(rightBound, height[right])
             
-            if left_bound < right_bound:
-                volume += left_bound  - height[left]
+            if leftBound < rightBound:
+                # print(leftBound - height[left]) # will have 0 sometime
+                volume += leftBound - height[left]
                 left += 1
             else:
-                volume += right_bound - height[right]
+                # print(rightBound - height[right]) # will have 0 sometime
+                volume += rightBound - height[right]
                 right -= 1
         
         return volume

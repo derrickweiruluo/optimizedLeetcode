@@ -29,8 +29,8 @@ class Solution:
                 res += [char * counter.pop(char)]
                 # res.append(char * counter.pop(char))
         
-        for char, freq in counter.items():  # leftover char not in "order", 
-            res += [char * freq]            # append by count in any order
-            # res.append(char * freq)
+        for char in s:
+            if char not in order:
+                res += [char]
             
         return ''.join(res)

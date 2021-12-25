@@ -27,34 +27,43 @@ Space O(N^2), additional space used in DFS and mapping of {islandId: area}
 class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
         
-        width = len(grid)
+        m, n = len(grid), len(grid[0])
         
-        def validNext(x, y):           # yield 相邻的坐标
-            for i, j in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                if 0 <= x + i < width and 0 <= y + j < width:
-                    yield x + i, y + j
+        def validCord(x, y): # yield a list of valid nearby indexes
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                if 0 <= x + dx < m and 0 <= y + dy < n:
+                    yield x + dx, y + dy
         
-        def dfs(x, y, islandID):       # 计算相邻大陆的面积
-            res = 0
+        def dfs(x, y, islandID):
+            res = 1
             grid[x][y] = islandID
-            for i, j in validNext(x, y):
-                if grid[i][j] == 1:
-                    res += dfs(i, j, islandID)
-            return res + 1
-            
-        islandID = 2                    # 题目是0, 1
-        mapping = {0 : 0}               # hashmap of 大陆ID: 面积
-        for x in range(width):
-            for y in range(width):
-                if grid[x][y] == 1:
-                    mapping[islandID] = dfs(x, y, islandID)
-                    islandID += 1
+            for xi ,yi in validCord(x, y):
+                if grid[xi][yi] == 1:
+                    res += dfs(xi, yi, islandID)
+            return res
         
-        maxArea = max(mapping.values())   # corner case，当当前已经有最大岛屿(没有case是flip one make bigger)
-        for x in range(width):            # 找非陆地，测试sum of (相邻面积 + 1)
-            for y in range(width):
-                if grid[x][y] == 0:
-                    possibleIslandIDs = set(grid[i][j] for i, j in validNext(x, y))
-                    maxArea = max(maxArea, sum(mapping[islandID] for islandID in possibleIslandIDs) + 1)
-                    
-        return maxArea
+        # step 1, mark all island from ID 2,3,4,etc
+        islandID = 2        # input is 0, 1, change all 1 to 2,3,4,5,etc
+        mapping = {0: 0}    # give all 0-index water with zero area
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    mapping[islandID] = dfs(i, j, islandID)
+                    islandID += 1
+
+
+        # step 2: loop all water, check if possible flip and update res
+
+        # corner case，当当前已经有最大岛屿(没有case是flip one make bigger)
+        res = max(mapping.values())
+
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 0:
+                    # use set below to prevent duplicate island (same ID)
+                    nearbyIslandIDs = set(grid[x][y] for x, y in validCord(i, j))
+                    res = max(res, 1 + sum(mapping[k] for k in nearbyIslandIDs))
+        
+        
+        return res
