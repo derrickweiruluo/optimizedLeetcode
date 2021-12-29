@@ -20,12 +20,14 @@ Constraints:
 class Solution: # Iterative approach,log(N) time but O(1) space
     def myPow(self, x: float, n: int) -> float:
         if n < 0:
-            x = 1 / x
+            x = 1/x
             n = -n
+        
         res = 1
         while n:
-            if n % 2:
-                res *= x
+            # print(n, x)
+            if n % 2 == 1:
+                res = res * x
             x = x * x
             n = n // 2
         

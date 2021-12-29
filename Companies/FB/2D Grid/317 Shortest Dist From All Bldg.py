@@ -21,9 +21,11 @@ class Solution1:
     # https://leetcode.com/problems/shortest-distance-from-all-buildings/discuss/76877/Python-solution-72ms-beats-100-BFS-with-pruning
     # BEST, Eealry return when notice a building can not each all other buildings
     # Both solutions are: O(B * NM)
+    # Time complexity: O(number of 1)O(number of 0) ~ O(m^2n^2)
     # Space O(NM), distSum, visited
 
-    '''发哥的follow up
+    ''' 发哥的follow up
+    https://leetcode.com/problems/shortest-distance-from-all-buildings/discuss/76891/Java-solution-with-explanation-and-time-complexity-analysis
     Does anyone want to ask Why don't we start from '0'? This is also what I am thinking. At the first glance, the time complexity of starting from buildings O(B*M*N) (B: # of buildings) and starting from empty places O(E*M*N) (E: # of empty places) might be the same. 
     
     If in an interview, I think we can ask for clarification. 

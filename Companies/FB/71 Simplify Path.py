@@ -21,6 +21,14 @@ path is a valid absolute Unix path
 format of periods such as '...' are treated as file/directory names
 '''
 
+
+
+path = '/..'
+path = '//'
+path = '/...'
+path = '/./../...////'
+
+# 多个/// 被视为一个，三个点或以上是valid path
 class Solution:
     def simplifyPath(self, path: str) -> str:
         stack = []

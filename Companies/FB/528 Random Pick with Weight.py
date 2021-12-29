@@ -58,6 +58,9 @@ class Solution:
                 left = mid + 1
             else:
                 right = mid - 1
+        
+        # have to return left since we may not converge precisely at
+        # the random weight
         return left
 
 

@@ -19,7 +19,7 @@ Input: strings = ["a"]
 Output: [["a"]]
 
 '''
-
+import collections
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
         
@@ -28,12 +28,13 @@ class Solution:
         def convert(s):
             hashKey = []
             for i in range(len(s) - 1):
-                diff = (ord(s[i + 1]) - ord(s[i])) % 26
+                # clarification of warp around 
+                # % 26 make 'AZ' same as 'BA' -> warp around
+                diff = (ord(s[i + 1]) - ord(s[i])) % 26  
                 hashKey.append(str(diff))
             return '#'.join(hashKey)
         
         for s in strings:
             mapping[convert(s)].append(s)
         
-        # print(mapping)
-        return mapping.values()
+        return mapping.values()  #return a list of string array

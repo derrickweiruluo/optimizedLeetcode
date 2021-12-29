@@ -27,15 +27,16 @@ class Solution:
                 left += 1
                 right -= 1
             else:
-                return self.isPalindrome(s, left, right - 1) or self.isPalindrome(s, left + 1, right)
+                return self.isValidPalidrome(s, left, right - 1) or self.isValidPalidrome(s, left + 1, right)
         
         return True
-    
-    def isPalindrome(self, s, left, right):
-        while left <= right:
-            if s[left] == s[right]:
-                left += 1
-                right -= 1
+            
+    def isValidPalidrome(self, s, i, j):
+        while i <= j:
+            if s[i] == s[j]:
+                i += 1
+                j -= 1
             else:
                 return False
+        
         return True

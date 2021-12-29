@@ -25,6 +25,9 @@ Complexity
 # Time: O(N), where N <= 100 is the nunber of nodes in the binary tree.
 # Space: O(H), where H is the height of the binary tree, it's the depth of stack memory
 
+# Space complexity O(logn) for stack frame during recursion.
+# Time complexity is O(n) because it still visits all nodes.
+
 class Solution: #DFS, O(N) and O(H)
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         
@@ -46,7 +49,7 @@ class Solution: #DFS, O(N) and O(H)
 '''
 Time complexity: O(N) since one has to visit each node.
 
-Space complexity: O(D) to keep the queues, where DD is a tree diameter. Let's use the last level to estimate the queue size. This level could contain up to N/2N/2 tree nodes in the case of complete binary tree.
+Space complexity: O(D) to keep the queues, where D is a tree diameter. Let's use the last level to estimate the queue size. This level could contain up to N/2N/2 tree nodes in the case of complete binary tree.
 
 '''
 
@@ -63,4 +66,4 @@ class Solution:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-        return 
+        return res

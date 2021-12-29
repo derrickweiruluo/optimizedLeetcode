@@ -10,16 +10,18 @@ num1 and num2 don't have any leading zeros except for the zero itself.
 class Solution: # BEST, O(1) Space
     def addStrings(self, num1: str, num2: str) -> str:
         
-        def convertInt(x):
-            return ord(x) - ord("0")
+        def convert(char):
+            return ord(char) - ord('0')
         
-        left, right = 0, 0
+        x1 = x2 = 0
         for num in num1:
-            left = left * 10 + convertInt(num)
+            x1 = x1 * 10 + convert(num)
         for num in num2:
-            right = right * 10 + convertInt(num)
+            x2 = x2 * 10 + convert(num)
         
-        return str(left + right)
+        
+        # clarification: whether I can convert int to str 
+        return str(x1 + x2)
         
         
         

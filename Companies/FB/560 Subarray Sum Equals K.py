@@ -3,7 +3,7 @@ Given an array of integers nums and an integer k, return the total number of con
 
 '''
 
-class Solution:  # 
+class Solution:  # SAME
     def subarraySum(self, nums: List[int], k: int) -> int:
         
         res = 0
@@ -18,7 +18,21 @@ class Solution:  #
         
         return res
 
-
+class Solution: # SAME
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        
+        memo = collections.defaultdict(int)
+        memo[0] = 1
+        curSum = 0
+        res = 0
+        
+        for i, num in enumerate(nums):
+            curSum += num
+            if curSum - k in memo:
+                res += memo[curSum - k]
+            memo[curSum] += 1
+        
+        return res
 
 ### TLE
 class Solution2: # O(n^2), O(1)

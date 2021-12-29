@@ -37,21 +37,25 @@ Secondly, connect them with the right circular doubly linked list. Here we go!
 
 class Solution: # O(N) time and O(H) space for recursion
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        if not root: return None
+        if not root: 
+            return None
+        
+        # divide and conquer approach
         leftTree = self.treeToDoublyList(root.left)
         rightTree = self.treeToDoublyList(root.right)
         
         root.left = root
         root.right = root
-        return self.connect(self.connect(leftTree, root), rightTree)
+        # 先把 DDL_left 连接 root，再连接 DDL_right
+        return self.connect(self.connect(leftTree, root), rightTree) # constant time
     
     def connect(self, node1, node2):
         # node1 is ALWAYS the min node of a sorted DDL
         
         if not node1: return node2
         if not node2: return node1
-        tail1 = node1.left   # tail means maxNode in DDL1, derive from node1.left
-        tail2 = node2.left   # tail means maxNode in DDL2, derive from node2.left
+        tail1 = node1.left   # tail1 means maxNode in DDL1, derive from node1.left
+        tail2 = node2.left   # tail2 means maxNode in DDL2, derive from node2.left
         
         # connect 2 DDL by building 4 new connections
         tail1.right = node2

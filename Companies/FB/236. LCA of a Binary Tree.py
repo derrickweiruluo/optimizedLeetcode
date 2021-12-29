@@ -17,14 +17,37 @@ All Node.val are unique.
 p != q
 p and q will exist in the tree.
 """
+
+class Solution: # faster time with parent pointers w/ early return
+    
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        parent = {root: None}
+        
+        def dfs(parentNode, node):
+            if not node:
+                return None
+            parent[node] = parentNode
+            dfs(node, node.left)
+            dfs(node, node.right)
+        
+        dfs(None, root)
+        ancestors = set()
+        while p:
+            ancestors.add(p)
+            p = parent[p]
+        while q not in ancestors:
+            q = parent[q]
+        return q
+
+
+
+
 # ##思路：
 # DFS, leave's info will pass recursively back
 # to the upper level
 # 两种情况, root 左右都有解，该root就是LCA
 # 只有一边有解， 就把该解传上去，如果传到顶点还是只有一个解，then LCA 
 # 因为另一个 target在 LCA的子树里面
-
-
 
 # time O(N), worse case iterate the whole tree with no early return
 # space O(H), worse case O(N) when the tree is extremely skewed (recursive stack spaces)

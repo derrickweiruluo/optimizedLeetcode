@@ -14,22 +14,16 @@ Output: false
 
 '''
 
-"""
-题目大意：
-求数组nums中是否存在k的整数倍，并且长度至少为2的连续子段和。
-注意：
-数组长度不超过10,000。
-可以假设所有数字的和范围在32位带符号整数之内。
-解题思路：
-遍历数组nums，求前i项和total；对k取模，记模值为m
-利用map[m]记录模为m的前i项和的最小下标，初始令map[0] = -1
-若map[m] + 1 < i，则返回True
-"""
 
 # We iterate through the input array exactly once, 
 # keeping track of the running sum mod k of the elements in the process. 
 # If we find that a running sum value at index j has been previously seen before in some earlier index i in the array, then we know that the sub-array (i,j] contains a desired sum.
 
+''' Clarifications:
+1.  is ZERO a muiltple of k
+2.  len of 2 requirement
+#   conrner cases: [0,0], for multiplier is zero
+'''
 
 
 # Time complexity: O(n), 
@@ -48,5 +42,30 @@ class Solution:
                     return True
             else:
                 prefixRem[curSum].append(i)
+        
+        return False
+
+
+
+class Solution: # 一种 O(K) space 的解法
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        
+        prefixRem = {}
+        # prefixRem = collections.defaultdict(list)
+        prefixRem[0] = -1
+        curRem = 0
+        
+        for i, num in enumerate(nums):
+            curRem = (curRem + num) % k
+            if curRem in prefixRem: 
+                if i - prefixRem[curRem] > 1:
+                    return True
+                
+                # 额外的check for adjecent zeros
+                # 0 is always a multiple of k (给予的条件)
+                if curRem == 0 and i != 0: 
+                    return True
+            else:
+                prefixRem[curRem] = i
         
         return False
