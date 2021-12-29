@@ -36,6 +36,10 @@ class Solution:
         return dummy.next
 
 
+
+
+
+#-----------------
 # using dictionary
 class Solution1:
     def copyRandomList(self, head):

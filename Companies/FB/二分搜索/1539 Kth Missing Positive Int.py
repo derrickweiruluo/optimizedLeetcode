@@ -21,4 +21,4 @@ class Solution:
             else:
                 right = mid
         print(left, k)
-        return left + k
+        return left + ks

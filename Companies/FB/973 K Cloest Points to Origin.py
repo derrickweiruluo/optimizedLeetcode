@@ -18,16 +18,16 @@ class Solution:
         https://leetcode.com/problems/k-closest-points-to-origin/discuss/294389/Easy-to-read-Python-min-heap-solution-(-beat-99-python-solutions-)
         '''
         
-        # NlogK Solution
+        # O(NlogK) Time and O(K) Space Solution
         heap = []
         for x, y in points:
-            dist = -1 * (x*x + y*y)  # heap is Min Heap
+            heapVal = -1 * (x ** 2 + y ** 2)
             if len(heap) == k:
-                heapq.heappushpop(heap, (dist, x, y))
+                heapq.heappushpop(heap, (heapVal, x, y))
             else:
-                heapq.heappush(heap, (dist, x, y))
+                heapq.heappush(heap, (heapVal, x, y))
         
-        return [[x, y] for (dist, x, y) in heap]
+        return [[x, y] for val, x, y in heap]
         
         
         
