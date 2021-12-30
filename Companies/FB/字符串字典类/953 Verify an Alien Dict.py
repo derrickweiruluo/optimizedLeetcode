@@ -14,11 +14,10 @@ Explanation: As 'h' comes before 'l' in this language, then the sequence is sort
 '''
 
 
-'''
-All characters in words[i] and order are English lowercase letters.
-"apple", "appl" is False
-'''
 
+# Clarifications:
+# All characters in words[i] and order are English lowercase letters.
+# "apple", "appl" is False
 
 
 class Solution:

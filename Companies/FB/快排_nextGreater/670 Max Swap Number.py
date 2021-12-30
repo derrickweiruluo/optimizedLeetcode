@@ -7,13 +7,12 @@ Return the maximum valued number you can get.
 Constriants: can be no swap
 '''
 
-# Python 3 | Greedy, Math | Explanations
 # https://leetcode.com/problems/maximum-swap/discuss/846837/Python-3-or-Greedy-Math-or-Explanations
 '''Explanation
 Basic idea:
 Find a index i, where there is a increasing order
 On the right side of i, find the max value (max_val) and its index (max_idx)
-On the left side of i, find the most left value and its index (left_idx), which is less than max_val
+On the right side of i, find the most left value and its index (left_idx), which is less than max_val
 Swap above left_idx and max_idx if necessary
 Please check the comments for more detail
 Implementation
@@ -48,6 +47,14 @@ class Solution:
         # Step 4: do the swap
         nums[left_idx], nums[max_idx] = nums[max_idx], nums[left_idx]
         return int(''.join(nums))                           # re-create the integer
+
+
+
+
+# Examples:
+# 127369 -> [12], [7369] --> [92] + [7361]
+# 27369  -> [2], [7369] --> [9] + [7362]
+# 2736   -> [2], [736] --> [7] + [236]
 
 
 

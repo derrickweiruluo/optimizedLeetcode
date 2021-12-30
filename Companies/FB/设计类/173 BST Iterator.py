@@ -33,6 +33,59 @@ class BSTIterator: # BEST1
         # when backtrack to root(sub-root), stack is empty but cur is not
         return self.stack or self.cur
 
+#*-------------- MOrris Order Traversal
+
+class BSTIterator:
+
+    def __init__(self, root: Optional[TreeNode]):
+        self.stack = []
+        self.cur = root
+    
+    def next(self) -> int:
+        res = 0
+        while self.cur:
+            
+            # step A
+            if not self.cur.left:
+                # do sth
+                res = self.cur.val
+                self.cur = self.cur.right
+                break
+                
+            # step B
+            else:
+                predecessor = self.cur.left
+                
+                # step B1, find left-subtree's rightmost node, but not itself
+                while predecessor.right != self.cur and predecessor.right:
+                    predecessor = predecessor.right
+                
+                # step B2, build the temporary conn
+                if not predecessor.right:  # 第一次还不存在 predeessor -> node link, build it, go left
+                    predecessor.right = self.cur
+                    self.cur = self.cur.left       # 继续走左道
+                
+                # step B3, remove the tempo conn
+                else:  # 第2次visit, break the temp link of a node's predecesor
+                    # do sth
+                    res = self.cur.val
+                    predecessor.right = None
+                    self.cur = self.cur.right       # 开始探索柚子树
+                    break
+        
+        return res
+    
+    def hasNext(self) -> bool:
+        # at leaf node, stack is not null
+        # when backtrack to root(sub-root), stack is empty but cur is not
+        return self.cur
+
+
+#*--------------
+
+
+
+
 
 
 class BSTIterator:  # BEST

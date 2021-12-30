@@ -31,12 +31,14 @@ class Solution: # faster time with parent pointers w/ early return
             dfs(node, node.right)
         
         dfs(None, root)
-        ancestors = set()
+        visited = set()
         while p:
-            ancestors.add(p)
+            visited.add(p)
             p = parent[p]
-        while q not in ancestors:
+        while q not in visited:
+            visited.add(q)
             q = parent[q]
+        
         return q
 
 

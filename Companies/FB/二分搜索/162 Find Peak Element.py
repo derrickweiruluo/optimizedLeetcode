@@ -14,16 +14,19 @@ Explanation: Your function can return either index number 1 where the peak eleme
 '''
 
 
-# Clarifications and corner cases:
-'''
-for len of n, 0 to n - 1
-nums[-1] = nums[n] = -math.inf
-this -math.inf is the reason why we can use BS, becasue half of the answer already given
+# Clarifications:
 
-corner cases:
-[1,2,3], res = idx_2
-[3,2,1], res = idx_0
-'''
+# idx from 0 to n - 1
+# for len of n, 0 to n - 1
+# nums[-1] = nums[n] = -math.inf
+
+# this -math.inf on both ends is the reason why we can use BS, 
+# becasue half of the answer already given
+
+# corner cases:
+# [1,2,3], res = idx_2
+# [3,2,1], res = idx_0
+
 
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:

@@ -6,15 +6,6 @@ Output: [1,2,3,4,5]
 
 '''
 
-
-# Definition for a Node.
-class Node:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
 '''
 This is not O(1) space. It is O(tree depth), so O(n) worst case and O(log(n)) average case.
 

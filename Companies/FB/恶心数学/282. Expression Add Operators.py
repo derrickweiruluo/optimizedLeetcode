@@ -18,12 +18,15 @@ Output: ["2*3+2","2+3*2"]
 Explanation: Both "2*3+2" and "2+3*2" evaluate to 8.ß
 '''
 
+# https://github.com/wisdompeak/LeetCode/tree/master/DFS/282.Expression-Add-Operators
+
 # Clarifications:
 # 1.    string num that contains only digits and an integer target
 # 2.    只有加减乘空格，没有除号空格表示合并: -> 2 3 == 23
 
 
 # time:  O(N * 4 ^ (N - 1))
+# 4 choices (+, -, * and no operator)
 # In the worst case, we can have O(4^N)valid expressions.
 # space: O(N^2) --> O(N), if we 边backtrack边计算
 

@@ -57,7 +57,8 @@ class Solution: #  Interview::  Time O(N), Space O(1)
         return "".join(s[:i])
 
 
-''' Follow-up: if remove deplicates within a len of k
+''' 
+Follow-up: if remove deplicates within a len of k
 '''
 class Solution:  # FOLLOW-UP ONLY
     def removeDuplicates(self, s: str) -> str:
