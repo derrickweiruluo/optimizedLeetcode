@@ -10,18 +10,28 @@ Input: root = [1,null,2,null,3,null,4,null,null]
 Output: [2,1,3,null,null,null,4]
 Explanation: This is not the only correct answer, [3,1,4,null,2] is also correct.
 
-Example 2:
-
-Input: root = [2,1,3]
-Output: [2,1,3]
 '''
 
-# Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+# DSW Algo:
+# https://csactor.blogspot.com/2018/08/dsw-day-stout-warren-algorithm-dsw.html
+# https://leetcode.com/problems/balance-a-binary-search-tree/discuss/541785/C%2B%2BJava-with-picture-DSW-O(n)orO(1)
+
+# Clarifications:
+# 一次性求解，不是动态
+
+# Algorithm
+
+# 1.    Convert the initial tree into a vine. By doing right rotations, we flatten a tree into a 'linked list', where the head is the former leftmost node, and tail - former rightmost node.
+# 2.    As you convert the tree into a vine, count the total number of nodes in cnt.
+# 3.    Calculate the height of the closest perfectly balanced tree: h = log2(cnt + 1).
+# 4.    Calculate the number of nodes in the closest perfectly balanced tree: m = pow(2, h) - 1.
+# 5.    Left-rotate cnt - m nodes to cover up the excess of nodes.
+# Note: you rotate the root node, then you rotate the right child of the new root node, and so on. In other words, left rotations are performed on every second node of the vine. See pictures below for the illustration.
+
+# 6.    Left-rotate m / 2 nodes.
+# 7.    Divide m by two and repeat the step above while m / 2 is greater than zero.
+
+
 
 class Solution:  # O(1) space
     def balanceBST(self, root: TreeNode) -> TreeNode:
@@ -64,16 +74,18 @@ class Solution:  # O(1) space
             node = node.right
 
 
+# recursion, Time O(N), Space O(logN) for recursion build Tree
+# Total Space O(N), 因为扫两遍了
 
-class Solution:
+class Solution:  
     def balanceBST(self, root: TreeNode) -> TreeNode:
         
-        def inorderTraverse(node):
+        def inorder(node):
             if not node:
                 return
-            inorderTraverse(node.left)
+            inorder(node.left)
             sortedNodes.append(node)
-            inorderTraverse(node.right)
+            inorder(node.right)
         
         def buildBST(left, right):
             if left > right:
@@ -86,5 +98,5 @@ class Solution:
         
         
         sortedNodes = []
-        inorderTraverse(root)
+        inorder(root)
         return buildBST(0, len(sortedNodes) - 1)
