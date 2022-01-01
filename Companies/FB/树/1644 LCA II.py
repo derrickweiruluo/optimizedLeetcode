@@ -1,10 +1,9 @@
-'''
-p, q 可能不在树里面
+# p, q 可能不在树里面 --> Null
 
+'''
 Given the root of a binary tree, return the lowest common ancestor (LCA) of two given nodes, p and q. 
 If either node p or q does not exist in the tree, return null. 
 All values of the nodes in the tree are unique.
-
 '''
 
 # Definition for a binary tree node.

@@ -32,7 +32,7 @@ class Solution:
             left, right = 0, len(nums) - 1
             while left < right:
                 mid = (left + right) // 2
-                if nums[mid] < target:
+                if nums[mid] < target:         # 左bound,所以小于不符合
                     left = mid + 1
                 else:
                     right = mid
@@ -41,12 +41,17 @@ class Solution:
         def binarySearchRight(nums, target):
             left, right = 0, len(nums) - 1
             while left < right:
-                mid = (left + right) // 2 + 1  # 这个是upper bound，所以必须 +1
-                if nums[mid] > target:
+                mid = (left + right) // 2 + 1  #右bound，所以必须 +1
+                if nums[mid] > target:         #大于就肯定不符合
                     right = mid - 1
                 else:
                     left = mid
             return left if nums[left] == target else -1
         
+        # Method 1
         left, right = binarySearchLeft(nums, target), binarySearchRight(nums, target)
+        
+        # Method 2, rightbound = leftBound of (target + 1) - 1
+        
+        
         return [left, right]
