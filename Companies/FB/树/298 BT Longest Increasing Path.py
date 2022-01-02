@@ -33,3 +33,23 @@ class Solution:
             res = max(res, cnt)
         
         return res
+
+
+
+class Solution:
+    def longestConsecutive(self, root: Optional[TreeNode]) -> int:
+        
+        if not root: return 0
+        
+        def dfs(node, cnt, prev):
+            if not node:
+                return cnt
+            if node.val - prev == 1:
+                cnt += 1
+            else:
+                cnt = 1
+            left = dfs(node.left, cnt, node.val)
+            right = dfs(node.right, cnt, node.val)
+            return max(cnt, left, right)
+        
+        return dfs(root, 1, root.val)
