@@ -46,13 +46,9 @@ class Solution: #DFS, O(N) and O(H)
 
 
 
-'''
-Time complexity: O(N) since one has to visit each node.
 
-Space complexity: O(D) to keep the queues, where D is a tree diameter. Let's use the last level to estimate the queue size. This level could contain up to N/2N/2 tree nodes in the case of complete binary tree.
-
-'''
-
+# Time complexity: O(N) since one has to visit each node.
+# Space complexity: O(N/2), which is the max width at the leave level
 class Solution:
     def rightSideView(self, root: TreeNode):
         if not root:

@@ -52,7 +52,7 @@ class Solution: # faster time with parent pointers w/ early return
 # 因为另一个 target在 LCA的子树里面
 
 # time O(N), worse case iterate the whole tree with no early return
-# space O(H), worse case O(N) when the tree is extremely skewed (recursive stack spaces)
+# space O(H) to O(N)
 class Solution:  # recursive
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
@@ -68,9 +68,8 @@ class Solution:  # recursive
 
 
 
-# Time Complexity : O(N), where N is the number of nodes in the binary tree. In the worst case we might be visiting all the nodes of the binary tree.
-
-# Space Complexity : O(N). In the worst case space utilized by the stack, the parent pointer dictionary and the ancestor set, would be NN each, since the height of a skewed binary tree could be N.
+# time O(N), worse case iterate the whole tree with no early return
+# space O(H) to O(N)
 
 class Solution:  # iterative
     

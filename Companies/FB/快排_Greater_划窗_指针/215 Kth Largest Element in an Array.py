@@ -27,7 +27,7 @@ class Solution:  # 最优解，quickselect with random pivot
         # https://leetcode.com/submissions/detail/592820805/
         # this one has random partition
         
-        pos = self.partition(nums, k)
+        pos = self.partition(nums)
         
         if pos + 1 == k:
             return nums[pos]
@@ -36,11 +36,11 @@ class Solution:  # 最优解，quickselect with random pivot
         else:
             return self.findKthLargest(nums[:pos], k)
         
-    def partition(self, nums, k):
+    def partition(self, nums):
         # i, pivot = 0, nums[-1]
-        i, pivot = 0, random.randint(0, len(nums) - 1)
-        pivot_val = nums[pivot]
-        nums[pivot], nums[-1] = nums[-1], nums[pivot]
+        i, p = 0, random.randint(0, len(nums) - 1)
+        pivot_val = nums[p]
+        nums[p], nums[-1] = nums[-1], nums[p]
         for j in range(len(nums) - 1):
             if nums[j] > pivot_val:
                 nums[j], nums[i] = nums[i], nums[j]
@@ -48,6 +48,8 @@ class Solution:  # 最优解，quickselect with random pivot
         nums[-1], nums[i] = nums[i], nums[-1]
         return i
 
+
+# Sample test cases
 '''
 [6,5,5,4,3,3,2] --> K = 7th largest
 if K > required k:

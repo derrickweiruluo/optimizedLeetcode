@@ -31,7 +31,7 @@ class Solution: # O(N) time and O(H) space for recursion
         if not root: 
             return None
         
-        # divide and conquer approach
+        # Step 1 divide and conquer until one node left
         leftTree = self.treeToDoublyList(root.left)
         rightTree = self.treeToDoublyList(root.right)
         
@@ -57,6 +57,9 @@ class Solution: # O(N) time and O(H) space for recursion
         return node1 # node1 is the min node of a sorted DDL
 
 
+
+
+# *-------------------------
 
 # O(N) time and O(depth) space, average log(N) space
 

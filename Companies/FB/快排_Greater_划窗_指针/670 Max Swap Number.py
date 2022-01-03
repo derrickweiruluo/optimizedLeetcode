@@ -33,20 +33,22 @@ class Solution:
             if i == n - 2:
                 return num
         # step 2 store and update the maxIdx and maxVal
-        max_val, max_idx = nums[i + 1], i + 1
+        left_idx, right_idx = i, i + 1
+        max_val = nums[right_idx]
+
         for j in range(i + 1, n):
             if nums[j] >= max_val:
-                max_val, max_idx = nums[j], j
+                max_val = nums[j]
+                right_idx = j
                 
         # step 3 look to the left, get the leftmost smaller than maxVal
-        left_idx = i
         for j in range(left_idx, -1, -1):
             if nums[j] < max_val:
                 left_idx = j
                 
         # Step 4: do the swap
-        nums[left_idx], nums[max_idx] = nums[max_idx], nums[left_idx]
-        return int(''.join(nums))                           # re-create the integer
+        nums[left_idx], nums[right_idx] = nums[right_idx], nums[left_idx]
+        return ''.join(nums)                           # re-create the integer
 
 
 

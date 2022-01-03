@@ -11,14 +11,16 @@ class TreeNode:
 Note: This is a BST
 Avoid meaningless search
 
-only visit left-subtree if node.val > low
-only visit right-subtree if node.val < high
-The valid range is [low, high]:: inclusive!!!
+Time Complexity: O(n) ，每个 node 最多都遍历了两遍：
+
+在下一层的时候扫到 tail 的过程中遍历了一次
+flatten 移到上层后向后扫的时候又遍历了一次
 '''
 # https://www.youtube.com/watch?v=wGXB9OWhPTg
 class Solution:  # O(1) Space, via Morris Traversal
 
     # Inorder iterative traversal of a binary tree without stack or recursion. This traversal is called Morris traversal.
+    
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         # Morris order traversal
         res = 0
@@ -55,7 +57,7 @@ class Solution:  # O(1) Space, via Morris Traversal
         return res
 
 
-########### BELOW IS THE MORRIS TEMPLATE
+#*--------------- BELOW IS THE MORRIS TEMPLATE
     def morrisTraversal(self, root):
         while root:
             if not root.left:
@@ -83,7 +85,7 @@ class Solution:  # O(1) Space, via Morris Traversal
 
 
 
-class Solution:
+class Solution:  # recursive
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         
         self.res = 0
@@ -99,3 +101,14 @@ class Solution:
         
         dfs(root, low, high)
         return self.res
+
+
+class Solution: # Iterative
+    def rangeSumBST(self, root: TreeNode, L: int, R: int) -> int:
+        if not root:
+            return 0
+        elif root.val < L:
+            return self.rangeSumBST(root.right, L, R)
+        elif root.val > R:
+            return self.rangeSumBST(root.left, L, R)
+        return root.val + self.rangeSumBST(root.left, L, R) + self.rangeSumBST(root.right, L, R)

@@ -14,7 +14,7 @@ class Solution:  # Both O(N), 最优解
         queue = collections.deque([(root, 0)])
         mapping = collections.defaultdict(list)
         # 因为left right边界是由范围的，BFS记录范围，最后就用sort dict了
-        left, right = 0, 0
+        left, right = math.inf, -math.inf
         
         
         while queue:
@@ -32,20 +32,33 @@ class Solution:  # Both O(N), 最优解
 
 
 
+class Solution:  #DFS  time: W * H log H, space O(N)
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if root is None:
+            return []
 
-class Solution:
-    def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        
-        if not root: return []
-        
-        queue = collections.deque([(root, 0)])
-        mapping = collections.defaultdict(list)
-        
-        while queue:
-            node, pos = queue.popleft()  # make sure the result always go from left to right
-            if node:
-                mapping[pos].append(node.val)
-                queue.append((node.left, pos - 1))
-                queue.append((node.right, pos + 1))
-        
-        return [mapping[i] for i in sorted(mapping)]
+        columnTable = defaultdict(list)
+        self.left, self.right = math.inf, -math.inf
+
+        def DFS(node, row, column):
+            if node is not None:
+                columnTable[column].append((row, node.val))
+                self.left = min(self.left, column)
+                self.right = max(self.right, column)
+
+                # preorder DFS
+                DFS(node.left, row + 1, column - 1)
+                DFS(node.right, row + 1, column + 1)
+
+        DFS(root, 0, 0)
+
+        # order by column and sort by row
+        res = []
+        for col in range(self.left, self.right + 1):
+            columnTable[col].sort(key=lambda x:x[0])
+            colVals = [val for row, val in columnTable[col]]
+            res.append(colVals)
+
+        return res
+
+

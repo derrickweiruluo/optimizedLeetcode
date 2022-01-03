@@ -17,7 +17,7 @@ Example 3:
 Input: s = "abc"
 Output: false
 '''
-
+# O(N), O(1)
 class Solution:
     def validPalindrome(self, s: str) -> bool:
         

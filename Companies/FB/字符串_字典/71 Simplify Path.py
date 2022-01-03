@@ -41,6 +41,8 @@ class Solution:
                 stack.pop()
             else:
                 # 当不再：当前dir '.', //导致的空白char, '..'
+                # ".." 也需要，因为stack为空的时候，'..' 就是无效的
+                # 我们不想 ".." 也进站
                 if directory not in [".", "", ".."]:
                     stack.append(directory)
         

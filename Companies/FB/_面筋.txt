@@ -1,0 +1,291 @@
+九月初找内推
+2021.09.23 收到邮件收集信息
+2021.10.5 收到邮件要求phone screen 约了10月29号一面
+2021.10.29 一题找出0-1图中的岛最大面积，第二题follow up可以flip一个0变成1求最大面积 问了一些dfs bfs的问题 写完之后可能看时间还早 又问了个id system的题目 可能是design的题目？不是很了解 面完后大约两个小时收到了vo邀请
+2021.11.15 vo 无药物 (515) 要求dfs和bfs都做 比较不同的树用哪个更好 第二题有 working day 和 holiday的数组 给定PTO可以将working day 转成holiday 求最长连续holiday的长度 用滑动窗口做的 follow up问如果PTO可以不是整数 如1.5怎么办 晚上收到邮件问国籍
+2021.11.16 hr邮件约phone call
+2021.11.17 hr call给offer 打完电话就有邮件offer了
+
+
+
+我的第一题就是 (1650)  LCA III
+第二题就是那个 (766) Toeplitz Matrix
+
+![image-20211118182455911](FB vo.assets/image-20211118182455911.png)
+
+就是应该把矩阵分开， 中间至少有一行重合， 分成多个matrix挨个处理， 如果都是Toeplitz Matrix的话，就return true。
+
+
+
+
+蠡口两道高频中等，
+一起遛儿 (1762) ocean view
+儿要舞 (215) Kth Largest Element in an Array 。
+    白人小哥，人很好，开局他自我介绍了两句直接上题，有错直接暗示你/指出改正，持续提供有效反馈。
+    儿要吾说了四种方法以后让写最大堆的方法，然后问了怎么变成最小堆、何时用最小堆、只用N不用K表示时间复杂度上限，最后问了quickselect的时间复杂度是否稳定和改进方法‍‌‍‍‍‌‍‌‌‌‍‍‌‌‌‌‌‍‍‌。回问问了三个问题到点结束。
+
+    对的，他想要的答案就是这个；所以他的意思是不用k表达时间复杂度上限就是Nlog（N/2），因为k小于N/2就最小堆，k大于N/2的话就换最大堆= =
+
+
+
+1面：
+
+meeting rooms, 
+
+```java
+class Meetings {
+ int startTime;
+ int endTime;
+ boolean isLarge;
+}
+Input: m = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+class Solution {
+ public int minRoom(List<Meetings>) {
+    }
+}
+```
+
+large, small 
+
+split
+
+get largeCnt first, check gap between them, fit small meeting
+
+then get number of rest small number
+return smallCnt+2*largeCnt
+
+
+34356`
+
+chat: 
+1. 目前工作最喜欢的部分， 目前的工作内容， 
+2. 目前工作和上一份工作最大的区别，
+3. 后面的奖牌，马拉松，公司俱乐部，
+4. wlb，有些组（他们组）很爽，有些组很累，
+5. remote internship 很糟糕，缺乏联系
+6. 对面试的建议： 解题，测试，复杂度分析；可以同时完成。不要犹豫推进下一步。 conner case 考虑。 不要忘记问一共几题！！！！
+
+
+
+
+
+META 暑期实习二面
+
+而捌留 (286) walls and gates
+散散   (33)  search in rotated sorted array
+
+
+
+周五刚结束facebook的实习电面，背靠背2轮，每轮45分钟， 今天收到了邮件告知还有一轮（想问问大家这是传说中的加面吗？应该是前两轮表现太差了。不过facebook 网站上显示现在是 virtual onsite,之前是screen interview,很是疑惑，希望大佬解答！）大致题目如下，：
+第一轮是个国人：
+
+1. binary search tree 和一段范围，返回范围内所有node的sum。 一道非常常见的题目， 很快给出答案 (938) dfs, Morris order traversal
+
+2. 李code 珥陵气 (207) course schedule  
+    can be topological sort
+第二轮是面试官不确定国籍。。
+1. 幺儿四舅 (1249) 很快给出结果 
+    (A) 最优解O(1), loop forward, then backward to mark invalid,
+    (B) stack+set
+2. 3Sum closet (16) 
+    2 pointers+2Sum
+
+
+寒睻了两分钟，做题，都是高频，
+一是 (560) 的简单变种，只需返回有还是没有。
+
+    follow up: 如果要输出subarray咋办。
+    hashmap O(n), O(n)
+    double for-loop O(n^2), O(1)
+
+    if only need check if exists, use hashmap
+    if need subarray, then return a List<>, use double for-loop
+二是  (31)  next permutation
+
+
+
+45min 两道题，白人小哥，人挺好的。
+
+(680E) Valid Palindrome II ， 很简单的一道原题，做完自己test然后说time complexity
+
+<!--***第二道 叁灵异 (301H) Remove Invalid Parentheses 
+    居然是道lc hard，我刚看到的时候以为是另一道经常做的那个简单的version https://leetcode.com/problems/valid-parentheses/，然后我说了半天count left right parenthesis然后他问我怎么用count来remove呢，然后我才发现这道题不一样，然后我就讲了半天思路最后写了一个only work for some cases的solution，口头test的时候我又发现我的code有缺陷，所以就又开始讲怎么弥补，说了一堆思路，后来就没时间了。。。最后还是给了我一分钟讲time space complexity
+
+(71) Simplify Path : 使用stack 来比较
+
+11.13
+
+
+
+玖柒散 (973) K Closest Points to Origin  
+    heap NlogK解法
+    :https://stackoverflow.com/questions/8875706/heapq-with-custom-compare-predicate heap的第一个元素就是comparsion rule , 而且python的返回的是最小值，是一个小跟
+
+舞陵 (50) pow(n,x) 
+    最优解 iterative O(1) space
+    次优解 使用dfs
+
+溜吧灵 (680) Valid palidrome II : 回文 II
+
+伞伊斯 (314) Binary Tree Vertical Order Traversal : 
+    bfs 应用到纵向 便利
+
+司令吧 (408) Valid Word Abbreviation ！！！ 不太会
+
+柳领舞 (605E) : 主要是pad的思想 使用greedy 
+
+--
+
+
+三药七 (317) Shortest Distance from All Buildings ： 看 follow up
+
+(224) Basic Cal I
+(227) Basic Cal II
+(138) Copy List with Random Pointer O(1)
+
+ k个圆点最近（快排）973： 用heap最好
+
+下一个permutation。31 : 知道了要如何换位置 
+
+一零就一  (1091) Shortest Path in Binary Matrix 
+
+merge两个sorted interval list (986)
+
+--
+
+叁伞酒: 339  使用bfs 做出来了
+
+伞流撕：364
+
+974: subarry 求和的变形
+
+(1644): LCA II 使用两个stack 来做
+
+伊尔刘 (126H) word ladder II： 也是使用两个stack
+
+
+
+#*------------------
+
+
+流物 (65) Valid number
+药而丝久 (1249) Minimum Remove to Make Valid Parentheses
+
+💊尔斯久 1249 
+💊期刘儿1762: 海景房
+
+第一题是做不用除号的取商取余 
+第二题是在一个字符串中找一个短字符串，只要连续，顺序对不上也算匹配，需要返回所在位置起始index（比如actor里找atc返回0，ato则认为不匹配）
+
+还是o2， 使用Counter 来做、
+
+幺就舅 (199) Binary Tree Right Side View 
+    follow up 深搜和宽搜都要写：
+
+
+伍贰Ⅷ (578) Random Pick with Weight
+玖柒仨  (973) K Closest Points to Origin
+
+
+
+经验教训：1. 一定要多mock，多练习口语，要不然有思路，表达不出来就白搭；2. 不要自己给自己加戏，怎么简单‍‌‌‍‍‍‌‍‌‍‌‍‌‌‌‌‍‍‌怎么来，目标是把题做出来，不一定要最优！ 
+
+斯尔硫    (426)  Convert Binary Search Tree to Sorted Doubly Linked List
+幺三四四  (1344) Angle Between Hands of a Clock
+幺久久    (199)  merge two sorted intervals list 986。
+
+text Editor那道在leetcode discuss有。
+
+第一题是合并两个sorted list (21) (88)
+第二题是合并K个sorted list  (23H) 分治
+
+
+
+
+1. easy, 给二叉树，由0和1组成，父节点是子节点的与(&)，翻转一个叶子节点，更新整个树，有指向父节点的指针。 比较简单
+2. medium, merge k sorted iterator：k个iterator有hasNext()和next()方法，实现一个sorted iterator的hasNext()和next()。要求不能初始化的时候读完所有值，要一个一个读。我的解法是一个优先队列存储各个itertor的第一个值然后更新即可，保证每个迭代器有且仅有一个元素在队列中
+vo，烙印，态度也不错，口音不重
+1. easy, 一个包含正数和负数的数组，找正数的个数，正数都是连续的，比如[1, 2, 3, -4, -5, -6]，答案是3。 二分即可
+2. hard, 给一棵二叉树，找最长的递增序列长度，莉蔻 伊尔斯的变种
+    例子答案为4， 递增序列为2 4 5 6
+   8
+
+
+
+
+第一题 刷题网 溜吧羚 (680)  Valid Palindrome II
+第二题 给了一个grid, 比如：
+S 1 3 1 5
+2 3 4 1 1
+1 2 2 3 E
+每个数字x代表：这个cell在第x年会被淹掉，淹掉以后就没法走了，请问最迟到第几年S和E之间有路可走。
+gird是N*M的话，算法优化到了N*MLog(N*M)
+
+    先存下grid所有年份，然后进行binary search,
+    每次search bfs一下（不知道有无更优解
+
+加面被问top kth 
+刷题的时候直接quick select模板套上就没多想了 结果真考这道题 首先description不知道怎么说磕磕绊绊的 然后是dry run 在coderpad上 好几个指针 又是两个while loop + recursion.... 我现在也没想出来该怎么描述那个swap的逻辑(为什么swap swap干吗) 标准答案的描述应该是这
+
+一道easy，榴扒凌。680 valid parlindrom II
+一道hard，耳榴舅。269  alien dictionary
+
+Facebook 实习二面药饵四舅 (1249) & follow-up： 如果有多种括号怎么做。
+而已 21& 贰叁 23变种：三个排好序的数组，在常数空间下（不考虑返回值的空间），合并成一个有序的、无重复元素的数组。
+
+
+
+(540) Single Element in a Sorted Array  只有一个数重复了一次，其他都重复两次
+    找奇偶关系，二分求解
+
+第一题 在sorted array里找有多少个unique element，假设数组长度远大于unique element个数。（分治or二分都可）
+
+
+久伞捌 (938) Range Sum BST 
+久耳衣 (921) Minimum Add to Make Parentheses Valid
+word匹配，e.g., Facebook和F7 匹配，返回True or False这题。
+
+
+刷题网 舞溜 (56) Merge intervals
+要久久 (199) Binary Tree Right Side view
+
+流巴灵 (680) Valid Palindrome II
+物流灵 (560) subarray sum equals K
+    第二题正常用HashSet做前缀和需要时间和空间复杂度O(n)
+    有个follow up问假设数组里的数都是positive的话怎么做可以把空间‍‌‌‍‍‍‌‍‌‍‌‍‌‌‌‌‍‍‌优化到O(1)
+    白人小哥很nice，给了提示之后用滑动窗口写出来了
+
+
+
+1. (4H)  Median of Two Sorted Arrays
+2. BST找median  follow up 时空复‍‌‌‍‍‍‌‍‌‍‌‍‌‌‌‌‍‍‌杂度以及code能不能优化
+1. 思思伞 (443) String Compression 
+    变种 （count为1不能省）  
+2. 意巴柳巴 (1868)   Product of Two Run-Length Encoded Arrays
+
+
+
+两道题45分钟
+一道 贰欺凌 (270E) Closest Binary Search Tree Value
+一道 流散 （63）Unique path II，
+    问题是最短路径，follow up 给一定数量的key可以翻阅障碍物
+
+ 
+
+1. 第一场 
+已救救 (199) BT right side view, 
+无柳 (56) merge intervals
+2. 第二场 两个关于从办公室取文件的题，刷题太少了没见过。(1) 假设有3个办公室，输入每个办公室开门和关门的时间 [[0,1],[1,3],[2,8]]，要求输出从每个办公室的提取文件的时间。（2）假设这些办公室有dependence， 给了一个图， 从某个办公室取文件要先确认它depend on的parent的文件被取出。输入每个办公室开门和关门的时间， 还有depend on index，要求输出从每个办公室的提取文件的时间。
+
+FB 电面，一个美国小哥。两个medium
+(1762) 海景房
+(138)  Copy List with Random Pointer
+
+
+
+衣领私企 (1047E) Remove All Adjacent Duplicates In String
+尔伞 (23H) merge K sorted LinkedList
+柳巴陵 (680) Valid Palindrome II  
+衣酒玖 (199)  BT Right side view
+(1570) 点乘
