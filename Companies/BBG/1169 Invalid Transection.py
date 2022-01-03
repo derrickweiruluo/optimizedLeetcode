@@ -5,7 +5,7 @@ the amount exceeds $1000, or;
 if it occurs within (and including) 60 minutes of another transaction with the same name in a different city.
 '''
 
-class Solution:
+class Solution: # Both O(N)
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
         # transactions: 'name, time, amount, city'
         
