@@ -37,6 +37,8 @@ class Solution:
         queue = collections.deque()
         
         list_no_par_node = [i for i in par if len(par[i]) == 0]
+        if not list_no_par_node:
+            return ""
         # 因为 大小是通过比较不同的word来得到的
         # 假如 char 只存在一个 word，那就是没比较
         # 所以返回的顺序无所谓

@@ -16,9 +16,9 @@ class Solution: # BS-template 1 -- Interview
     def maxLength(self, ribbons: List[int], k: int) -> int:
         
         total, maxRib = sum(ribbons), max(ribbons)
-        left, right = 1, max(total //k, maxRib) + 1
-        
         if k > total: return 0
+        
+        left, right = 1, max(total //k, maxRib) + 1
         
         def canCut(length, k):
             res = 0

@@ -14,6 +14,11 @@ The "linked list" should be in the same order as a pre-order traversal of the bi
 
 # 图文解释 https://leetcode.com/problems/flatten-binary-tree-to-linked-list/discuss/1208004/Extremely-Intuitive-O(1)-Space-solution-with-Simple-explanation-Python
 
+
+
+
+# Clarifications: !!!!pre-order traversal !!!!!!!
+
 class Solution: # O(1)
     def flatten(self, root: TreeNode) -> None:
         """

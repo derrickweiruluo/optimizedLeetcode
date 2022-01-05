@@ -12,6 +12,15 @@ sum of all root-to-leave numbers
 # sum = 495 + 491 + 40 = 1026
 
 
+# The idea of Morris algorithm is to set the temporary link between the node and its predecessor: predecessor.right = root. So one starts from the node, computes its predecessor and verifies if the link is present.
+
+    # There is no link? Set it and go to the left subtree.
+    # There is a link? Break it and go to the right subtree.
+
+# There is one small issue to deal with : what if there is no left child, i.e. there is no left subtree? Then go straightforward to the right subtree.
+
+
+
 class Solution:  # Morris, O(1) Space
     def sumNumbers(self, root: TreeNode):
         res = curVal = 0

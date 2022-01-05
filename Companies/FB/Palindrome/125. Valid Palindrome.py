@@ -33,7 +33,7 @@ class Solution:  # two pointer, best, with early return
 
 
 
-class Solution:
+class Solution:  # DONT USE THIS ONE 
     def isPalindrome(self, s: str) -> bool:
         cur = ''
         for i in range(len(s)):

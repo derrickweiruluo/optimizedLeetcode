@@ -21,9 +21,10 @@ mat = [[1,2,3],[4,5,6],[7,8,9]]
           |          
         1 |  1   2   3
           |          
-        2 |  2   3   4
+        2 |  2   3   4w
 '''
 
+import collections
 class Solution:
     def findDiagonalOrder(self, grid: List[List[int]]) -> List[int]:
         
@@ -68,6 +69,7 @@ class Solution:
         
         res = []
         for key, lst in mapping.items():
+            # 对角线的奇偶规律
             if key % 2 == 0:
                 res += lst[::-1]
             else:

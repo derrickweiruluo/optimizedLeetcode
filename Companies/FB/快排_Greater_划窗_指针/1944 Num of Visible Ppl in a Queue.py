@@ -1,5 +1,3 @@
-
-
 # contraints:
 # A person can see another person to their right in the queue if everybody in between is SHORTER than both of them.
 # All the values of heights are unique.
@@ -19,6 +17,7 @@
 # If the last element A[i] <= a,
 # A[i] can see a,
 # so we increment res[i]++
+
 
 class Solution:
     def canSeePersonsCount(self, heights: List[int]) -> List[int]:
@@ -59,3 +58,26 @@ class Solution:
 # res     = [4,1,1,1,0]   stack = [10]        res[i] += 1 + 3
 
 # res: [4,1,1,1,0]
+
+
+# *-----------------------------
+
+class Solution: # just clean code
+    def canSeePersonsCount(self, heights: List[int]) -> List[int]:
+        # https://leetcode.com/submissions/detail/599939887/
+        # https://leetcode.com/submissions/detail/599939496/
+        
+        stack = []
+        n = len(heights)
+        res = [0] * n
+        
+        
+        for i in range(n - 1, -1, -1):
+            while stack and heights[i] >= heights[stack[-1]]:
+                res[i] += 1
+                stack.pop()
+            if stack:
+                res[i] += 1
+            stack.append(i)
+        
+        return res

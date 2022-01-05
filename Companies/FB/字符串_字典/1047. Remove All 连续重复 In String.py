@@ -1,23 +1,19 @@
 '''
-Example 1:
-
 Input: s = "abbaca"
 Output: "ca"
-Explanation: 
-For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
-Example 2:
 
 Input: s = "azxxzy"
 Output: "ay"
 '''
 
 #
-class Solution: # Interview
+class Solution: # Interview, same as below O(1) solution
     def removeDuplicates(self, s: str) -> str:
         # Anonther O(N) + O(1) solution
         s = list(s)
         i = 0
         
+        # i > 0 意味着 stack 的顶端一直 s[i], 除非变成-1（被抵消），那就是empty
         for j in range(len(s)):
             # 利用 i pointer 作为 一个stack， modified and rearrange s[:i]
             # i 是 stack 外的bound, stack[:i] 里面是stack的内容
@@ -57,28 +53,6 @@ class Solution: #  Interview::  Time O(N), Space O(1)
         return "".join(s[:i])
 
 
-''' 
-Follow-up: if remove deplicates within a len of k
-'''
-class Solution:  # FOLLOW-UP ONLY
-    def removeDuplicates(self, s: str) -> str:
-        stack = [] # stack of (char, its cnt)
-        for num in s:
-            if not stack or stack[-1][0] != char:
-                stack.append([char, 1])
-            elif stack[-1][1] < k:
-                stack[-1][1] += 1
-            else:
-                stack.pop()
-        
-        return ''.join(char * cnt for char, cnt in stack)
-
-
-
-
-
-
-
 
 # O(N) and O(N - D), where D is the num of duplicates
 class Solution:
@@ -93,3 +67,9 @@ class Solution:
                 res.append(char)
                 
         return "".join(res)
+
+
+''' 
+Follow-up: if remove deplicates within a len of k
+# 1209
+'''

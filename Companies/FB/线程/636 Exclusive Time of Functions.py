@@ -35,7 +35,7 @@ class Solution:
             
             if fcn_type == 'start':
                 if stack:
-                    res[stack[-1]] += log_time - prev
+                    res[stack[-1]] += log_time - prev  # update the time for top of the stack
                     prev = log_time
                     stack.append(log_id)
                 else:
@@ -43,7 +43,7 @@ class Solution:
                     prev = log_time
             else:
                 time_used = log_time - prev + 1
-                res[stack.pop()] += time_used
+                res[stack.pop()] += time_used # pop the top idx, and update time for idx
                 prev = log_time + 1
         
         return res

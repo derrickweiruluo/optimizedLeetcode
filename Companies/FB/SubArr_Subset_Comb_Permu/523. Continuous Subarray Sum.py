@@ -20,31 +20,10 @@ Output: false
 # If we find that a running sum value at index j has been previously seen before in some earlier index i in the array, then we know that the sub-array (i,j] contains a desired sum.
 
 ''' Clarifications:
-1.  is ZERO a muiltple of k
+1.  is ZERO a muiltple of k (!!!!!!!)
 2.  len of 2 requirement
 #   conrner cases: [0,0], for multiplier is zero
 '''
-
-
-# Time complexity: O(n), 
-# space complexity: O(min(k, n)) if k != 0, else O(n)
-class Solution:
-    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
-        
-        curSum = 0
-        prefixRem = collections.defaultdict(list)
-        prefixRem[0].append(-1) # initialize 0:-1, in for subarray start from -1
-        
-        for i, num in enumerate(nums):
-            curSum = (curSum + num) % k
-            if curSum in prefixRem:
-                if i - prefixRem[curSum][-1] > 1:
-                    return True
-            else:
-                prefixRem[curSum].append(i)
-        
-        return False
-
 
 
 class Solution: # 一种 O(K) space 的解法
@@ -69,3 +48,26 @@ class Solution: # 一种 O(K) space 的解法
                 prefixRem[curRem] = i
         
         return False
+
+
+# Time complexity: O(n), 
+# space complexity: O(min(k, n)) if k != 0, else O(n)
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        
+        curSum = 0
+        prefixRem = collections.defaultdict(list)
+        prefixRem[0].append(-1) # initialize 0:-1, in for subarray start from -1
+        
+        for i, num in enumerate(nums):
+            curSum = (curSum + num) % k
+            if curSum in prefixRem:
+                if i - prefixRem[curSum][-1] > 1:
+                    return True
+            else:
+                prefixRem[curSum].append(i)
+        
+        return False
+
+
+

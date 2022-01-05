@@ -12,7 +12,12 @@ class Node:
 
 # 思路：
 # 1.    在现有的LL上面构建一个copy LL（random pointer也复制一份）
-# 2.    并且每一个新的copy node构建完以后，original的next被改成copyNode，方便copy1 通过 original's random 的 next 找到对应的 copynode
+# 2.    预先记录 head.random 和 head.next
+
+#   2a.   把original.next改为 copy node, 然后advance
+#   2b.   吧copy.next 设置为预先保留的original.random
+
+# 3.    并且每一个新的copy node构建完以后，original的next被改成copyNode，方便copy1 通过 original's random 的 next 找到对应的 copynode
 
 class Solution:
     def copyRandomList(self, head: 'Node') -> 'Node':

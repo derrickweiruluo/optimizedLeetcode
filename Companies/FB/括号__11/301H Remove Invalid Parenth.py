@@ -54,7 +54,20 @@ class Solution:  # BEST
                                 queue.append(subStr)
                                 visited.add(subStr)
 
+    def isValid(self, s):
+        balance = 0
+        for ch in s:
+            if balance < 0:
+                return False
+            if ch == "(":
+                balance += 1
+            elif ch == ")":
+                balance -= 1
+        
+        return balance == 0
 
+
+#* --------------------
 
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:

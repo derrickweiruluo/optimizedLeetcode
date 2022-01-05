@@ -10,6 +10,8 @@ s represents a valid expression.
 There will be no two consecutive operators in the input.
 '''
 
+
+# "-1 - (1+1)"
 class Solution:
     def calculate(self, s: str) -> int:
         

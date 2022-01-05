@@ -13,7 +13,7 @@ class Solution:
         m, n = len(grid), len(grid[0])
         steps = 0
         i, j = self.get_first(grid)
-        self.dfs(grid, i, j, boundOne)
+        self.dfs(grid, i, j, boundOne)  # 通过dfs得到岛1外围一周的水域的坐标
         queue = collections.deque(list(boundOne))
         
         while queue:

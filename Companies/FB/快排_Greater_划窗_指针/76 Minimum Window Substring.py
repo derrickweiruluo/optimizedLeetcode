@@ -18,9 +18,11 @@ Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         
+        # 用counter来确认包含所有元素
         counter = collections.Counter(t)
         l = len(t)
         missing = l
+
         start, end = 0, 0
         i = 0
         for j, char in enumerate(s):
@@ -28,7 +30,7 @@ class Solution:
                 missing -= 1
             counter[char] -= 1
             if missing == 0:
-                while i < j and counter[s[i]] < 0:
+                while i < j and counter[s[i]] < 0:  # <0 意味着有多余的可以缩left bound
                     counter[s[i]] += 1
                     i += 1
                 if end == 0 or j - i < end - start - 1:

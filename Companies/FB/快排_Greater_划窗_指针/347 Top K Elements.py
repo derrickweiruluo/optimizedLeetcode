@@ -24,7 +24,7 @@ class Solution:  # both O(N)
         # bucket sort: https://leetcode.com/submissions/detail/602987983/
         
         counter = collections.Counter(nums)
-        buckets = collections.defaultdict(list)
+        buckets = collections.defaultdict(list)  # {freq: list of num}
         maxFreq = 0
         
         res = []
@@ -36,6 +36,7 @@ class Solution:  # both O(N)
         for freq in range(maxFreq, -1, -1):
             if freq in buckets:
                 res += buckets[freq]
+            # It is guaranteed that the answer is unique.
             if len(res) == k:
                 return res
 

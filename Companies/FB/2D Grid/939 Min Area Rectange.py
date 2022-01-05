@@ -18,7 +18,8 @@ class Solution:
                 if (x1, y2) in seen and (x2, y1) in seen:
                     area = abs(x1 - x2) * abs(y1 - y2)
                     res = min(res, area)
-            
+            # has to add after the look up, 
+            # since this point must not be used during check up
             seen.add((x1, y1))
         
         return res if res < math.inf else 0

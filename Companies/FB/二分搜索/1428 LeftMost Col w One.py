@@ -27,11 +27,13 @@ class Solution:
         
         rows, cols = binaryMatrix.dimensions()
         leftMostCol = cols
+        # prev = math.inf
         
         for i in range(rows):
-            left, right = 0, cols
+            # set to the previously determined leftMostCol
+            left, right = 0, leftMostCol 
             while left < right:
-                mid = (left + right) // 2
+                mid = left + (right - left) // 2
                 if binaryMatrix.get(i, mid) == 0:
                     left = mid + 1
                 else:

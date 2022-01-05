@@ -17,7 +17,7 @@ Explanation: Note that you are allowed to reuse a dictionary word.
 
 '''
 
-class Solution:  # 20ms  
+class Solution:  # 20ms  interview
     # DFS + Memo 
     # time: O(N^2 to 2^N), 和解的数量有关
     # time: roughly O(N^3)
@@ -35,11 +35,13 @@ class Solution:  # 20ms
         
         res = []
         for word in wordSet:
+            # 保证左半部分合理
             if not s[idx:].startswith(word):
                 continue
             if s[idx:] == word:
                 res.append(word)
             else:
+                # 递归求解右半部分
                 restOfTheResults = self.dfs(s, idx + len(word), wordSet, memo)
                 for item in restOfTheResults:
                     if item:
@@ -48,6 +50,39 @@ class Solution:  # 20ms
         memo[s[idx:]] = res
         return res
 
+        # s = "catcatsanddog" 
+            # "cats and dog"
+            # "cat sand dog"
+        #Output: ["cats and dog","cat sand dog"]
+
+
+
+# Consider the input "aaaaaa", with wordDict = ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaa"]. Every possible partition is a valid sentence, and there are 2^n-1 such partitions. It should be clear that the algorithm cannot do better than this since it generates all valid sentences. The cost of iterating over cached results will be exponential, as every possible partition will be cached, resulting in the same runtime as regular backtracking. Likewise, the space complexity will also be O(2^n) for the same reason - every partition is stored in memory.
+
+# Where this algorithm improves on regular backtracking is in a case like this: "aaaaab", with wordDict = ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaa"], i.e. the worst case scenario for Word Break I, where no partition is valid due to the last letter 'b'. In this case there are no cached results, and the runtime improves from O(2^n) to O(n^2).
+
+
+class Solution: # this is huahua's shorter codes
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordSet = set(wordDict)
+        memo = {}
+        
+        def dfs(s, wordSet):
+            if s in memo:
+                return memo[s]
+            
+            res = []
+            if s in wordSet:
+                res.append(s)
+            for i in range(1, len(s)):
+                right = s[i:]
+                if right in wordSet:
+                    res += [word + " " + right for word in dfs(s[0:i], wordSet)]
+            
+            memo[s] = res
+            return memo[s]
+        
+        return dfs(s, wordSet)
 
 
 
@@ -55,13 +90,7 @@ class Solution:  # 20ms
 # ---------------------------------------
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-        
-        # s = "catcatsanddog" 
-            # "cats and dog"
-            # "cat sand dog"
-        #Output: ["cats and dog",
-                #"cat sand dog"]
-            
+    
         memo = {}
         wordSet = set(wordDict)
         return self.dfs(s, 0, wordSet, memo) # return list of strings

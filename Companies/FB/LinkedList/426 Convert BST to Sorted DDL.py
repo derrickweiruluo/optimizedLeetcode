@@ -50,11 +50,11 @@ class Solution: # O(N) time and O(H) space for recursion
         
         # connect 2 DDL by building 4 new connections
         tail1.right = node2
-        node2.left = tail1
         tail2.right = node1
+        node2.left = tail1
         node1.left = tail2
         
-        return node1 # node1 is the min node of a sorted DDL
+        return node1 # node1 is ALWAYS the Min node of a sorted DDL, return for next connect
 
 
 

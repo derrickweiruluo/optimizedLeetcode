@@ -74,8 +74,9 @@ class Solution:  # O(1) space
             node = node.right
 
 
-# recursion, Time O(N), Space O(logN) for recursion build Tree
+# recursion, Time O(N), 
 # Total Space O(N), 因为扫两遍了
+#    O(logN) for recursion build Tree, O(N) for array
 
 class Solution:  
     def balanceBST(self, root: TreeNode) -> TreeNode:

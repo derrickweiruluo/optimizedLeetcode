@@ -46,6 +46,8 @@ class Solution1:
             for j in range(n):
                 if grid[i][j] == 1:  # start BFS from building
                     if not self.bfs(grid, i, j, distSum, buildingCnt):
+                        # 假如某一栋楼不能到达全部楼，early return
+                        # 通过每一栋楼BFS来record 每块空地到这栋楼的距离，方便后去处理
                         return -1
         
         for (i, j), lst in distSum.items():

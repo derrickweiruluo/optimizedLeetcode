@@ -5,6 +5,7 @@ Combination sum with conditions of:
 2. output, each sub-result can only use the input num ONCE
 '''
 
+# Time complexity is O(2^n). Space complexity O(n)
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         
@@ -25,7 +26,7 @@ class Solution:
 
 
 
-
+# Time complexity is O(2^n). Space complexity O(n)
 class Solution: # same solution as above
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         

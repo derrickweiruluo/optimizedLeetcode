@@ -47,6 +47,16 @@ class Solution: # Both O(N)
 
 
 
+# Bruce Forece O(N^2/k), O(1) space
+# string removeDuplicates(string s, int k) {
+#   for (auto i = 1, cnt = 1; i < s.size(); ++i) {
+#     if (s[i] != s[i - 1]) cnt = 1;
+#     else if (++cnt == k)
+#       return removeDuplicates(s.substr(0, i - k + 1) + s.substr(i + 1), k);
+#   }
+#   return s;
+# }
+
 # FOllow-up:
 '''Iteratively. 
 Complexity Analysis

@@ -21,17 +21,16 @@ class Solution:
         if not grid:
             return 0
         m, n = len(grid), len(grid[0])
-
-        # 按频率，row & col 从小到大， 分别记录 bldg的 x, y 坐标，
-        # 然后根据 median therom， 取两者的中位数，就是解(MATH)
+        
+        # xCords, yCords store the x, y coordinate, later used to get the median based on frequency
         xCords = [i for i in range(m) for j in range(n) if grid[i][j]]
         yCords = [j for j in range(n) for i in range(m) if grid[i][j]]
         # print(xCords)
         # print(yCords)
-        midRow = xCords[len(xCords) // 2]
-        midCol = yCords[len(yCords) // 2]
+        medianRow = xCords[len(xCords) // 2]
+        medianCol = yCords[len(yCords) // 2]
         
         
-        # print(midRow, midCol)
-        return sum(abs(x - midRow) for x in xCords) + sum(abs(y - midCol) for y in yCords)
+        # print(medianRow, medianCol)
+        return sum(abs(x - medianRow) for x in xCords) + sum(abs(y - medianCol) for y in yCords)
         

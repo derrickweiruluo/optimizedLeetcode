@@ -11,27 +11,33 @@ class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         
         graph = collections.defaultdict(set)
-        visited = [False] * len(accounts)
+        visited = set()
+        
         for i, acct in enumerate(accounts):
             for email in acct[1:]:
+                # {unique_email: idx_of_acct}
                 graph[email].add(i)
-        
-        def dfs(idx, email_set):
-            if visited[idx]:
+                
+                
+        def dfs(i, emailSet):
+            # emailSet updated thru out the dfs
+            if i in visited:
                 return
-            visited[idx] = True
-            for j in range(1, len(accounts[idx])):
-                email = accounts[idx][j]
-                email_set.add(email)
+            visited.add(i)
+            for j in range(1, len(accounts[i])):
+                email = accounts[i][j]
+                emailSet.add(email)
                 for k in graph[email]:
-                    dfs(k, email_set)
-        
+                    dfs(k, emailSet)
+                    
         res = []
         for i, acct in enumerate(accounts):
-            if visited[i]:
-                continue
-            name, email_set = acct[0], set()
-            dfs(i, email_set)
-            res.append([name] + sorted(list(email_set)))
+            if i not in visited:
+                
+                # Each dfs call initialize a empty set, pass into
+                # the dfs calls, and get updated, added to the res
+                name, emailSet = acct[0], set()
+                dfs(i, emailSet)
+                res.append([name] + sorted(list(emailSet)))
         
         return res

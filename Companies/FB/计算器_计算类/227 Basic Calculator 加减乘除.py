@@ -23,21 +23,19 @@ All intermediate results will be in the range of [-231, 231 - 1].
 class Solution: # O(1) space
     def calculate(self, s: str) -> int:
         
-        # O(1) space 解法
-        prev, cur = 0, 0    # prev is outer level, cur is inner level 
-        outerSign = 1       
-        innerSign = 0
-        num = 0             
-        # innerSign in [0, 1, -1], for "+-", "x","/" respectively
-        # outerSign is for lower level operation with prev
+        outerSign = 1 # '+': 1, '-': -1
+        innerSign = 0 # '*': 1, '/': -1
+        prev = cur = 0 # prev for outter, cur for inner
+        num = 0            
         
         for i, char in enumerate(s):
             if char.isdigit(): # 所有运算都在这一步
                 num = num * 10 + int(char)
                 if i == len(s) - 1 or not s[i + 1].isdigit():
+                    # 开始操作
                     if innerSign == 0: cur = num
                     if innerSign == 1: cur *= num
-                    if innerSign == -1: cur = int(cur /num)
+                    if innerSign == -1: cur = int(cur/num) # truncate toward zero.
             
             elif char in "*/":
                 innerSign = 1 if char == '*' else -1
@@ -45,8 +43,9 @@ class Solution: # O(1) space
             
             elif char in "+-":  # reset back to default state (op, num, cur)
                 prev += outerSign * cur
-                outerSign = 1 if char == "+" else -1
-                cur = num = innerSign = 0
+                outerSign = 1 if char == '+' else -1
+                cur = num = 0
+                innerSign = 0
         
         # When at the end, the result of high-level become prev or cur
         return prev + outerSign * cur

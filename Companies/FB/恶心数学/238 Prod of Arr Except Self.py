@@ -27,6 +27,10 @@ class Solution:
             j = -1 - i
             res[i] *= leftProd
             res[j] *= rightProd
+
+            # leftProd is always one position behind i index, like prefixproduct
+            # rightProd is always one position behind j index, like prefixproduct
+            # below both are lagging the res[i], res[j] building
             leftProd *= nums[i]
             rightProd *= nums[j]
         

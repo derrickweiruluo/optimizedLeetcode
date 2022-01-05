@@ -23,7 +23,25 @@ class Solution:
             res[d] = next_day
 
         return res
+
+
+
+# Monostack 解法 
+# time overall O(N), 尽管while loop，但是每个index只能进站一次，所以O(2n)->O(n)
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res = [0] * n
+        stack = [] # increasing stack of (idx, temp)
         
+        for i in range(n):
+            while stack and temperatures[stack[-1]] < temperatures[i]:
+                prev = stack.pop()
+                res[prev] = i - prev
+            stack.append(i)
+        
+        return res
+
 
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:

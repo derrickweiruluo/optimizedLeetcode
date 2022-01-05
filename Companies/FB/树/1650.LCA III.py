@@ -40,6 +40,9 @@ class Solution: # 最优解 ！！！
         
         p1, p2 = p, q
         while p1 != p2:
+
+            # 到顶之后，各自返回对方的起点，最终他们会相遇
+            # A+B=B+A
             p1 = p1.parent if p1.parent else q
             p2 = p2.parent if p2.parent else p
         
