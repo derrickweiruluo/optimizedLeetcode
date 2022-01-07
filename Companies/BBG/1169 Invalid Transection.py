@@ -18,14 +18,16 @@ class Solution: # Both O(N)
         
         for i, s in enumerate(transactions):
             lst = s.split(',')
-            name, time, amount, city = lst[0], int(lst[1]), int(lst[2]), lst[3]
+            name, time, amount, city = lst[0], int(lst[1]), int(lst[2]), str(lst[3])
             if time not in memo:
-                memo[time] = {name: [city]}
+                memo[time] = {name: set()}
+                memo[time][name].add(city)
             else:
                 if name not in memo[time]:
-                    memo[time][name] = [city]
+                    memo[time][name] = set()
+                    memo[time][name].add(city)
                 else:
-                    memo[time][name].append(city)
+                    memo[time][name].add(city)
         
         for i, s in enumerate(transactions):
             lst = s.split(',')
@@ -39,9 +41,10 @@ class Solution: # Both O(N)
                     continue
                 if name not in memo[t]:
                     continue
-                if len(memo[t][name]) > 1 or memo[t][name][0] != city:
+                if len(memo[t][name]) > 1 or city not in memo[t][name]:
                     res.append(s)
+                    if name == 'iris': print(memo[t])
                     break
-        
+                    
         return res
                 

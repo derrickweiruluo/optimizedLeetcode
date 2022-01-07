@@ -1,31 +1,32 @@
 '''
-An underground railway system is keeping track of customer travel times between different stations. They are using this data to calculate the average time it takes to travel from one station to another.
-
-
+An underground railway system is keeping track of customer travel times between different stations. 
+They are using this data to calculate the average time it takes to travel from one station to another.
 '''
 
 
 class UndergroundSystem:
 
     def __init__(self):
-        self.check_in_id = {}
-        self.time_pairs = collections.defaultdict(int)  # totoal time spent in two specific station
-        self.freqs = collections.defaultdict(int)       # totoal freqs between two specific station
-
+        self.checkInMapping = {}
+        
+        # both use (startTime, endTime) as a key, one for time, one for freq
+        self.timeMapping = collections.defaultdict(int)
+        self.freqMapping = collections.defaultdict(int)
+        
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        # A customer with a card ID equal to id, checks in at the station stationName at time t.
-        # A customer can only be checked into one place at a time.
-        self.check_in_id[id] = (stationName, t)
+        self.checkInMapping[id] = (stationName, t)
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        # A customer with a card ID equal to id, checks out from the station stationName at time t.
-        check_in_station, check_in_time = self.check_in_id[id]
-        self.time_pairs[(check_in_station, stationName)] += t - check_in_time
-        self.freqs[(check_in_station, stationName)] += 1
+        startStation, time = self.checkInMapping[id]
+        self.timeMapping[(startStation, stationName)] += t - time
+        self.freqMapping[(startStation, stationName)] += 1
+
+        self.checkInMapping.pop(id) # Optimization of Space 
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        # Returns the average time it takes to travel from startStation to endStation.
-        return self.time_pairs[(startStation, endStation)] / self.freqs[(startStation, endStation)]
+        totalTime = self.timeMapping[(startStation, endStation)]
+        count = self.freqMapping[(startStation, endStation)]
+        return totalTime / count
 
 
 # Your UndergroundSystem object will be instantiated and called as such:
