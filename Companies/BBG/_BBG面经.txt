@@ -1,0 +1,222 @@
+11月份左右的电面。电面1考了一道题，Add number to linked list, make sure the linkedin list is sorted
+电面2考了三道题，第一题two sum。第二题external sort相关，找到两个很大的file不一样的entry，做法是先进行external sort，再一一比较两个文件的每一行。第三题是level order print a binary tree。
+还请大家帮楼主加点大米
+
+
+第二轮
+先写 preorder 走访
+recursive, iterative
+在写删除 node from binary search tree
+不用真的跑 code
+但是希望列出所有edge case
+要准‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌备 why bloomberg
+
+
+第一题 clone graph  很简单有个bug自己发现改过来了
+还有十多分钟第二题多线程blocking queue, 风风火火写好了(有的api名字忘了和面试官说了下面试官表示认可)。之后一会儿让写main function一会儿让consume同时处理三个消息一会儿让把方法里改成while死‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌循环, 最后把一个好好的队列class改的像学生多线程作业一样 不知什么鬼。
+过了十几天通知挂了 电面甩多线程是我没想到的
+
+
+1656?
+Given (1, “aaa”) (2, “bbb”) (3, “ccc”) (4, “ddd”) (5, “eee”),
+1. pass in 1, 输出 “aaa"
+2. pass in 3, 不输出任何str，因为跳过了2
+3. pass in 2, 输出 “bbb”,“ ccc”
+
+Tech 1: currency exchange
+Tech 2: validate binary tree + two city scheduiling
+HR: Why BB + Tell me about your project + How did you learn a new coding language
+最后~面试的体验总结
+1. 这么多轮下来面试体验真的都非常好，面试官们都很nice好沟通，对bb都很passionate
+2. communication真的很重要；面试官想看要的不只是一个有tech skill的candidate，更多是能一起合作的candidate；即使做题卡住了也要think out loud，跟面试官沟通你的想法，做题想象成是和面试官一起合作完成这道题目。最后，感谢面试官拿出时间面试自己，告诉ta你从面试的过程学到了很多：）
+3. 了解公司也很重要；我在why bb的时候举了很多how engineer can contribute的具体例子（都‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌是从官网上看来的），让hr都觉得我可以去替ta向candidate推销bb了哈哈哈。所以，show your passion!
+
+
+
+面试官是印度小哥，一上来互相自我介绍，然后简单的问了一下之前实习的project，然后why bloomberg，总共大概聊了15 分钟。
+
+利口衣伞酒溜 1396，Design Underground System，楼主见过然后给了完美解，感觉一切都很顺利，
+最后还有十分钟，就开始反向bq。
+总之全程感觉良好，交流也很愉快，coding也是完美解决，但第二天收到了拒信。。。。
+
+
+
+一轮店面 问了简历实习的细节 + 莉蔻 摇摇其
+hr面是简单的bq，why bloomberg, internship, how's the interview process
+em 面是一位在bb工作了26年的大叔，前20分钟问了一下internship和 why swe（lz是转专业）以及第一门学习的语言是什么，然后对比了一下python， java， c 和c++的区别，
+接下来的20分钟大叔做了一个演讲，主要讲了bb terminal，他们如何实现高速和质量，以及他认为成功人具备的品质是什么。最后说了一句hr会在一周之内reach out。
+em面感觉在回答python，java，c和c++区别的时候 答的不好，完全没准备，‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌基础不够扎实。发帖攒人品，希望有offer！
+
+
+第一轮两个外国小哥，10分钟bq 
+一道壹零贰玖，1029 Remove All Adjacent Duplicates in String II
+一道 一维的期尔伞 723 Candy Crush 一道concurrency的转换问题（没写code 只讲思路）
+第二轮一个外国小哥，10分钟bq，一道跑马拉松题，地里没看到原题， 一开始用了一个一个思路，后来用了另一个思路写了reduce space complexity
+
+
+利口 五苓散  Next Greater Element II
+follow up: what if we want the next greatest number, not the next greater number?
+
+
+(1) all the strings in the deepest level
+e.g. (1(2{{3}})){{{{4}}}} return ["3", "4"]
+(2) sort all the pairs by the x value (1, 1.0) (2, 1.7) (9, 1.4) (3, 2.6)
+我用的comparator, Time O(NlogN), Space: O(1)
+follow up: what if the x value is within [1,100], can you do it within less time?
+我说bucket sort, Time O(N), Space: O(N)
+follow up: O(N) time and less space?
+我：swapping + sort in place. Time: O(N), Space: O(1)
+
+
+
+VO2:
+地里经典马拉松题。我一开始没复习过，面试的时候磕磕绊绊做出来的，来不及做第二题。面试官表情很严肃，一直反问我，我每次clarify的时候问他does it sound right? 他反问我what do you think? Does it sound right to you. 心态很崩溃lol，一度以为自己要挂在这轮。但他还是给了我挺多hint，每次我clarify东西的时候他都给我sample output，其实是挺nice的人。
+
+
+面试小哥人非常好 一开始聊了一下背景 在做什么项目 最后问了一道类似1d candy crush的题目
+
+Connect 4. The game board is a standing (m x n) matrix. Two players drop in their specific chip (red vs yellow) in any of the non-full columns. If a players's chips line up 4 in a row either in horizontal, vertical, or diagonal sequence, they scroe a point.
+Find out who is the winner from the current board (m‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌ x n 2D array)
+- - - -
+R - - -
+R - - -
+R Y Y Y
+ourput is 'R'
+
+
+
+
+12.3 三轮on-site，前两轮：
+利口 98
+利口耳舞伞 253，利口伞 3，（有一轮只有一个算法题，做完问了楼主基础知识，没什么参考价值，感觉是根据你经历来的）
+12.7 约em面
+12.9 em面，讲上一段的实习项目，几个简单的问题，为啥来，找工作看重啥
+12.15 offer，有普林斯顿的Office可以选，看着还挺漂亮的s
+
+
+开花堡新鲜4轮面筋啦～总体来说从店面到technical virtual onsite到最后的hr + em体验都非常好。开花堡真心像传说中的一样，面试过程丝滑，面试官友好。
+1. 利口 耳领玲 - 岛屿数量
+2. 利口 易伞酒柳 - 地铁设计题
+3. 利口 耳易而 - 搜索词汇
+4. 利口 伞酒斯 - 解码字符串
+HR面比较短大概半小时，大概的问题就是为什么喜欢开花堡？大概的开始时间？hr人很好，详细介绍了training program
+Engineering Man‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌ager也非常nice，一开始就说我们今天不问technical questions。就是casual chat一下。给我演示了酷炫的bbg terminal。没有问什么实质的问题。
+
+
+
+12.09 vo1 开始问了10多分钟简历。coding 是设计一个抽奖系统， 参考 lc 散吧灵； follow up是一个用户可能有多个参加记录（相当于不再是随机了，而是每个用户带权重），参考 lc 五而把， 外国小哥。
+12.13 vo2‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌ 开始时问了大概10分钟简历，coding：第一题 meeting room 2 (而五散)， 第二题 lc 散酒四，国人大哥。
+
+第一题：夭肆陆
+
+
+先BQ，问一下背景和项目，两题coding，然后Q&A
+第一题 会议室2
+第二题  咦而司就
+第一题秒写，第二题没见过，先讲了一下如果是判定（）的话应该用stack做，如果是remove extra 括号的话如何进一步用stack拓展，然后optimize到用一个var来存当前遇见过的（），这样就可以解决单边右括号。解‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌决左括号的时候挣扎了一下，think out loud讲了一下别的思路，后来被提示可以反过来过一遍。
+
+
+# 146 LRU, 
+# 230
+NG虚拟表演：
+第一轮 一进来是三哥， 心哇凉哇凉，在浓厚的口音中努力辨识QWQ，浏览器历史包装的药斯溜 和 迩散令
+第二轮 一个华裔和一个中国小哥哥，太感谢中国小哥了，感觉全程一直在给我找‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌补呜呜呜呜呜呜呜呜。用抽签包装的伞坝绫
+过了一个小时之后是HR，常见BQ。
+
+
+# 253 meeting rooms II
+题不算难，利口原题鸸毋伞。面试小哥挺和善，看样子也不打算为难。体验不错
+
+# 200
+电面：LC 尔拜  Follow: 形状已知
+# 253   MEEETING ROOM II     
+105  Construct BT from Preorder and Inorder Traversal
+vo1: 尔屋散 + 腰灵屋
+# 314 Binary Tree Vertical Order Traversal
+# 1396 Design Underground System
+vo2: 散要嘶 + 腰散酒刘
+
+
+# 3 Longest Substring Without Repeating Characters
+
+# 30分钟做题，给出一个多叉树，找出从root到leaf的值加起来最小的那个路径，返回那个值
+
+	
+# 692 Top K Frequent Words  ==> Buckets sort + Trie -> O(N) time 
+
+
+
+第一轮：第一题 314 Binary Tree Vertical Order Traversal， 第二题一个string有括号然后输出depth最大的string，比如a(b(((cd)ef)((g))),return cd,g.
+第二轮： 第一题 lc 耳散雾 然后说不能用heap的方法来解答。其实就是把start time 和end time一起sort，然后遇到start time +1，end time-1。
+第二题‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌ 药零洱酒 1029 Two City scheduiling  三个城市怎么办？面试大部分时间在讨论这个问题。
+1029 Follow UP: https://www.1point3acres.com/bbs/thread-826172-1-1.html
+
+
+
+# 199 BT Right Side View 
+# 380 Insert Delete GetRandom O(1)
+    Follow up 如何每个string只存1次（用shared pointer）
+
+
+第二轮
+2. 给一个银行列表，每个银行有各自的工作时间，给定一个时间区间 i，判断i能否被银行工作时间覆盖到。比如银行：[[8,12], [13,16], [15,19]]，i：[9,13] --> return false
+follow up：如果区‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌间是前一天晚上11点到第二天早上10点这种怎么办？如果银行数量特别多，怎么处理（multithreading）
+
+
+# 387 First Unique Character in a String
+    follow up，比如如何处理含有emoj或者汉字这样的string，能不能不用哈希表用ordered set来做
+今天面的VO1，是一个包装成browser hostroy的LRU Cache。我用单链表做的，但是面试官好像不是很熟悉用单链表的做法，一直在问我代码细节，搞得有点慌。follow up是写一个方法，要求可以改动cache capacity。只做了这一个题就到反向提问了。我看地里都是直接当场约的vo2，我到最后面试‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌官说让我等hr邮件，估计是挂了。
+
+
+# 394	Decode String
+# 19    Remove Nth Node From End of List
+
+# 62	Unique Paths
+# 238   Product of Array Except Self
+
+# 463   Island Perimeter
+# 253   MEEETING ROOM II
+# 33	Search in Rotated Sorted Array
+# 78    Subsets
+# 700E  Search in a Binary Search Tree
+# 797   All Paths From Source to Target
+# 56    Merge Intervals (3)
+# 49    Group Anagrams
+# 703   Kth Largest Element in a Stream   (Heap解法)
+# 103   Binary Tree Zigzag Level Order Traversal
+# 42    Trapping rain water
+# 935   Knight Dialer (BFS or DP)
+# 98
+# 19    Remove Nth Node From End of List
+# 98    Validate Binary Search Tree （3）
+# 1244  Design A Leaderboard (2), 可能有变形
+# 124   Max Path Sum?
+# 140   Word Break II
+# 20    Valid Parenthesis
+# 200   num of islands 周围一圈八个方向的数字是1的话都算同一个岛屿， 然后如果超过k个1连在一起的话就算country不算island，问‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌grid里一共有几个island
+# LCA   
+# 430   Flatten a Multilevel Doubly Linked List  (45)
+# 49    Group Anagrams
+# 1347
+# Candy Crush 1维，定式思维写了2维的解法，写完后follow up问有没有O(N)的解法，想了下其实就是remove k adjacent duplicates，时间原因就嘴跑了一下，‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌没有再让写了。
+# 117   Populating Next Right Pointers in Each Node II
+# 38 Count and sort相关，找到两个很大的file不一样的entry，做法是先进行external
+# 387 	First Unique Character in a String
+        我用了2次for循环，follow up是如何第二个for的优化时间复杂度
+# 88    Merge Sorted Array
+# 8     String to Integer (atoi)
+# 1396  Underground (4)
+# 1209  3-City scheduiling
+# 79    Word Search
+# 1-D Candy Crush
+# 199   BT Right side View (3)
+# 1169  Invalid Transactions
+# 68    新闻排版简易版
+# 50    Pow(x, y)
+#       最后给了一串in order traversal的代码，说出traverse一个tree的结果是什么
+问了用recursion写in order traversal会导致什么问题
+最后要求用写iterative的in order traversal#  
+
+
+
+大概是从两方面，一个是技术，结合楼主的大致方向说Bloomberg有相关研究；第二个是从价值观方面，说Bloomberg致力于give the money back，就是回馈社会。
