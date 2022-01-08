@@ -10,6 +10,27 @@ an empty list
 Else , we have to return an sliced list from the incoming index to the first index
 where there is no insertion till yet.
 '''
+class OrderedStream:   # 一毛一样的解法
+
+    def __init__(self, n: int):
+        self.data = [None] * n
+        # self.ptr = 0
+
+        # is always advancing, so that the past return values
+        # wont return again, only the previous un-returned results
+        self.pointer = 0 
+
+    def insert(self, idKey: int, value: str) -> List[str]:
+        self.data[idKey - 1] = value
+        res = []
+        while self.pointer < len(self.data) and self.data[self.pointer]:
+            res.append(self.data[self.pointer])
+            self.pointer += 1
+        return res
+
+
+
+
 
 class OrderedStream:
 

@@ -163,8 +163,7 @@ vo2: 散要嘶 + 腰散酒刘
 follow up：如果区‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌间是前一天晚上11点到第二天早上10点这种怎么办？如果银行数量特别多，怎么处理（multithreading）
 
 
-# 387 First Unique Character in a String
-    follow up，比如如何处理含有emoj或者汉字这样的string，能不能不用哈希表用ordered set来做
+
 今天面的VO1，是一个包装成browser hostroy的LRU Cache。我用单链表做的，但是面试官好像不是很熟悉用单链表的做法，一直在问我代码细节，搞得有点慌。follow up是写一个方法，要求可以改动cache capacity。只做了这一个题就到反向提问了。我看地里都是直接当场约的vo2，我到最后面试‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌官说让我等hr邮件，估计是挂了。
 
 
@@ -201,8 +200,9 @@ follow up：如果区‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌�
 # Candy Crush 1维，定式思维写了2维的解法，写完后follow up问有没有O(N)的解法，想了下其实就是remove k adjacent duplicates，时间原因就嘴跑了一下，‍‌‌‌‌‌‌‌‌‌‌‍‍‌‍‍‌‌‌‌没有再让写了。
 # 117   Populating Next Right Pointers in Each Node II
 # 38 Count and sort相关，找到两个很大的file不一样的entry，做法是先进行external
-# 387 	First Unique Character in a String
-        我用了2次for循环，follow up是如何第二个for的优化时间复杂度
+# 387 	First Unique Character in a String (2)
+        1.  我用了2次for循环，follow up是如何第二个for的优化时间复杂度
+        2.  follow up，比如如何处理含有emoj或者汉字这样的string，能不能不用哈希表用ordered set来做
 # 88    Merge Sorted Array
 # 8     String to Integer (atoi)
 # 1396  Underground (4)
