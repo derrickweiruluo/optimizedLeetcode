@@ -22,22 +22,21 @@ class Solution:
     def decodeString(self, s: str) -> str:
         stack = []
         cur_str = ''
-        k = 0
+        cnt = 0
         
         for char in s:
-            if char == '[':
-                stack.append((cur_str, k))
+            if char.isdigit():
+                cnt = cnt * 10 + int(char)
+            elif char.isalpha():
+                cur_str += char
+            elif char == '[':
+                stack.append((cur_str, cnt))
                 cur_str = ''
-                k = 0
+                cnt = 0
                 
             elif char == ']':
-                prev_str, prev_k = stack.pop()
-                cur_str = prev_str + prev_k * cur_str
+                prev_str, prev_cnt = stack.pop()
+                cur_str = prev_str + prev_cnt * cur_str
                 
-            elif char.isdigit():
-                k = k * 10 + int(char)
-                
-            else: # just characters
-                cur_str += char
             
         return cur_str
