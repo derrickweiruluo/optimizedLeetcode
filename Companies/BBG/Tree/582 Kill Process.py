@@ -50,6 +50,9 @@ class Solution:
                     # extend the BFS search to the end of the deque,
                     # while still popping from the left end, therefore BFS
                     queue.extend(mapping[killed])
+                
+                # 下面是一样的写法，简介点而已
+                # queue.extend(mapping.get(deleted) or [])
         
         return res
 
