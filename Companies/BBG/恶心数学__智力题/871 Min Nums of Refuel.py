@@ -30,16 +30,19 @@ Return the minimum number of refueling stops the car must make in order to reach
 class Solution:
     def minRefuelStops(self, target: int, startFuel: int, stations: List[List[int]]) -> int:
         maxHeap = []
-        res, idx = 0, 0
-        curr_fuel = startFuel
+        idx = 0
+        res = 0
+        cur = startFuel
         
-        while curr_fuel < target:
-            while idx < len(stations) and curr_fuel >= stations[idx][0]:
-                heapq.heappush(maxHeap, -1 * stations[idx][1])
+        while cur < target:
+            while idx < len(stations) and cur >= stations[idx][0]:
+                heapq.heappush(maxHeap, -1 * stations[idx][1])  # while 可以到达，预存之前每个站的油
                 idx += 1
-                
+            
             if not maxHeap: return -1
-            curr_fuel += -1 * heapq.heappop(maxHeap)
+            cur += heapq.heappop(maxHeap) * (-1)        # 不可到达时，pop heap最大的，如果heap空了就return -1
+            # 加了一次油就会进入下一个outer while loop
             res += 1
+        
         
         return res

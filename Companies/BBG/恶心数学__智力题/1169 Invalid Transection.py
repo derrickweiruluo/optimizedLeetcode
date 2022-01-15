@@ -9,8 +9,8 @@ import collections
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
         # transactions: 'name, time, amount, city'
-        
         # defualtdict 的快捷写法
+        curTime = 0
         memo = collections.defaultdict(lambda: collections.defaultdict(set))
         res = []
         
@@ -18,8 +18,7 @@ class Solution:
             lst = s.split(',')
             name, time, amount, city = lst[0], int(lst[1]), int(lst[2]), str(lst[3])
             memo[time][name].add(city)
-
-        
+            
         for i, s in enumerate(transactions):
             lst = s.split(',')
             name, time, amount, city = lst[0], int(lst[1]), int(lst[2]), lst[3]
@@ -28,13 +27,14 @@ class Solution:
                 res.append(s)
                 continue
             for t in range(time - 60, time + 61):
-                if t not in memo:
+                if t not in memo:  # 这个时间没交易， continue
                     continue
-                if name not in memo[t]:
+                if name not in memo[t]:  # 这个时间有，但这个人没有，continue
                     continue
-                if len(memo[t][name]) > 1 or city not in memo[t][name]:
+                if len(memo[t][name]) > 1 or city not in memo[t][name]:  # 如果满足，update res
                     res.append(s)
-                    if name == 'iris': print(memo[t])
+                    
+                    # if found， break the current transaction iteration
                     break
                     
         return res

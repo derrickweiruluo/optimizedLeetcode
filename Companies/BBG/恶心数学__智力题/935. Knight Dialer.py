@@ -34,6 +34,7 @@ class Solution:
 
 
 
+
 class Solution:
     def knightDialer(self, N: int) -> int:
         # mapping = {0:(4,6), 1:(6,8), 2:(7,9), 3:(4,8), 4:(0,3,9), \

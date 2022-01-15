@@ -6,7 +6,7 @@
 
 Initially, the leaderboard is empty.
 '''
-
+# Top K players with most scores
 class Node(object):
     def __init__(self, score):
         self.score = score

@@ -2,6 +2,25 @@
 Input: n = 13
 Output: [1,10,11,12,13,2,3,4,5,6,7,8,9]
 '''
+class Solution:
+    def lexicalOrder(self, n: int) -> List[int]:
+    
+        res = []
+        cur = 1
+        for _ in range(n):
+            res.append(cur)
+            if cur * 10 <= n:           # 如果不超出，先一直 *= 10
+                cur = cur * 10
+            else:
+                if cur + 1 > n:         #  降一位数
+                    cur = cur // 10
+                cur += 1                # 升一位 to next greater
+                while cur % 10 == 0:    # start from 个位数 next greater
+                    cur = cur // 10
+            
+        return res
+
+
 
 
 class Solution:

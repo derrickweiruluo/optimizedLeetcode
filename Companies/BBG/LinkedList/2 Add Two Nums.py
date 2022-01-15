@@ -3,17 +3,11 @@
 5 --> 6 --> 4
 
 
-return
+return  342 + 465 = 807 反着来
 7 --> 0 --> 8
-
 '''
 
-
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+# 342 + 465 = 807 反着来， 结果return  7--0--8
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         

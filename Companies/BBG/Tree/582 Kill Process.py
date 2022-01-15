@@ -21,25 +21,28 @@ Build a (int parent: list[int] children)hashMap and do a simple bfs.
 """
 
 
-# 建立 parent node:[child node] 关系
-# 通过parent -> child 一路向南kill下级的所有node
+
+
 
 
 # Input: pid = [1,3,10,5], ppid = [3,0,5,3], kill = 5
 # Output: [5,10]
 
+
+# Clarifications: When a process is killed, all of its children processes will also be killed.
 import collections
 class Solution:
     def killProcess(self, pid: List[int], ppid: List[int], kill: int) -> List[int]:
         
+        # 建立 parent node:[child node] 关系
         mapping = collections.defaultdict(list)
-        
         for parent, child in zip(ppid, pid):
             mapping[parent].append(child)
             
         res = []
         queue = collections.deque([kill])
         
+        # 通过parent -> child 一路向南 BFS kill下级的所有node
         while queue:
             for _ in range(len(queue)):
                 killed = queue.popleft()

@@ -9,22 +9,23 @@ class Node:
 class MinStack:
 
     def __init__(self):
+
+        # this head node is dynamically changing as we popTop, or insert new
         self.head = Node(0, math.inf, None)
         
     def push(self, val: int) -> None:
-        # pushes the element val onto the stack.
+
+        # new head is create with the new Val and minVal, and point to head
+        # and this head is the updated head
         self.head = Node(val, min(val, self.head.minVal), self.head)
 
     def pop(self) -> None:
-        # removes the element on the top of the stack.
         self.head = self.head.prev
 
     def top(self) -> int:
-        # gets the top element of the stack.
         return self.head.val
 
     def getMin(self) -> int:
-        # retrieves the minimum element in the stack.
         return self.head.minVal
 
 

@@ -27,38 +27,36 @@ class Solution:
         # the most negative cost will be at front
         # thus res will always subtract the most:
         # which means select the cheapest B
-    
-        
         return res
+
+
+#*----------------------
+
 
 # BEST, Time O(N) with quickSelect, Space logN due to recursive stack
 class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
         
-        def diff(cost): # comparator, to seperate
-            return cost[0] - cost[1]
-        
+        def diff(cost): return cost[0] - cost[1]
         
         def partition(nums, start, end):
-            # use start, end for partition zone
-
-            if start == end: 
+            # recursive partition util meeting the middle seperation
+            if start == end:
                 i = start
             else:
-                # index i is the left-advancing index to get Kth-Largest
-                i, rand_idx = start, random.randint(start, end)
-                nums[end], nums[rand_idx] = nums[rand_idx], nums[end]
-                for j in range(start, end):
+                i, randIdx = start, randint(start, end)
+                nums[end], nums[randIdx] = nums[randIdx], nums[end]
+                for j in range(start, end):  # not including 'end'
                     if diff(nums[j]) < diff(nums[end]):
                         nums[i], nums[j] = nums[j], nums[i]
                         i += 1
-                nums[end], nums[i] = nums[i], nums[end]
+                nums[i], nums[end] = nums[end], nums[i]
             
             n = len(nums)
-            if i == n // 2: # if the partition stop at the mediam --> answer
+            if i == n // 2:
                 res = 0
                 for k in range(i):
-                    res += nums[k][0] + nums[k + n // 2][1]
+                    res += (nums[k][0] + nums[k + n // 2][1])
                 return res
             elif i < n // 2:
                 return partition(nums, i + 1, end)
@@ -68,6 +66,10 @@ class Solution:
         
         return partition(costs, 0, len(costs) - 1)
 
+
+
+
+#*----------------------
 
 # O (nlogN), O(N)space
 class Solution:

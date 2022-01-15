@@ -21,6 +21,7 @@ class Solution:
             crush = set()
             for i in range(m):
                 for j in range(n):
+                    # i, j 都 > 1 是因为预留两行两列
                     if j > 1 and grid[i][j] and grid[i][j] == grid[i][j - 1] == grid[i][j - 2]:
                         crush |= {(i, j), (i, j - 1), (i, j - 2)}
                     if i > 1 and grid[i][j] and grid[i][j] == grid[i - 1][j] == grid[i - 2][j]:

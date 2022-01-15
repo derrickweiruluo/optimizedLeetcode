@@ -9,13 +9,10 @@ Once all the milestones of all the projects are finished, or if the only milesto
 Return the maximum number of weeks you would be able to work on the projects without violating the rules mentioned above.
 '''
 
-
+# https://leetcode.com/problems/maximum-number-of-weeks-for-which-you-can-work/discuss/1375390/Python-Solution-with-detailed-explanation-and-proof-and-common-failure-analysis
 class Solution:
     def numberOfWeeks(self, milestones: List[int]) -> int:
-        
-        
-         # https://leetcode.com/problems/maximum-number-of-weeks-for-which-you-can-work/discuss/1375390/Python-Solution-with-detailed-explanation-and-proof-and-common-failure-analysis
-        
+
         _sum, _max = sum(milestones), max(milestones)
 		# (_sum - _max) is the sum of milestones from (2) the rest of projects, if True, we can form another project with the same amount of milestones as (1)
 		# can refer to the section `Why the greedy strategy works?` for the proof
@@ -27,4 +24,7 @@ class Solution:
 
     
     
-    # Complexity
+# corner case:
+# [5,5,3] --> [2,2,3] --> [2,2,2]: 全都可以完成 == 13
+# [5,3,2,1] --> tot >= 5 * 2: 全都可以完成 == 
+# [5,2,1] --> tot < 5 * 2: == 1 + 2 + 3 + (1) = 7

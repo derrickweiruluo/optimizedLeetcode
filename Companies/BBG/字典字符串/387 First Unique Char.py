@@ -21,15 +21,14 @@ class Solution: # Two pointers, just you array
         counter[ord(s[0]) - ord('a')] = 1
         
         i = 0 # slow pointer
+        
+        # for j, char in enumerate(s, start = 1):
         for j in range(1, n):
             counter[ord(s[j]) - ord('a')] += 1
             while i < n and counter[ord(s[i]) - ord('a')] > 1:
                 i += 1
-            if i >= n:
-                return -1
         
-        return i
-
+        return i if i < n else -1
 
 
 

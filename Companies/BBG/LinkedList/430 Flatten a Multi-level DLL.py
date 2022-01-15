@@ -35,6 +35,7 @@ class Solution:
         # recursive approach
             while curr:
                 next_node = curr.next
+
                 if not next_node:
                     tail = curr
                 if curr.child:

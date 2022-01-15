@@ -8,9 +8,12 @@ Output: false
 
 # Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 
-class Solution:
+class Solution:  # BEST
     def isAnagram(self, s: str, t: str) -> bool:
         
+        # s = 'abcdé😀♞{23@#'
+        # for i in range(len(u)):
+        #     print(ord(u[i]))
         unicodeCounter = [0] * 256
         for char in s:
             unicodeCounter[ord(char) - ord('a')] += 1
@@ -20,11 +23,12 @@ class Solution:
             if unicodeCounter[ord(char) - ord('a')] < 0:
                 return False
         
-        return sum(unicodeCounter) == 0
+        for val in unicodeCounter:
+            if val != 0: return False
         
-        # s = 'abcdé😀♞{23@#'
-        # for i in range(len(u)):
-        #     print(ord(u[i]))
+        return True
+        
+        
         
         
 class Solution:

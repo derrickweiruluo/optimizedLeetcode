@@ -11,25 +11,21 @@ Input: s = "Aabb"
 Output: "bbAa"
 '''
 
-# Bucket Sort
-# Time O(N + klogk), n is number of chars, k is amount of distinct characters
-# Time can reduce to O(N), by just iterate frequency from n to 0
-# Space O(N)
+# Optimized Bucket Sort  Overall O(n), Space O(n)
 class Solution:
     def frequencySort(self, s: str) -> str:
         counter = collections.Counter(s)
         buckets = collections.defaultdict(list)
         
         for char, freq in counter.items():
-            buckets[freq] += [char]
-        
+            buckets[freq].append(char)
         
         res = ""
         
-        for freq in range(len(s), -1, -1):
-        # for freq in sorted(buckets, reverse = True):
+        for freq in range(len(s), -1, -1):  # start from the largest possible freq
             for char in buckets[freq]:
-                res += freq * char
+                res += char * freq
+        
         
         return res
 

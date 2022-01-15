@@ -4,12 +4,13 @@
       5 --> 6 --> 4
 
 
-return
+return  # 7243 + 564 = 7807  input output 都是正着来
 7 --> 8 --> 0 --> 7
 
 '''
 
-
+# return  # 7243 + 564 = 7807  input output 都是正着来
+# 7 --> 8 --> 0 --> 7
 class Node:
     def __init__(self, val):
         self.val = val
