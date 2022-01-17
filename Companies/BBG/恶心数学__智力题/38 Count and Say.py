@@ -26,6 +26,7 @@ class Solution:
                     cnt = 1
             return res
         
+        # count and say n -1 times, since say(1) is already initialized as 1
         for _ in range(n - 1):
             res = convert(res)
         

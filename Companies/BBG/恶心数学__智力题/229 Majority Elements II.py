@@ -35,6 +35,7 @@ class Solution:
             elif secondCnt == 0:
                 second = num
                 secondCnt += 1
+            # 画龙点睛， 通过 cnt -= 1 确保candidate都是majority
             else:
                 firstCnt -= 1
                 secondCnt -= 1

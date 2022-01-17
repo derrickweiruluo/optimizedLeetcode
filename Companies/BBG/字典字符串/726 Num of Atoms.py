@@ -18,34 +18,36 @@ class Solution:
         
         mapping = collections.defaultdict(int)
         multiplier = 1
+        power = cnt = 0
+        
         stack = []
-        i = cnt = 0
         elem = ""
         
         for char in formula[::-1]:
             if char.isdigit():
-                cnt += int(char) * (10 ** i)
-                i += 1
-            elif char == ")":
-                if i:
+                cnt += int(char) * (10 ** power)
+                power += 1
+            elif char == ')':
+                if power:
                     stack.append(cnt)
                     multiplier *= cnt
                 else:
                     stack.append(1)
-                i = cnt = 0
-            elif char == "(":
+                power = cnt = 0   # restart as a new formula
+            elif char == '(':
                 multiplier //= stack.pop()
-                i = cnt = 0
+                power = cnt = 0   # restart as a new formula
+            elif char.islower():
+                elem += char
+                # not reset power and cnt since elem Definitly not finished
             elif char.isupper():
                 elem += char
                 mapping[elem[::-1]] += (cnt or 1) * multiplier
                 elem = ""
-                i = cnt = 0
-            elif char.islower():
-                elem += char
+                power = cnt = 0   # restart as a new formula
         
-        res = []
+        res = ""
         for elem, val in sorted(mapping.items()):
             res += elem + (str(val) if val > 1 else "")
         
-        return "".join(res)
+        return res

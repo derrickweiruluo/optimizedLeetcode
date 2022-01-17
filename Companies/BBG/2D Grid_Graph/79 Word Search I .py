@@ -16,37 +16,34 @@ Given word = "ABCB", return false.
 
 class Solution:
     def exist(self, board, word):
-        memo = {}
+        memo = {}  # memo of false result
         m, n = len(board), len(board[0])
         
-        # do a fast check first, before the expensive DFS
-        if m * n < len(word): return False
+        # Two Sanity Check:
+        if m * n < len(word): return False   
         counter = collections.Counter(word)
         for i in range(m):
             for j in range(n):
                 counter[board[i][j]] -= 1
         if max(counter.values()) > 0: return False
         
-        # Start of DFS
         for i in range(m):
             for j in range(n):
-                if self.getWords(board, word, i, j, memo, 0):
+                if self.getWord(board, i, j, memo, word, 0):
                     return True
-
         return False
 
-    def getWords(self, board, word, i, j, memo, pos):
+    def getWord(self, board, i, j, memo, word, pos):
         if pos == len(word):
             return True
-
         if i < 0 or i == len(board) or j < 0 or j == len(board[0]) or memo.get((i, j)) or word[pos] != board[i][j]:
             return False
-
         memo[(i, j)] = True
-        res = self.getWords(board, word, i, j + 1, memo, pos + 1) \
-              or self.getWords(board, word, i, j - 1, memo, pos + 1) \
-              or self.getWords(board, word, i + 1, j, memo, pos + 1) \
-              or self.getWords(board, word, i - 1, j, memo, pos + 1)
+        if self.getWord(board, i, j + 1, memo, word, pos + 1) \
+              or self.getWord(board, i, j - 1, memo, word, pos + 1) \
+              or self.getWord(board, i + 1, j, memo, word, pos + 1) \
+              or self.getWord(board, i - 1, j, memo, word, pos + 1):
+            return memo[(i, j)]
+        
         memo[(i, j)] = False
-
-        return res
+        return memo[(i, j)]

@@ -25,27 +25,27 @@ class Solution:
         prev = child = Node(0)
         
         
-        d = root
-        while root:
+        cur = root
+        while cur:
             # inner loop for 当前层的操作，目标是处理好，且update最左边的node pointer
             # 因为上一层的next 设置好了，等于可以用这个next pointer来跨越同一层的下一个node
             # 每一层的最后一个node -> Null 都是通过下一层的 root = root.next来实现
             # 最底层只会运行一个操作让最后一个node指向null
-            while root:
-                if root.left:
-                    child.next = root.left
+            while cur:  # iterate the level
+                if cur.left:
+                    child.next = cur.left
                     child = child.next
-                if root.right:
-                    child.next = root.right
+                if cur.right:
+                    child.next = cur.right
                     child = child.next
                 
                 # build the next pointer for the next_level nodes
                 # rightMost will just be None
                 # and this will break in the inner-level while loop
-                root = root.next  
+                cur = cur.next  
             
             # print(prev.next.val, prev.val)
-            root, child = prev.next, prev
+            cur, child = prev.next, prev
             child.next = None
         
-        return d
+        return root
