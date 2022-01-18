@@ -34,24 +34,23 @@ class Solution1:
         target = stones[-1]
         stones = set(stones)
 
-        res = self.bt(stones, 1, 1, target)
+        res = self.bt(stones, 1, 1, target)  # i=1 石头开始看， 初始化
         return res
 
     def bt(self, stones, cur, speed, target):
         # check memo
         if (cur, speed) in self.memo:
             return False
-
         if cur == target:
             return True
-
         if cur > target or cur < 0 or speed <= 0 or cur not in stones:
             return False
+
         # dfs
-        candidate = [speed - 1, speed, speed + 1]
-        for c in candidate:
-            if (cur + c) in stones:
-                if self.bt(stones, cur + c, c, target):
+        candidates = [speed - 1, speed, speed + 1]
+        for nextSpeed in candidates:
+            if (cur + nextSpeed) in stones:
+                if self.backtrack(stones, cur + nextSpeed, nextSpeed, target):
                     return True
 
         self.memo.add((cur, speed))

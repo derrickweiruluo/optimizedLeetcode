@@ -16,10 +16,10 @@ class Solution:
         res = []
         
         for i in range(len(nums2) - 1, -1, -1):
-            while stack and stack[-1] <= nums2[i]:
+            while stack and stack[-1] <= nums2[i]:    # pop <= elements on the stack
                 stack.pop()
-            nextGreater[nums2[i]] = stack[-1] if stack else -1
-            stack.append(nums2[i])
+            nextGreater[nums2[i]] = stack[-1] if stack else -1   # 更新dict based on stack, if empty, cur num is the largest (no next greater)
+            stack.append(nums2[i])                    # update the stack
             
             
         for i in range(len(nums1)):

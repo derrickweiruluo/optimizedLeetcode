@@ -29,7 +29,7 @@ class Solution:
                 power += 1
             elif char == ')':
                 if power:
-                    stack.append(cnt)
+                    stack.append(cnt or 1)
                     multiplier *= cnt
                 else:
                     stack.append(1)

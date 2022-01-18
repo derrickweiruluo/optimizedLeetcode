@@ -2,34 +2,6 @@
 如题 validate BST
 '''
 
-class Solution:  # Morris 1
-    def isValidBST(self, root: TreeNode) -> bool:
-        
-        def morris(root):
-            if not root: return None
-            curr = root
-            while curr:
-                if not curr.left:
-                    yield curr.val
-                    curr = curr.right
-                else:
-                    prev = curr.left
-                    while prev.right != None and prev.right != curr:
-                        prev = prev.right
-                    if prev.right == None:
-                        prev.right = curr
-                        curr = curr.left
-                    elif prev.right == curr:
-                        prev.right = None
-                        yield curr.val
-                        curr = curr.right
-        prev = -math.inf
-        for val in morris(root):
-            if val <= prev: return False
-            prev = val
-        return True
-
-
 class Solution:  # Morris 2
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
@@ -60,6 +32,35 @@ class Solution:  # Morris 2
         prev = -math.inf
         res = []
         return morris(root)
+
+
+
+class Solution:  # Morris 1
+    def isValidBST(self, root: TreeNode) -> bool:
+        
+        def morris(root):
+            if not root: return None
+            curr = root
+            while curr:
+                if not curr.left:
+                    yield curr.val
+                    curr = curr.right
+                else:
+                    prev = curr.left
+                    while prev.right != None and prev.right != curr:
+                        prev = prev.right
+                    if prev.right == None:
+                        prev.right = curr
+                        curr = curr.left
+                    elif prev.right == curr:
+                        prev.right = None
+                        yield curr.val
+                        curr = curr.right
+        prev = -math.inf
+        for val in morris(root):
+            if val <= prev: return False
+            prev = val
+        return True
 
 
 

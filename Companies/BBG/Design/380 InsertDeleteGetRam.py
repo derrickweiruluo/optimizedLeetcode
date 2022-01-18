@@ -13,7 +13,8 @@ class RandomizedSet:
             self.dic[val] = idx
             self.lst.append(val)
             return True
-        return False
+        else:
+            return False
 
     def remove(self, val: int) -> bool:
         '''
@@ -24,10 +25,11 @@ class RandomizedSet:
             last_elem, idx = self.lst[-1], self.dic[val]
             self.dic[last_elem] = idx
             self.lst[idx] = last_elem
-            del self.dic[val]
+            self.dic.pop(val)
             self.lst.pop()
             return True
-        return False
+        else:
+            return False
 
     def getRandom(self) -> int:
         '''

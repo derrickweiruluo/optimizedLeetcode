@@ -31,8 +31,8 @@ class Solution(object):
             else:
                 midX, midY = (TR.x + BL.x) // 2, (TR.y + BL.y) // 2
                 res += self.countShips(sea, TR, Point(midX + 1, midY + 1))
-                res += self.countShips(sea, Point(midX, TR.y), Point(BL.x, midY + 1))
                 res += self.countShips(sea, Point(midX, midY), BL)
+                res += self.countShips(sea, Point(midX, TR.y), Point(BL.x, midY + 1))
                 res += self.countShips(sea, Point(TR.x, midY), Point(midX + 1, BL.y))
         
         # 终结搜索了，就return res, 最底层 rect 缩到 0 的时候， 自动skip 掉 for loop

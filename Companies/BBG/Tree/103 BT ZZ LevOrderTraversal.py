@@ -33,7 +33,8 @@ class Solution:
 class Solution(object):
     def zigzagLevelOrder(self, root):
         def dfs(node, level):
-            while level >= len(res): res.append([])
+            while level >= len(res): 
+                res.append([])
             res[level] += [node.val]
             if node.left: dfs(node.left, level+1)
             if node.right: dfs(node.right, level+1)
@@ -41,6 +42,7 @@ class Solution(object):
         if not root: return []
         res = []
         dfs(root, 0)
+        
         return [res[level] if not level % 2 else res[level][::-1] for level in range(len(res))]
 
 

@@ -22,9 +22,6 @@ Build a (int parent: list[int] children)hashMap and do a simple bfs.
 
 
 
-
-
-
 # Input: pid = [1,3,10,5], ppid = [3,0,5,3], kill = 5
 # Output: [5,10]
 

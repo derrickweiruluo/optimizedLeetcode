@@ -4,9 +4,11 @@
 3.  reset(playerId): Reset the score of the player with the given id to 0 (in other words erase it from the leaderboard). It is guaranteed that the player was added to the leaderboard before calling this function.
 
 
-Initially, the leaderboard is empty.
+
 '''
-# Top K players with most scores
+# Clarifications:
+# Initially, the leaderboard is empty.
+# It's guaranteed that K is less than or equal to the current number of players.
 class Node(object):
     def __init__(self, score):
         self.score = score
@@ -45,6 +47,8 @@ class Leaderboard(object):
         self._insert(node)
 
     def top(self, K):  # O(K)
+        # Top K players with most scores
+        # # Top K players with most scores
         res = 0
         k = 0
         p = self.tail.prev

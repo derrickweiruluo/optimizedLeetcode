@@ -33,10 +33,10 @@ class Solution:
         Doesn't path + dfs(,'u') take care of it ?
 
         Explain : :
-        1 1 1 - Start+RRD
+        1 1 1 - Start+RRD       ---> Start + RL + ""R + ""D + DU   @ at the 1st layer
         1 0 0
 
-        1 1 1 - Also Start+RRD
+        1 1 1 - Also Start+RRD  ---> Start + RL + ""R + ""D + ""U  @ at the 1st layer
         0 1 0
 
         To avoid it, we append direction we took irrespective of whether that location had 1 or not'''

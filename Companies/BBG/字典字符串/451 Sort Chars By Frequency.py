@@ -12,6 +12,9 @@ Output: "bbAa"
 '''
 
 # Optimized Bucket Sort  Overall O(n), Space O(n)
+import collections
+
+
 class Solution:
     def frequencySort(self, s: str) -> str:
         counter = collections.Counter(s)

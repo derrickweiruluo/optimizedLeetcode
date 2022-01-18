@@ -27,6 +27,9 @@ class Solution:
         cur_str = ''
         cnt = 0
         
+        # stack to 储存 左括号左边的结果， 当第一个右括号出现，pop一次
+        # 来更新当前层
+
         for char in s:
             if char.isdigit():
                 cnt = cnt * 10 + int(char)

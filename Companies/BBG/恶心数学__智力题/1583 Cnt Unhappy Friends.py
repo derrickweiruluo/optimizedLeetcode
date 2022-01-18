@@ -38,9 +38,10 @@ class Solution:
         
         # 存储 每一个pair， x: y, for x, who are preferred over y
         # memo 是双向的， y: x 同理
-        memo = {}  # "more-prefer" list
-        
-        for x, y in pairs:
+        memo = {}
+        for x, y in pairs:  # for this pairing
+            # x prefer this set of ppl over y
+            # y perfer this set of ppl over x
             memo[x] = set(preferences[x][:preferences[x].index(y)])
             memo[y] = set(preferences[y][:preferences[y].index(x)])
         

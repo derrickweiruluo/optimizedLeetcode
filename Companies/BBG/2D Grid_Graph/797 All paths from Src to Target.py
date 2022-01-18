@@ -14,10 +14,10 @@ import collections
 class Solution: # LEEE
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         
-        last_idx = len(graph) - 1
+        target = len(graph) - 1
         
         def dfs(cur_idx, path):
-            if cur_idx == last_idx:
+            if cur_idx == target:
                 res.append(path)
             else:
                 for next_idx in graph[cur_idx]:

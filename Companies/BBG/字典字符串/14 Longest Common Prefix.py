@@ -25,3 +25,6 @@ class Solution:
                 return minStr[:idx]
         
         return minStr
+
+
+

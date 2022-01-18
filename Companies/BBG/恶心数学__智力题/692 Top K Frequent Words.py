@@ -13,14 +13,15 @@ class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         
         counter = collections.Counter(words)
-        buckets = [TrieNode() for _ in range(len(words) + 1)]
+        buckets = [TrieNode() for _ in range(len(words) + 1)]  
+        # buckets of word frequency, each bucket has a root trie node, with 26 children
         for w in counter:
-            root = buckets[counter[w]]
+            root = buckets[counter[w]] # root of a trie node
             self.add(w, root)
         
         res = []
         for i in range(len(buckets) - 1, -1, -1):
-            if not buckets[i].children:
+            if not buckets[i].children: # 底下没node,只是个空的初始trie node
                 continue
             self.getWord(res, buckets[i], k)
             if len(res) >= k:
@@ -40,12 +41,28 @@ class Solution:
         if len(res) >= k: return
         if root.word:
             res.append(root.word)
-        for i in range(26):
-            self.getWord(res, root.children[i], k)
+        for i in range(26):  # lexo order
+            self.getWord(res, root.children[i], k)  # dfs approach to get top k words
         return
 
 
 #* -------------------
+# Heap + counter
+# O(nlogk), O(n)
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+            counter = collections.Counter(words)
+            heap = [(-counter[w], w) for w in counter]
+            heapq.heapify(heap)
+            res = []
+            while heap and k > 0:
+                res.append(heapq.heappop(heap)[1])
+                k -= 1
+            return res
+
+
+
+
 
 class Solution:
     # Time Complexity = O(n + nlogk)

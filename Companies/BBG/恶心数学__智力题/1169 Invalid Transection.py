@@ -10,7 +10,6 @@ class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
         # transactions: 'name, time, amount, city'
         # defualtdict 的快捷写法
-        curTime = 0
         memo = collections.defaultdict(lambda: collections.defaultdict(set))
         res = []
         

@@ -33,25 +33,25 @@ class Solution:
         
         def dfs(curr):
         # recursive approach
-            while curr:
-                next_node = curr.next
-
-                if not next_node:
-                    tail = curr
-                if curr.child:
-                    curr.next, curr.child.prev = curr.child, curr
-                    child_tail = dfs(curr.child)
-
+            while cur:
+                nextNode = cur.next
+                if not nextNode:
+                    tail = cur      # 定义尾部
+                if cur.child:
+                    cur.next, cur.child.prev = cur.child, cur
+                    child_tail = dfs(cur.child)
+                    
                     # if there is next node, 
                     # put the sub-Flat-LL between cur and next_node
-                    if next_node:
-                        next_node.prev = child_tail
-                    child_tail.next = next_node # if cur has no next_node, just point to null
-                    curr.child = None
-
-                curr = curr.next  
-            return tail # return tail of the current node
-
+                    if nextNode:
+                        nextNode.prev = child_tail
+                    child_tail.next = nextNode
+                    cur.child = None
+                
+                cur = cur.next
+            return tail             # dfs return tail of the current node, which to be used by nextNode
+                    
+        
         dfs(head)
         return head
     

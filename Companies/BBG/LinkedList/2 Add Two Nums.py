@@ -13,6 +13,8 @@ class Solution:
         
         carry = 0
         dummy = cur = ListNode(0)
+
+        # l1, l2 的 heads是他们的个位数
         
         while l1 or l2 or carry:
             if l1:

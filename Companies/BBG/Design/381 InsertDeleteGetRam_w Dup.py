@@ -1,3 +1,6 @@
+import collections
+
+
 class RandomizedCollection:
 
     def __init__(self):
@@ -21,7 +24,10 @@ class RandomizedCollection:
         Removes a value from the collection. Returns true if the collection contained the specified element.
         """
         if not self.dic[val]: return False
+        # hashset random popping
         last_elem, idx = self.lst[-1], self.dic[val].pop()
+
+
         self.lst[idx] = last_elem
         self.dic[last_elem].add(idx)
         self.dic[last_elem].remove(len(self.lst)-1)

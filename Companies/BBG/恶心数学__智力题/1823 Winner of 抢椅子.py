@@ -39,11 +39,12 @@ class Solution:
         return winner + 1
 
 
+# general case
 class Solution:
     def findTheWinner(self, n: int, k: int) -> int:
         
-        winner = 0 # think the problem backward, from the last winner
-        start = 0
+        winner = 0  # think the problem backward, from the last winner
+        start = 0   # assuming starting from zero, but this solution works generally
         
         for i in range(1, n + 1):
             winner = (winner + k) % i
