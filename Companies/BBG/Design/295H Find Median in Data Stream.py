@@ -5,6 +5,21 @@ For example, for arr = [2,3,4], the median is 3.
 For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
 '''
 
+
+# FOLLOW UP
+# 1. If all integer numbers from the stream are between 0 and 100, how would you optimize it?
+
+# We can maintain an integer array of length 100 to store the count of each number along with a total count. Then, we can iterate over the array to find the middle value to get our median.
+# Time and space complexity would be O(100) = O(1).
+
+
+# 2. If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
+
+# As 99% is between 0-100. So can keep a counter for less_than_hundred and greater_than_hundred.
+# As we know soluiton will be definately in 0-100 we don't need to know those number which are >100 or <0, only count of them will be enough.
+
+
+
 import heapq
 class MedianFinder:
 

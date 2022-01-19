@@ -56,7 +56,7 @@ def candy_crush(col):
         return col
     
     stack = []
-    stack.append([col[0], 1])
+    stack.append([col[0], 1])  # stack of (val, freq)
     
     for i in range(1, len(col)):
         if col[i] != col[i-1]:
