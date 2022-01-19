@@ -24,11 +24,11 @@ class Leaderboard(object):
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    def _remove(self, node):  #O(1)
+    def _remove(self, node):  #O(1)  Added Method
         node.prev.next = node.next
         node.next.prev = node.prev
     
-    def _insert(self, node):  # O(N)
+    def _insert(self, node):  # O(N)  Added Method
         tail = self.tail
         while tail.score > node.score:
             tail = tail.prev

@@ -1,4 +1,10 @@
+'''
+Input: s = "catsanddog", wordDict = ["cat","cats","and","sand","dog"]
+Output: ["cats and dog","cat sand dog"]
 
+Input: s = "pineapplepenapple", wordDict = ["apple","pen","applepen","pine","pineapple"]
+Output: ["pine apple pen apple","pineapple pen apple","pine applepen apple"]
+'''
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
         
