@@ -13,8 +13,12 @@ merging them into one sorted list:
 
 import heapq
 
-
-class Solution:    # Merge Sort
+# Merge Sort
+# Time O(Nlogk), N is the total nodes in final LL, n is nodes in each LL
+# Time O(nk*log(k))
+# N = n*k
+# Space O(logk)
+class Solution:    
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         
         if not lists:
@@ -49,7 +53,7 @@ merge([1,4,5], [1,2,3,4,6])
 
 
 
-# Time: O(Nlogk) where \text{k}k is the number of linked lists.
+# Time: O(Nlogk) where k is the number of linked lists., N is the final amount of nodes
 # Space: O(n) for creating new LL, O(k) for heap
 class Solution:
     def mergeKLists(self, lists: List[ListNode]) -> ListNode:

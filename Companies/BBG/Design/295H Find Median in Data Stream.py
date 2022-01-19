@@ -5,6 +5,7 @@ For example, for arr = [2,3,4], the median is 3.
 For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
 '''
 
+import heapq
 class MedianFinder:
 
     def __init__(self):

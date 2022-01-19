@@ -36,8 +36,9 @@ class Solution:
         sign = -1 if s[0] == '-' else 1
         if s[0] in '-+':
             del s[0]
-        res = i = 0
 
+            
+        res = i = 0
         # parse unitl see first non-digit
         # this also help the leading zero elimination
         while i < len(s) and s[i].isdigit():

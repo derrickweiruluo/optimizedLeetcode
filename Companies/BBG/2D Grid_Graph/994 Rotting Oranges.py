@@ -10,9 +10,9 @@ class Solution:
         
         for i in range(len(grid)):
             for j in range(len(grid[0])):
-                if grid[i][j] == 1:
+                if grid[i][j] == 1:     # fresh
                     fresh_count += 1
-                if grid[i][j] == 2:
+                if grid[i][j] == 2:     # rotted
                     queue.append((i, j))
         
         while queue and fresh_count:
@@ -22,7 +22,7 @@ class Solution:
                 for dx, dy in dirs:
                     xi, yi = x + dx, y + dy
                     if 0 <= xi < len(grid) and 0 <= yi < len(grid[0]):
-                        if grid[xi][yi] == 1:
+                        if grid[xi][yi] == 1:  # next fresh to be rotted
                             fresh_count -= 1
                             grid[xi][yi] = 2
                             queue.append((xi, yi))

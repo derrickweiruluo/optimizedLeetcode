@@ -45,5 +45,16 @@ class Solution:
             res += (num//i) * mapping[i]
             # 更新至 num 至 mod
             num %= i
+
+        #* -------------------------
         
+        for i in mapping:
+            # 非零整除的frequency * mapping[]
+            if i in [1000,  100, 10, 1]: 
+                res += num // i * mapping[i]
+            else: 
+                res +=  mapping[i] if num // i else ""
+            # 更新至 num 至 mod
+            num %= i
+
         return res
