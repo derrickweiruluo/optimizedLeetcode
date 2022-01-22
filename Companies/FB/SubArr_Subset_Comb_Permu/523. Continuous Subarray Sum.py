@@ -1,13 +1,11 @@
 '''
 Given an integer array nums and an integer k, return true if nums has a continuous subarray of size at least two whose elements sum up to a multiple of k, or false otherwise.
 
-Example 1:
 
 Input: nums = [23,2,4,6,7], k = 6
 Output: true
 Explanation: [2, 4] is a continuous subarray of size 2 whose elements sum up to 6.
 
-Example 3:
 
 Input: nums = [23,2,6,4,7], k = 13
 Output: false
@@ -21,11 +19,10 @@ Output: false
 
 ''' Clarifications:
 1.  is ZERO a muiltple of k (!!!!!!!)
-2.  len of 2 requirement
+2.  All num >= 0
+3.  len of 2 requirement
 #   conrner cases: [0,0], for multiplier is zero
 '''
-
-
 class Solution: # 一种 O(K) space 的解法
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         
@@ -36,14 +33,12 @@ class Solution: # 一种 O(K) space 的解法
         
         for i, num in enumerate(nums):
             curRem = (curRem + num) % k
+            # 满足以下条件即可cover all cases
             if curRem in prefixRem: 
                 if i - prefixRem[curRem] > 1:
                     return True
-                
-                # 额外的check for adjecent zeros
-                # 0 is always a multiple of k (给予的条件)
-                if curRem == 0 and i != 0: 
-                    return True
+                # if curRem == 0 and i != 0: 
+                #     return True
             else:
                 prefixRem[curRem] = i
         

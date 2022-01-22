@@ -3,17 +3,53 @@ Input: root = [4,2,5,1,3]
 
 Inorder 方式转换成双向链表
 Output: [1,2,3,4,5]
-
 '''
 
-'''
-This is not O(1) space. It is O(tree depth), so O(n) worst case and O(log(n)) average case.
+class Solution:
+    def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root: return None
+        
+        head = Node(-1)
+        prev = head
+        cur = root
+        
+        while cur:
+            if not cur.left:
+                # linking start here
+                cur.left = prev
+                prev.right = cur
+                prev = cur
+                # linking finish here
+                cur = cur.right
+            else:
+                predecessor = cur.left
+                while predecessor.right != cur and predecessor.right:
+                    predecessor = predecessor.right
+                
+                if not predecessor.right:
+                    predecessor.right = cur
+                    cur = cur.left
+                
+                else:
+                    predecessor.right = None
+                    # linking happen here
+                    cur.left = prev
+                    prev.right = cur
+                    prev = cur
+                    # linking finish here
+                    cur = cur.right
 
-Keep in mind that the recursive call stack takes space, and there will be (at maximum depth) one stack from for each level in the tree
-'''
+        print(head.val)
+        head.right.left = prev      # 头尾链接
+        prev.right = head.right     # 尾头链接
+        return head.right           # dummy.right
+            
+        return None
 
 
 
+
+# *--------------------
 
 '''
 Step 1: Divide:

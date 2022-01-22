@@ -44,7 +44,8 @@ class LRUCache:
             LRUNode = self.head.next
             self.remove(LRUNode)
             del self.cache[LRUNode.key]
-        
+    
+    # helper functions
     def remove(self, node):
         prevNode, nextNode = node.prev, node.next
         prevNode.next, nextNode.prev = nextNode, prevNode

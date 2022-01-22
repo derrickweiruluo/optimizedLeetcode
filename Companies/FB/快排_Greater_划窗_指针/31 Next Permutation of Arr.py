@@ -7,6 +7,7 @@ The replacement must be in place and use only constant extra memory.
 '''
 
 # O(1) space requirement, inplace
+# 问清楚 321 是否变成 123
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
         """
@@ -21,13 +22,15 @@ class Solution:
         
         # 第二步, p2 从右走到第一个 比p1 - 1 (第一个dip)要大的
         # worst case p2 == p1
-        #  conrner case: if p1 == 0, already the greatest
         p2 = n -1
         while p1 != 0 and p2 > p1 and nums[p2] <= nums[p1 - 1]:
             p2 -= 1
         
         # 第三步， swap p1 - 1, p2
-        # similar to 让最开始dip往上抬升一点点
+
+        # corner case
+        # if arr is [3,2,1], non-decreasing, nothing happend in the p1, p2 swap
+        # but p1 will be at 0, which will be perform the wrap around permuation
         nums[p1 - 1], nums[p2] = nums[p2], nums[p1 - 1]
         
 

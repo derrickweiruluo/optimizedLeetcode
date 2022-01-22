@@ -28,10 +28,11 @@ class Solution:
         
         # step 1: get the first dip and the curMax
         for i in range(n - 1): 
-            if nums[i + 1] > nums[i]:
+            if nums[i] < nums[i + 1]:
                 break
             if i == n - 2:
                 return num
+            
         # step 2 store and update the maxIdx and maxVal
         left_idx, right_idx = i, i + 1
         max_val = nums[right_idx]
@@ -43,7 +44,7 @@ class Solution:
                 
         # step 3 look to the left, get the leftmost smaller than maxVal
         for j in range(left_idx, -1, -1):
-            if nums[j] < max_val:
+            if nums[j] < max_val:  # 保证swap the bigger one to left
                 left_idx = j
                 
         # Step 4: do the swap

@@ -50,12 +50,11 @@ class Solution:
                 i += 1
                 j += 1
             elif word[i] != abbr[j] and abbr[j].isalpha():
-                # print(i, j)
                 return False
-            else:
+            elif word[i] != abbr[j] and abbr[j].isdigit():
                 if abbr[j] == '0':
                     return False # leading zero, invalid case
-                elif abbr[j].isdigit():
+                elif abbr[j].isdigit():   # or just else is fine
                     k = j
                     while k < n and abbr[k].isdigit():
                         k += 1

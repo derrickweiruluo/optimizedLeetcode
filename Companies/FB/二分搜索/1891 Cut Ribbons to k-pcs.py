@@ -11,19 +11,20 @@ Output: 5
 # return the max result
 # k could be bigger than any exisiting ribon length
 
-
+import collections
 class Solution: # BS-template 1 -- Interview
     def maxLength(self, ribbons: List[int], k: int) -> int:
         
         total, maxRib = sum(ribbons), max(ribbons)
         if k > total: return 0
         
-        left, right = 1, max(total //k, maxRib) + 1
+        left, right = 1, max(total //k, maxRib) + 1     # upperbound for speed
+        counter = collections.Counter(ribbons)          # speed improvement
         
         def canCut(length, k):
             res = 0
-            for ribbon in ribbons:
-                res += ribbon // length
+            for ribbon in counter:
+                res += (ribbon // length) * counter[ribbon]
                 if res >= k:
                     return True
             return False

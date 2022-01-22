@@ -37,26 +37,26 @@ class Solution:  #DFS  time: W * H log H, space O(N)
         if root is None:
             return []
 
-        columnTable = defaultdict(list)
+        mapping = defaultdict(list)
         self.left, self.right = math.inf, -math.inf
 
-        def DFS(node, row, column):
+        def dfs(node, row, column):
             if node is not None:
-                columnTable[column].append((row, node.val))
+                mapping[column].append((row, node.val))
                 self.left = min(self.left, column)
                 self.right = max(self.right, column)
 
                 # preorder DFS
-                DFS(node.left, row + 1, column - 1)
-                DFS(node.right, row + 1, column + 1)
+                dfs(node.left, row + 1, column - 1)
+                dfs(node.right, row + 1, column + 1)
 
-        DFS(root, 0, 0)
+        dfs(root, 0, 0)
 
         # order by column and sort by row
         res = []
         for col in range(self.left, self.right + 1):
-            columnTable[col].sort(key=lambda x:x[0])
-            colVals = [val for row, val in columnTable[col]]
+            mapping[col].sort(key=lambda x:x[0])
+            colVals = [val for row, val in mapping[col]]
             res.append(colVals)
 
         return res

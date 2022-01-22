@@ -41,12 +41,12 @@ class Solution:  # O(1) space
         height = int(log2(count + 1))
         remaining_nodes = pow(2, height) - 1
         self.compress(grand, count - remaining_nodes)
-        while remaining_nodes > 0:
+        while remaining_nodes >= 1:
             remaining_nodes /= 2
             self.compress(grand, remaining_nodes)
         return grand.right
     
-    def makeVine(self, grand, count = 0):
+    def makeVine(self, grand, count):
         node = grand.right
         while node:
             if node.left:
@@ -54,7 +54,7 @@ class Solution:  # O(1) space
                 node = node.left
                 old_node.left = node.right
                 node.right = old_node
-                grand.right = node
+                grand.right = node  # for correct (1,2) -> 3 to 1->2->3
             else:
                 count += 1
                 grand = node

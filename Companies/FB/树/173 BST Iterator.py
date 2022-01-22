@@ -13,7 +13,43 @@ Follow up:
 Could you implement next() and hasNext() to run in average O(1) time and use O(h) memory, where h is the height of the tree?
 '''
 
-class BSTIterator: # BEST1, O(1) time average of N next call, O(H) space
+class BSTIterator:  # BEST with Morris Order 
+
+    def __init__(self, root: Optional[TreeNode]):
+        self.cur = root
+
+    def next(self) -> int:
+        res = math.inf
+        while self.cur:
+            if not self.cur.left:
+                res = self.cur.val
+                self.cur = self.cur.right
+                break
+            else:
+                predecessor = self.cur.left
+                while predecessor.right != self.cur and predecessor.right:
+                    predecessor = predecessor.right
+                
+                if not predecessor.right:
+                    predecessor.right = self.cur
+                    self.cur = self.cur.left
+                
+                else:
+                    predecessor.right = None
+                    res = self.cur.val
+                    self.cur = self.cur.right
+                    break
+        return res
+                
+
+    def hasNext(self) -> bool:
+        return self.cur
+
+
+
+
+
+class BSTIterator: # BEST_2, O(1) time average of N next call, O(H) space
 
     def __init__(self, root: Optional[TreeNode]):
         self.stack = []

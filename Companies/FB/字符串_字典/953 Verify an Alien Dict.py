@@ -37,7 +37,7 @@ class Solution:
         m, n = len(word1), len(word2)
         for i in range(min(m, n)):
             if word1[i] != word2[i]:
-                # the first different character will return the result
+                # that is, once found the first un-equal, early return of greater
                 return charOrder[word1[i]] > charOrder[word2[i]]
         
         return m > n

@@ -5,16 +5,42 @@ Return the vertical order traversal of the binary tree.
 
 '''
 import collections
+s
+class Solution:   # Best, only sort the value with the same indexes
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        
+        # required sorting order:
+        # column, depth, value
+        
+        mapping = collections.defaultdict(lambda: defaultdict(list))
+        left, right = math.inf, -math.inf
+        up, down = math.inf, -math.inf
+        queue = collections.deque([(root, 0, 0)])  # (node, col, depth)
+        
+        while queue:
+            node, col, depth = queue.popleft()
+            left, right = min(left, col), max(right, col)
+            up, down = min(up, depth), max(down, depth)
+            mapping[col][depth].append((node.val))
+            if node.left:
+                queue.append((node.left, col - 1, depth + 1))
+            if node.right:
+                queue.append((node.right, col + 1, depth + 1))
+        
+        res = []
+        i = 0
+        for col in range(left, right + 1):
+            res.append([])
+            for depth in range(up, down + 1):
+                if depth in mapping[col]:
+                    res[i].extend(val for val in sorted(mapping[col][depth]))
+            i += 1
+        
+        return res
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
 class Solution:  #BEST
     # 这个解包含BFS， DFS解法
-
     # https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/discuss/777584/Python-Simple-dfs-explained
 
     '''  Complexity:  O(NlogN) and O(N)
@@ -25,7 +51,7 @@ class Solution:  #BEST
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         
         # queue = collections.deque([(root, 0, 0)])
-        mapping = collections.defaultdict(list)  # {col: (listOfNodeVal, depth)}
+        mapping = collections.defaultdict(list)  # {col: (depth, val)}
         self.left, self.right = math.inf, -math.inf
         res = []
         
@@ -49,28 +75,34 @@ class Solution:  #BEST
 
 
 
-class Solution: # BFS
+class Solution:   # Best, only sort the value with the same indexes
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
         
-        mapping = collections.defaultdict(list)
-        queue = collections.deque([(root, 0, 0)])
+        # required sorting order:
+        # column, depth, value
+        
+        mapping = collections.defaultdict(lambda: defaultdict(list))
         left, right = math.inf, -math.inf
-        res = []
+        up, down = math.inf, -math.inf
+        queue = collections.deque([(root, 0, 0)])  # (node, col, depth)
         
         while queue:
-            for _ in range(len(queue)):
-                node, col, depth = queue.popleft()
-                mapping[col].append((depth, node.val))
-                left = min(left, col)
-                right = max(right, col)
-                if node.left:
-                    queue.append((node.left, col - 1, depth + 1))
-                if node.right:
-                    queue.append((node.right, col + 1, depth + 1))
+            node, col, depth = queue.popleft()
+            left, right = min(left, col), max(right, col)
+            up, down = min(up, depth), max(down, depth)
+            mapping[col][depth].append((node.val))
+            if node.left:
+                queue.append((node.left, col - 1, depth + 1))
+            if node.right:
+                queue.append((node.right, col + 1, depth + 1))
         
-        # res = []
-        # for i in range(left, right + 1):
-        #     res += [[val for depth, val in sorted(mapping[i])]]
-        # return res
+        res = []
+        i = 0
+        for col in range(left, right + 1):
+            res.append([])
+            for depth in range(up, down + 1):
+                if depth in mapping[col]:
+                    res[i].extend(val for val in sorted(mapping[col][depth]))
+            i += 1
         
-        return [[val for depth, val in sorted(mapping[i])] for i in range(left, right + 1)]
+        return res

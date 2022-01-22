@@ -11,7 +11,7 @@ A sparse vector is a vector that has mostly zero values, you should store the sp
 
 
 # Follow up: What if only one of the vectors is sparse?
-# time: O(N)
+# time: O(len(shorter dictionary))
 # space O(L), only non-zero takes spaces
 
 class SparseVector:  #最优解

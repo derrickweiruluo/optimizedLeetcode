@@ -19,9 +19,7 @@ p and q will exist in the tree.
 """
 
 class Solution: # faster time with parent pointers w/ early return
-    
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        parent = {root: None}
         
         def dfs(parentNode, node):
             if not node:
@@ -29,8 +27,10 @@ class Solution: # faster time with parent pointers w/ early return
             parent[node] = parentNode
             dfs(node, node.left)
             dfs(node, node.right)
-        
+
+        parent = {root: None}
         dfs(None, root)
+
         visited = set()
         while p:
             visited.add(p)
@@ -52,7 +52,7 @@ class Solution: # faster time with parent pointers w/ early return
 # 因为另一个 target在 LCA的子树里面
 
 # time O(N), worse case iterate the whole tree with no early return
-# space O(H) to O(N)
+# space O(H~N)
 class Solution:  # recursive
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
