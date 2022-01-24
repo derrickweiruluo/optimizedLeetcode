@@ -19,6 +19,25 @@ Constraints:
 s consists of only lowercase English letters.
 
 '''
+
+class Solution:  # BEST, One-Pass
+    def canPermutePalindrome(self, s: str) -> bool:
+        
+        mapping = [0] * 256
+        count = 0
+        for char in s:
+            idx = ord(char) - ord('a')
+            mapping[idx] += 1
+            if mapping[idx] % 2 == 0:
+                count -= 1
+            else:
+                count += 1
+        
+        return count < 2
+
+
+
+
 # Time: O(N), space O(26), or O(# of unique chars)
 class Solution:
     def canPermutePalindrome(self, s: str) -> bool:

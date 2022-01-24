@@ -20,6 +20,7 @@ https://leetcode.com/problems/add-bold-tag-in-string/discuss/104248/Java-Solutio
 class Solution:
     def addBoldTag(self, s: str, words: List[str]) -> str:
         
+        # prep to create a "Status" list for each index
         n = len(s)
         status = [False] * n
         for word in words:
@@ -28,11 +29,13 @@ class Solution:
             while start != -1:
                 for i in range(start, start + length):
                     status[i] = True
-                start = s.find(word, start + 1)
+                start = s.find(word, start + 1)  # repeatedly turn status to True if there is any cur-word remained
+                # until stop at, which is -1
         
         res = ""
         i = 0
         
+        # idx does not advance when adding tags
         while i < len(s):
             if status[i]:
                 res += "<b>"

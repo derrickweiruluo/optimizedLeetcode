@@ -18,10 +18,33 @@ You can't access the Binary Matrix directly. You may only access the matrix usin
 
 
 
+## BEST
+# O(N + M) & O(1)
+class Solution:
+    # Approach 3: Start at Top Right, Move Only Left and Down
+    def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix') -> int:
+        
+        rows, cols = binaryMatrix.dimensions()
+        
+        # Set pointers to the top-right corner.
+        curRow, curCol = 0, cols - 1
+        
+        # Repeat the search until it goes off the grid.
+        while curRow < rows and curCol >= 0:
+            if binaryMatrix.get(curRow, curCol) == 1:
+                curCol -= 1
+            else:
+                curRow += 1
+        
+        # If we never left the last column, it must have been all 0's.
+        return curCol + 1 if curCol != cols - 1 else -1
+
+
+#*-------------------------
+
 # Binary search on each row
 # Time:     O(R * log(C))
 # SPace:    O(1)
-
 class Solution:
     def leftMostColumnWithOne(self, binaryMatrix: 'BinaryMatrix') -> int:
         
@@ -41,3 +64,5 @@ class Solution:
             leftMostCol = min(leftMostCol, left)
         
         return leftMostCol if leftMostCol < cols else -1
+
+

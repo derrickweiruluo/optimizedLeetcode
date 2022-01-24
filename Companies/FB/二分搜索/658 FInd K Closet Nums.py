@@ -44,6 +44,8 @@ case 4: x - A[mid] > A[mid + k] - x, need to move window go right
 """
 
 
+
+# constraints: nums is sorted in ASEC order
 # If x - A[mid] > A[mid + k] - x,
 # it means A[mid + 1] ~ A[mid + k] is better than A[mid] ~ A[mid + k - 1]
 

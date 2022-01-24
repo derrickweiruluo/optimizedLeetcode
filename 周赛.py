@@ -20,3 +20,27 @@ def minMoves(target: int, maxDoubles: int) -> int:
     return res 
 a = minMoves(656101987, 1)
 print(a)
+
+
+
+def rearrangeArray(self, nums: List[int]) -> List[int]:
+        
+        
+        
+        n = len(nums)
+        pos = [num for num in nums if num > 0]
+        neg = [num for num in nums if num < 0]
+        print(pos)
+        print(neg)
+        idx1, idx2 = 0, 0
+        
+        res = [0] * n
+        for i in range(n):
+            if i % 2 == 0:
+                res[i] = pos[idx1]
+                idx1 += 1
+            else:
+                res[i] = neg[idx2]
+                idx2 += 1
+        
+        return nums

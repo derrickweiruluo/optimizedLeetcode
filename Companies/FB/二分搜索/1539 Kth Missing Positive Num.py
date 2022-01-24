@@ -17,7 +17,7 @@ class Solution:
             mid = (left + right) // 2
             
             # arr[mid] is the actual value, (mid + 1) is the position (one-indexed)
-            if arr[mid] - (mid + 1) < k:  # not in the left search space
+            if arr[mid] - (mid + 1) < k:  # not in the left search space(坑位不够 k)
                 left = mid + 1
             else:
                 right = mid  # in the left search space

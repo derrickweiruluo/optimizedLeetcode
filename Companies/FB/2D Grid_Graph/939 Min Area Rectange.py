@@ -5,7 +5,8 @@ Return the minimum area of a rectangle formed from these points, with sides para
 
 '''
 
-
+# Clarifications:
+# All the given points are unique.
 
 class Solution:
     def minAreaRect(self, points: List[List[int]]) -> int:
@@ -23,6 +24,8 @@ class Solution:
             seen.add((x1, y1))
         
         return res if res < math.inf else 0
+
+
 
 
 # O(N^1.5)

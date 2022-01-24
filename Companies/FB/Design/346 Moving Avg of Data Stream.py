@@ -18,20 +18,19 @@ Implement the MovingAverage class:
 
 class MovingAverage:
 
-    def __init__(self, size: int):  # O(N) for list, n is the size
+    def __init__(self, size: int):
         """
         Initialize your data structure here.
         """
         self.lst = [0] * size
         self.total = 0
-        self.count = 0
+        self.idx = 0
         self.size = size
 
-    def next(self, val: int) -> float:  #O(1) time
-        self.count += 1
-        idx = self.count % self.size
-        self.total -= self.lst[idx]
-        self.lst[idx] = val
-        self.total += val
+    def next(self, val: int) -> float:
 
-        return self.total / min(self.size, self.count)
+        self.idx += 1
+        self.total -= self.lst[self.idx % self.size]
+        self.lst[self.idx % self.size] = val
+        self.total += val
+        return self.total / min(self.size, self.idx)

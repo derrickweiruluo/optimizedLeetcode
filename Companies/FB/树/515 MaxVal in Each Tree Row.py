@@ -40,8 +40,11 @@ class Solution(object):
     def dfs(self, node, level):
         if not node:
             return
+        
+        # expand list size
         if len(self.ans) == level:
             self.ans.append(node.val)
+        # or, set the current max value
         else:
             self.ans[level] = max(self.ans[level], node.val)
         self.dfs(node.left, level+1)

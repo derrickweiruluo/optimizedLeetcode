@@ -22,12 +22,12 @@ Compress prodNums into a run-length encoded array and return it.
 
 # encoded1 expands to [1,1,1,2,3,3] 
 # encoded2 expands to [2,2,2,3,3,3]
-# prodNums = [2,2,2,6,9,9], which is compressed into 
-
-# [[2,3],[6,1],[9,2]].
+# prodNums = [2,2,2,6,9,9], which is compressed into [[2,3],[6,1],[9,2]].
 
 
 
+# Clarification:
+# consecutive repeated
 class Solution:
     def findRLEArray(self, encoded1: List[List[int]], encoded2: List[List[int]]) -> List[List[int]]:
         res = []

@@ -37,25 +37,6 @@ class Solution: # 2nd best
         return res
 
 
-class Solution:
-    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        
-        if len(intervals) < 2: return intervals
-        
-        intervals.sort(key = lambda x: (x[0]))
-        i = 0
-        j = 1
-        while j < len(intervals):
-            print(i, j)
-            if intervals[j][0] > intervals[i][1]:
-                i = j
-                j += 1
-            else:
-                intervals[i][1] = max(intervals[j][1], intervals[i][1])
-                intervals.pop(j)
-        
-        return intervals
-
 
 class Solution:  # inplace
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:

@@ -1,25 +1,44 @@
 """
 You are given an m x n grid rooms initialized with these three possible values.
 
--1: A wall or an obstacle.
-0: A gate.
-INF: Infinity means an empty room. We use the value 231 - 1 = 2147483647 to represent INF as you may assume that the distance to a gate is less than 2147483647.
+    -1:     A wall or an obstacle.
+    0:      A gate.
+    INF:    Infinity means an empty room. 
+
+
 Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF
-
-Constraints:
-
-m == rooms.length
-n == rooms[i].length
-1 <= m, n <= 250
-rooms[i][j] is -1, 0, or 231 - 1.
-
-######.  Image
-https://leetcode.com/problems/walls-and-gates/
-Time complexity: O(nm), 
-space complexity: O(nm).
 """
 
-class Solution:
+
+
+# Constraints:
+# rooms[i][j] is -1, 0, or 231 - 1.
+
+
+class Solution: #FAST, BFS with pruning
+    def wallsAndGates(self, rooms):
+        if not rooms:
+            return 
+        
+        dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        m, n= len(rooms), len(rooms[0])
+        for i in range(m):
+            for j in range(n):
+                if rooms[i][j] == 0:   
+                    #FAST, BFS with pruning
+                    # 因为第一个门 BFS 过后, 会大大减少其它门的搜索
+                    queue = collections.deque([(i + dx, j + dy, 1) for dx, dy in dirs])
+                    while queue:
+                        x, y, val = queue.popleft()
+                        if x < 0 or x >= m or y < 0 or y >= n or rooms[x][y] <= val:
+                            continue
+                        rooms[x][y] = val
+                        for dx, dy in dirs:
+                            queue.append((x + dx, y + dy, val+1))
+
+
+# Below is extremely slow
+class Solution:  # both O(mn)
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
         """
         Do not return anything, modify rooms in-place instead.

@@ -23,7 +23,10 @@ class Solution:
         self.LCA = None
         
         def dfs(node, depth):
+            # Step 1
             self.deepest = max(self.deepest, depth)  # 每一次都update maxDepth
+
+            # Step 2
             if not node:
                 return depth
             left = dfs(node.left, depth + 1)

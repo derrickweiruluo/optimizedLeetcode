@@ -9,7 +9,36 @@ return 他们所有的交集， empty的交集也算，例如[22,22]
 # All of them are closed intervals
 # interval is valid from length of zero, inclusing zero, [22,22]
 
+
 class Solution:
+    def intervalIntersection(self, A: List[List[int]], B: List[List[int]]) -> List[List[int]]:
+        
+        m, n = len(A), len(B)
+        i = j = 0
+        res = []
+        
+        while i < m and j < n:
+            # common working time
+            low = max(A[i][0], B[j][0])
+            high = min(A[i][1], B[j][1])
+            
+            if low <= high:
+                res.append([low, high])
+            
+            if A[i][1] < B[j][1]:
+                i += 1
+            else:
+                j += 1
+        
+        return res
+
+
+
+
+
+
+
+class Solution:  # BAD BAD BAD BAD BAD BAD BAD Early code
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
         i = j = 0
         m, n = len(firstList), len(secondList)

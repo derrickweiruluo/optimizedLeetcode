@@ -5,6 +5,24 @@ Given a binary array nums and an integer k, return the maximum number of consecu
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         
+        # Find the longest subarray with at most K zeros.
+
+        # 下面的one pass利用了数组只有 0, 1的性质
+        i = 0
+        for j in range(len(nums)):
+            k -= (1 - nums[j])
+            if k < 0:
+                k += (1 - nums[i])
+                i += 1
+        
+        return j - i + 1
+
+
+
+
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        
         zero_count = 0
         i = 0
         res = 0

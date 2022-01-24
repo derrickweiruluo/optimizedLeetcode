@@ -28,6 +28,8 @@ https://leetcode.com/explore/learn/card/binary-search/136/template-analysis/935/
 ### 有手写笔记
 
 
+
+
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         

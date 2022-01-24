@@ -14,30 +14,31 @@ Explanation: Your function can return either index number 1 where the peak eleme
 '''
 
 
-# Clarifications:
 
-# idx from 0 to n - 1
-# for len of n, 0 to n - 1
-# nums[-1] = nums[n] = -math.inf
-
-# this -math.inf on both ends is the reason why we can use BS, 
-# becasue half of the answer already given
 
 # corner cases:
 # [1,2,3], res = idx_2
 # [3,2,1], res = idx_0
 
 
+
+# Clarifications:  #问面试官
+# 1.    nums[-1] = nums[n] = -math.inf
+# 2.    A peak element is an element that is strictly greater than its neighbors
+# 3.    this -math.inf on both ends is the reason why we can use BS, 
+#       becasue half of the answer already given
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         
-        left, right = 0, len(nums) - 1
+        left, right = 0, n - 1
         while left < right:
             mid = (left + right) // 2
-            if nums[mid] >= nums[mid + 1]:  # 假如右peak满足
-                right = mid                 # 搜索右边，包含mid
-            else:                           # 假如不满足
-                left = mid + 1              # 搜索左边，不包含mid，因为不符合条件
+
+            # 要么右侧方向增大，要么mid本身就是极大点
+            if nums[mid] < nums[mid + 1]:
+                left = mid + 1   # mid + 1 满足peak左边比他小，搜索右边
+            else:       
+                right = mid      # mid > mid + 1
         
         
         return left

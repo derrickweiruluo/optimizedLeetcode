@@ -19,10 +19,10 @@ class Node:
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.capacity = capacity
         self.cache = {}
-        self.head = Node(0, 0)
-        self.tail = Node(0, 0)
+        self.capacity = capacity
+        self.head = Node(-1, 0)  # key of -1 so never get touched
+        self.tail = Node(-1, 0)  # key of -1 so never get touched
         self.head.next = self.tail
         self.tail.prev = self.head
 
