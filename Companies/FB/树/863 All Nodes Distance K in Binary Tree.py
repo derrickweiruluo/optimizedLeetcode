@@ -11,9 +11,8 @@ class Solution:
         graph = collections.defaultdict(list)
         visited = set()
         
-        def dfs(node): # 构建adjacency undirected graph of each node
-            if not node:
-                return
+        def dfs(node):  # 构建adjacency undirected graph of each node
+            if not node: return
             if node.left:
                 graph[node].append(node.left)
                 graph[node.left].append(node)
@@ -22,17 +21,16 @@ class Solution:
                 graph[node].append(node.right)
                 graph[node.right].append(node)
                 dfs(node.right)
-        
-        dfs(root) # 遍历每个node，构建adjacency graph
-        
+                
         def bfs(node, dist):
             if dist == 0:
                 res.append(node.val)
             else:
                 visited.add(node)
-                for neighbor in graph[node]:
-                    if neighbor not in visited:
-                        bfs(neighbor, dist - 1)
+                for nextNode in graph[node]:
+                    if nextNode not in visited:
+                        bfs(nextNode, dist - 1)
         
+        dfs(root)       # 遍历每个node，构建adjacency graph
         bfs(target, k)  # 这一步很重要，从target node出发往外BFS
         return res

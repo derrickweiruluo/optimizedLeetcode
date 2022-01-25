@@ -62,6 +62,7 @@ Firstly, connect left circular doubly linked list with the root circular doubly 
 Secondly, connect them with the right circular doubly linked list. Here we go!
 '''
 
+# Divide and Conquer
 class Solution: # O(N) time and O(H) space for recursion
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root: 

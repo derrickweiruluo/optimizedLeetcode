@@ -7,7 +7,7 @@ class Solution:
         
         # Find the longest subarray with at most K zeros.
 
-        # 下面的one pass利用了数组只有 0, 1的性质
+        # 下面的one pass利用了数组只有 0, 1的性质s
         i = 0
         for j in range(len(nums)):
             k -= (1 - nums[j])

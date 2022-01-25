@@ -11,6 +11,12 @@ Return the minimum area of a rectangle formed from these points, with sides para
 class Solution:
     def minAreaRect(self, points: List[List[int]]) -> int:
         
+        n = len(points)
+        nx = len(set(x for x, y in points))
+        ny = len(set(y for x, y in points))
+        if nx == n or ny == n:
+            return 0
+
         seen = set()
         res = math.inf
         

@@ -2,6 +2,8 @@
 Given the root of a binary tree, return the maximum path sum of any non-empty path.
 '''
 
+# subtree的解可能是负数
+
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         

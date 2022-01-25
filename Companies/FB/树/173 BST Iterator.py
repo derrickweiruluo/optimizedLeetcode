@@ -47,6 +47,23 @@ class BSTIterator:  # BEST with Morris Order
 
 
 
+##### FOLLOW UP ONLY  #######
+class BSTIterator:
+    def __init__(self, root: Optional[TreeNode]):
+        self.stack = [root]
+    def next(self) -> int:
+        top = self.stack.pop()
+        curr = top
+        if curr.right:
+            self.stack.append(curr.right)
+        if curr.left:
+            self.stack.append(curr.left)  
+        return top.val
+    def hasNext(self) -> bool:
+        return len(self.stack)>0
+##### FOLLOW UP ONLY  #######
+
+
 
 
 class BSTIterator: # BEST_2, O(1) time average of N next call, O(H) space

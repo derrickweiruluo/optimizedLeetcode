@@ -1,7 +1,97 @@
+01/22 Meta
+ 
+173 BST Iterator similar, just changed to preorder
+65 string to num, similar, only integer
+ 
+ 
+173 BST Iterator
+987 Vertical Order Tree Traversal
+377 Combination Sum IV (non-tag)
+ 
+ 
+1312 Min-Insert to make String Palindrome
+  2D-DP Linkedin's LC
+ 
+50
+56 变种, 要求merge 两个interval lists
+71 变种，
+253 meeting room II 变种
+ 
+ 
+124 Binary Tree Maximum Path Sum
+426 convert BST to Sorted DLL
+317 Shortest Dist to All Buildings
+76 Min-Window Substring
+ 
+ 
+560 Subarray Sum Equals K
+973 K-closest to origin
+347 Top K Frequent Elements, 需要按frequency 从大到小
+543 Diameter of Binary Tree
+   
+ 
+126 Word Ladder II
+ 
+323 低频 Number of Connected Components in an Undirected Graph
+  DFS and UF
+43 低频 Multiply Strings
+  Input: num1 = "123", num2 = "456"
+  Output: "56088"
+ 
+31 Next Permuation, follow-up: duplicate
+348 Tic-Tac-Toe
+ 
+56 正常解 + two pointers
+199 DFS and BFS
+ 
+ 
+408 Valid word abbreviation
+295 Find Median from Data Stream, using two heaps
+ 
+ 
+1570 similar Dot Product of Two Sparse Vectors
+ 
+ 
+162 Find Peak Element
+50 Pow(x, n)
+236 LCA series
+56 Intervals Series
+ 
+ 
+408 Valid word abbreviation
+### Merge 3 sorted Array
+ 
+ 
+680 Valid Palindrome II
+339 Nested List Weight Sum, 可能要自己设计API
+ 
+ 
+1249 Min-remove make Parentheses Valid
+513 Find Bottom Left Tree Value （没做过）
+249 Group Shifted Strings
+977 Squares of a Sorted Array +2 (required O(n))
+ 
+ 
+1570 LC Solution III is the best
+426 Convert BST to Sorted DDL
+ 
+125
+Course Schedule
+ 
+238
+523
+1249
+215 O(n)
+236
+938
+
+#*-------------------------------
 九月初找内推
 2021.09.23 收到邮件收集信息
 2021.10.5 收到邮件要求phone screen 约了10月29号一面
-2021.10.29 一题找出0-1图中的岛最大面积，第二题follow up可以flip一个0变成1求最大面积 问了一些dfs bfs的问题 写完之后可能看时间还早 又问了个id system的题目 可能是design的题目？不是很了解 面完后大约两个小时收到了vo邀请
+2021.10.29 一题找出0-1图中的岛最大面积，第二题follow up可以flip一个0变成1求最大面积 问了一些
+
+dfs bfs的问题 写完之后可能看时间还早 又问了个id system的题目 可能是design的题目？不是很了解 面完后大约两个小时收到了vo邀请
 2021.11.15 vo 无药物 (515) 要求dfs和bfs都做 比较不同的树用哪个更好 第二题有 working day 和 holiday的数组 给定PTO可以将working day 转成holiday 求最长连续holiday的长度 用滑动窗口做的 follow up问如果PTO可以不是整数 如1.5怎么办 晚上收到邮件问国籍
 2021.11.16 hr邮件约phone call
 2021.11.17 hr call给offer 打完电话就有邮件offer了

@@ -1,11 +1,8 @@
 '''
-Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
-
-Return the sum of the three integers.
-
-You may assume that each input would have exactly one solution.
+find the three sum closest to target
+Input: nums = [-1,2,1,-4], target = 1
+Output: 2
 '''
-
 
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:

@@ -37,22 +37,24 @@ class Solution:
 
 # 不太熟熟的 recursive 解法
 class Solution: 
+    
     def str2tree(self, s: str) -> TreeNode:
         if not s or len(s) == 0:
             return None
-        root, _ = self.helper(s, 0)
+        root, _ = self.dfs(s, 0)
         return root
-    def helper(self, s, i):
+
+    def dfs(self, s, i):
         start = i
         while i < len(s) and (s[i] == '-' or s[i].isdigit()): # negative sign or digit
             i += 1
         node = TreeNode(int(s[start : i]))
         if i < len(s) and s[i] == '(':
-            i += 1 # skip '('
-            node.left, i = self.helper(s, i)
-            i += 1 # skip ')'
+            i += 1      # skip '('
+            node.left, i = self.dfs(s, i)
+            i += 1      # skip ')'
         if i < len(s) and s[i] == '(': # still has '(', create right tree
-            i += 1 # skip '('
-            node.right, i = self.helper(s, i)
-            i += 1 # skip ')'
+            i += 1      # skip '('
+            node.right, i = self.dfs(s, i)
+            i += 1      # skip ')'
         return node, i

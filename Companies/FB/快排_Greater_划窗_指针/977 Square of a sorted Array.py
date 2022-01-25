@@ -11,6 +11,30 @@ Output: [0,1,9,16,100]
 
 # 比较 左右两端，负数的平方可能大
 # 根据两边的情况 move the index, index start from n - 1
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        
+        n = len(nums)
+        res = [0] * n
+        idx = n - 1
+        
+        
+        i, j = 0, n - 1
+        while i <= j:
+            if abs(nums[i]) > abs(nums[j]):
+                res[idx] = nums[i] ** 2
+                i += 1
+            else:
+                res[idx] = nums[j] ** 2
+                j -= 1
+            
+            idx -= 1
+        
+        return res
+
+
+
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         

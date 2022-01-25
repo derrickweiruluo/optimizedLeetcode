@@ -1,8 +1,3 @@
-# contraints:
-# A person can see another person to their right in the queue if everybody in between is SHORTER than both of them.
-# All the values of heights are unique.
-
-
 # similar next greater
 # https://leetcode.com/problems/number-of-visible-people-in-a-queue/discuss/1359868/JavaPython-3-Monotonic-increasing-stack-w-18-similar-problems-brief-explanation-and-analysis.
 
@@ -19,6 +14,9 @@
 # so we increment res[i]++
 
 
+# ClarificationsL:
+# A person can see another person to their right in the queue if everybody in between is SHORTER than both of them.
+# All the values of heights are unique.
 class Solution:
     def canSeePersonsCount(self, heights: List[int]) -> List[int]:
         

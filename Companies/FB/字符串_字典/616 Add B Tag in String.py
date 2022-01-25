@@ -7,14 +7,50 @@ https://leetcode.com/problems/add-bold-tag-in-string/discuss/104248/Java-Solutio
 '''
 
 
-# Input: s = "abcxyz123", words = ["abc","123"]
-# Status: [True, True, True, False, False, False, True, True, True]
-# Output: "<b>abc</b>xyz<b>123</b>"
 
 
 # Input: s = "aaabbcc", words = ["aaa","aab","bc"]
 # Status [True, True, True, True, True, True, False]
 # Output: "<b>aaabbc</b>c"
+
+
+
+class Solution:  # Trie 优化解
+    def addBoldTag(self, s: str, words: List[str]) -> str:
+
+        # _trie = lambda: collections.defaultdict(_trie)
+        trie = {}
+        
+        for w in words:
+            cur = trie
+            for c in w:
+                cur = cur.setdefault(c, {})
+            cur["#"] = 1
+
+        
+        # 步骤和下面的解一样，多了trie步骤来 speed up status boolean array的构建
+        status = [False] * len(s)
+        for i in range(len(s)):
+            cur = trie
+            end = i
+            for j in range(i, len(s)):
+                if s[j] not in cur: break
+                cur = cur[s[j]]
+                if "#" in cur:
+                    end = j + 1
+            status[i:end] = [True] * (end - i)
+        
+        ans = []
+        for i, u in enumerate(s):
+            if status[i] and (i == 0 or not status[i-1]):
+                ans.append('<b>')
+            ans.append(u)
+            if status[i] and (i == len(s) - 1 or not status[i+1]):
+                ans.append('</b>')
+            
+        return "".join(ans)
+
+
 
 
 class Solution:

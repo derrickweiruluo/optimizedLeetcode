@@ -1,13 +1,9 @@
 '''
-Get the unique 3Sum solutions as output
-
-
-Example 1:
+find nums[i] + nums[j] + nums[k] == 0
 
 Input: nums = [-1,0,1,2,-1,-4]
 Output: [[-1,-1,2],[-1,0,1]]
 '''
-
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
@@ -38,4 +34,3 @@ class Solution:
                     right -=1
         
         return res
-                

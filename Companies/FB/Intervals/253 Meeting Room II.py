@@ -33,3 +33,23 @@ class Solution:  # 古城数飞机 Best高级解法
             res = max(res, count)
         
         return res
+
+
+class Solution:  # 古城数飞机 第二种高级解法
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        starts = []
+        ends = []
+        for interval in intervals:
+            starts.append(interval[0])
+            ends.append(interval[1])
+        
+        starts.sort() # by start time then end time
+        ends.sort()
+        res = end = 0
+        for i in range(len(starts)):
+            if starts[i] < ends[end]:
+                res += 1
+            else:
+                end += 1
+        
+        return res
