@@ -8,7 +8,7 @@ The distance is calculated using Manhattan Distance, where distance(p1, p2) = |p
 
 
 
-
+# return total traval distance
 class Solution:
     def minTotalDistance(self, grid: List[List[int]]) -> int:
         
@@ -31,6 +31,6 @@ class Solution:
         medianCol = yCords[len(yCords) // 2]
         
         
-        # print(medianRow, medianCol)
+        # return total traval distance
         return sum(abs(x - medianRow) for x in xCords) + sum(abs(y - medianCol) for y in yCords)
         

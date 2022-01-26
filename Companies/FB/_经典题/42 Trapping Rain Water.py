@@ -14,13 +14,17 @@ class Solution:
         left, right = 0, len(height) - 1
         res = 0 # volume
         
+        # 只有高度 增高的时候才能蓄水，高度 减少的时候不可能蓄水
+
         while left < right:
             leftBound = max(leftBound, height[left])
             rightBound = max(rightBound, height[right])
             if leftBound < rightBound:
+                # print(leftBound - height[left], 'left')
                 res += leftBound - height[left]
                 left += 1
             else:
+                # print(rightBound - height[right], 'right')
                 res += rightBound - height[right]
                 right -= 1
         

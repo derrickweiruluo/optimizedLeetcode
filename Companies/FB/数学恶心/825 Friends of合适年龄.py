@@ -10,6 +10,33 @@ A Person x will not send a friend request to a person y (x != y) if any of the f
 
 # 满足以上任意条件的就会 发出 friend request， 问一共有多少条 request
 
+from pymysql import Time
+
+
+# Time O(N), amount of ages in nums
+# Space O(n), n is amount of unique age, which is a constant
+
+class Solution:
+    def numFriendRequests(self, ages: List[int]) -> int:
+        
+        def validReq(x, y):
+            return not(y <= 0.5 * x + 7 or y > x or y > 100 and x < 100)
+        
+        res = 0
+        counter = collections.Counter(ages)
+        
+        for age1 in counter:
+            for age2 in counter:
+                if validReq(age1, age2):
+                    if age1 != age2:
+                        res += counter[age2] * (counter[age1])
+                    else:
+                        res += counter[age2] * ((counter[age1]) - 1)
+        
+        # print(counter)
+        return res
+
+
 
 
 # Time Complexity: O(N) + O((120 - 15) ^ 2) ~ O(N)

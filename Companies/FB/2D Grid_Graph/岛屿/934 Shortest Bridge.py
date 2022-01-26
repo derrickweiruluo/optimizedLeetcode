@@ -12,6 +12,8 @@ class Solution:
         dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         m, n = len(grid), len(grid[0])
         steps = 0
+
+        # step 1 & 2 for preperation
         i, j = self.get_first(grid)
         self.dfs(grid, i, j, boundOne)  # 通过dfs得到岛1外围一周的水域的坐标
         queue = collections.deque(list(boundOne))
@@ -31,7 +33,7 @@ class Solution:
         
         # print(boundOne)
     
-
+    # step 1:
     # get the cordinates of the first island
     def get_first(self, grid):
         for i in range(len(grid)):
@@ -39,6 +41,7 @@ class Solution:
                 if grid[i][j] == 1:
                     return i, j
     
+    # step 2
     # 一次性DFS方程来 收集第一个岛屿的周围的 "一圈水域" 的 coordinates
     def dfs(self, grid, i, j, boundOne):
         grid[i][j] = -1

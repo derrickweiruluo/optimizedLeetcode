@@ -8,7 +8,29 @@ https://leetcode.com/problems/diagonal-traverse-ii/
 # 对角线 traversal的秘诀在于找到 对应遍历的规律, (i, j), 正反对应的idx
 # 例如 0 对应 -n, n -1 对应 -1
 
+
 class Solution:
+    def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
+        
+        minIdx, maxIdx = math.inf, -math.inf
+        
+        mapping = collections.defaultdict(deque)
+        for i in range(len(nums)):
+            for j in range(len(nums[i])):
+                mapping[i + j].appendleft(nums[i][j])
+                minIdx, maxIdx = min(minIdx, i + j), max(maxIdx, i + j)
+        
+        res = []
+        # return [val for key in mapping for val in mapping[key]]
+        for idx in range(minIdx, maxIdx + 1):
+            res.extend(val for val in mapping[idx])
+        
+        return res
+
+
+
+
+class Solution: # Same solution as above
     def findDiagonalOrder(self, nums: List[List[int]]) -> List[int]:
         
         
@@ -21,7 +43,7 @@ class Solution:
 
 
 
-
+#######---------------
 #### Other directions:
 
 # 从右上角忘右下角斜线：

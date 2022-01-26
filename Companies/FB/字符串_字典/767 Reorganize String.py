@@ -8,6 +8,9 @@ Return any possible rearrangement of s or return "" if not possible.
 # Time O(N): counter + find_max + write results into char array
 # Space O(N + 26): result + hash[]
 
+from matplotlib import collections
+
+
 class Solution:
     def reorganizeString(self, s: str) -> str:
         
@@ -39,3 +42,24 @@ class Solution:
         
         
         return "".join(res)
+
+
+
+# Heap 解  千万别用
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+
+        res, c = [], collections.Counter(s)
+        heap = [(-value,key) for key,value in c.items()]
+        # heapq.heapify(pq)
+        p_a, p_b = 0, ''
+        while heap:
+            a, b = heapq.heappop(heap)
+            res += [b]
+            if p_a < 0:
+                heapq.heappush(heap, (p_a, p_b))
+            a += 1
+            p_a, p_b = a, b
+        res = ''.join(res)
+        if len(res) != len(s): return ""
+        return res

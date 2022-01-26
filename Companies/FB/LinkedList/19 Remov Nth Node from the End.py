@@ -18,7 +18,7 @@ class Solution:
         for _ in range(n):
             fast = fast.next
         
-        # 如果以移除头部
+        # 如果要求移除移除头部
         # 例如 1-2-3-4-5, n=5, remove 5th from end: --> 2-3-4-5
         if not fast:
             return head.next

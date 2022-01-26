@@ -12,7 +12,9 @@ The next greater number of a number x is the first greater number to its travers
 # The second 1's next greater number needs to search circularly, which is also 2.
 
 
-
+'''
+find next greater in a circular array
+'''
 
 
 # Loop once, we can get the Next Greater Number of a normal array.
@@ -25,6 +27,22 @@ The next greater number of a number x is the first greater number to its travers
 # res =   [-1,-1,-1,-1,-1],   stack; [3,4]
 # 1st:    [2,  3  4 -1,-1],   stack: [3,3,4]
 # 2nd:    [2,  3, 4,-1, 4] 
+
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        
+        n = len(nums)
+        res = [0] * n
+        stack = []
+        
+        for i in range(2 * n - 1, -1, -1):
+            while stack and nums[i % n] >= stack[-1]:
+                stack.pop()
+            res[i % n] = stack[-1] if stack else -1
+            stack.append(nums[i % n])
+        
+        
+        return res
 
 
 class Solution:

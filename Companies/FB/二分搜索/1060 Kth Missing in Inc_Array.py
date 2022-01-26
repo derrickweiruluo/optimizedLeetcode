@@ -6,6 +6,7 @@ Find the xth missing number
 
 # Clarifications:
 # Sorted and Increasing
+# 从最左边的 nums[0] 开始数missing， 1060 是用 1 开始数
 
 class Solution:
     def missingElement(self, nums: List[int], k: int) -> int:

@@ -20,23 +20,24 @@ class Solution:
         
         # 用counter来确认包含所有元素
         counter = collections.Counter(t)
-        l = len(t)
-        missing = l
-
+        missing = len(t)
+        
         start, end = 0, 0
         i = 0
+        
         for j, char in enumerate(s):
             if counter[char] > 0:
                 missing -= 1
             counter[char] -= 1
-            if missing == 0:
-                while i < j and counter[s[i]] < 0:  # <0 意味着有多余的可以缩left bound
+            if missing == 0:  # qualified window, then use while loop to shrink
+                while i < j and counter[s[i]] < 0:
                     counter[s[i]] += 1
                     i += 1
                 if end == 0 or j - i < end - start - 1:
                     start, end = i, j + 1
-                    
-                counter[s[i]] += 1
+                
+                # at the end, advance slow_idx by 1 so start a new search
+                counter[s[i]] += 1  
                 missing += 1
                 i += 1
         

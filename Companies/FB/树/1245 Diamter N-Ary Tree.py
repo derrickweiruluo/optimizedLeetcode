@@ -13,7 +13,9 @@ Input: edges = [[0,1],[1,2],[2,3],[1,4],[4,5]]
 output = 4
 '''
 
-
+# Clarifications:
+# n nodes labeled from 0 to n - 1. 
+# Given a 2D array edges where edges.length == n - 1 and edges[i] = [ai, bi]
 
 class Solution:
     def treeDiameter(self, edges: List[List[int]]) -> int:

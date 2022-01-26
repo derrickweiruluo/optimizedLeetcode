@@ -10,21 +10,17 @@ class Solution:
         def dfs(node):
             if not node:
                 return 0
-            lst = []
+            first, second = 0, 0
             for child in node.children:
-                lst.append(dfs(child))
-            cur = 1
-            lst.sort(reverse = True)
-            if len(lst) == 0:
-                self.depth = max(self.depth, 1)
-                return 1
-            elif len(lst) == 1:
-                cur += lst[0]
-            elif len(lst) > 1:
-                cur += lst[0] + lst[1]
+                cur = dfs(child)
+                if cur > first:
+                    first, second = cur, first
+                elif cur > second:
+                    second = cur
+            res = 1 + first + second
 
-            self.depth = max(self.depth, cur)
-            return 1 + lst[0]
+            self.depth = max(self.depth, res)
+            return 1 + first
             
         
         dfs(root)
