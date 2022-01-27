@@ -25,7 +25,7 @@ class Solution: # O(1) space
         
         outerSign = 1 # '+': 1, '-': -1
         innerSign = 0 # '*': 1, '/': -1
-        prev = cur = 0 # prev for outter, cur for inner
+        prev = cur = 0 # prev for outer result, cur for inner result
         num = 0            
         
         for i, char in enumerate(s):

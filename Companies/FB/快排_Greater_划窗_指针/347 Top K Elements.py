@@ -51,8 +51,17 @@ buckets is list of lists now, create one big list out of it.
 Finally, take the k last elements from this list, these elements will be top K frequent elements.'''
 
 
-
-
+from collections import Counter
+class Solution:   # Heap solution
+    def topKFrequent(self, nums, k):
+        
+        res = []
+        counter = Counter(nums)
+        max_heap = [(-val, key) for key, val in counter.items()]
+        heapq.heapify(max_heap)
+        for i in range(k):
+            res.append(heapq.heappop(max_heap)[1])
+        return res   
 
 
 

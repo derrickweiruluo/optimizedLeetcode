@@ -27,7 +27,7 @@ class Solution:   # Best_1 w/ avoiding duplicate BFS search
         res = []
         queue = deque([(s, 0, ')')])
         
-        while len(queue) > 0 and len(res) == 0:
+        while len(queue) > 0 and len(res) == 0: # when len(res), break the while loop
             size = len(queue)
             for _ in range(size):
                 curr, start, removed_c = queue.popleft()

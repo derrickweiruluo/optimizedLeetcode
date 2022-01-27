@@ -5,7 +5,7 @@ The answer is guaranteed to be unique (except for the order that it is in).
 
 import heapq
 
-class Solution:
+class Solution:  # quick select
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         
         def dist(cord):

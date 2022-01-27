@@ -5,39 +5,14 @@ Output: ["cats and dog","cat sand dog"]
 Input: s = "pineapplepenapple", wordDict = ["apple","pen","applepen","pine","pineapple"]
 Output: ["pine apple pen apple","pineapple pen apple","pine applepen apple"]
 '''
-class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-        
-        # my solution with comments and test cases
-        # https://leetcode.com/submissions/detail/608597792/
-        # this is huahua's shorter codes
-        
-        wordSet = set(wordDict)
-        memo = {}
-        
-        def dfs(s, wordSet):
-            if s in memo:
-                return memo[s]
-            
-            res = []
-            if s in wordSet:
-                res.append(s)
-            for i in range(1, len(s)):
-                right = s[i:]
-                if right in wordSet:
-                    res += [word + " " + right for word in dfs(s[0:i], wordSet)]
-            
-            memo[s] = res
-            return memo[s]
-        
-        return dfs(s, wordSet)
-
-#* ---------------------------------
 
 
-#Important solution
+# time O(2^n) in the worse case scenario where all combinations of the string are correct (e,g, s=aaa, dic=[a, aa, aaa]).
+# Space O(2^n) for the same reason - every partition is stored in memory
 
-class Solution:  # from Tony
+
+# Same worst case time complexity as below, but with DP Pruning
+class Solution:  # 1st-BEST from Tony
     def wordBreak(self, s, wordDict):
         res = []
         self.dfs(s, wordDict, '', res)
@@ -66,3 +41,40 @@ class Solution:  # from Tony
                 if dp[j] and s[j:i] in dic:
                     dp[i] = True
         return dp[-1]
+
+
+#* ---------------------------------
+class Solution:  # 2nd-BEST
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordSet = set(wordDict)
+        memo = {}
+        
+        def dfs(s, wordSet):
+            if s in memo:
+                return memo[s]
+            
+            res = []
+            if s in wordSet:
+                res.append(s)
+            for i in range(1, len(s)):
+                right = s[i:]
+                if right in wordSet:
+                    res += [word + " " + right for word in dfs(s[0:i], wordSet)]
+            
+            memo[s] = res
+            return memo[s]
+        
+        return dfs(s, wordSet)
+
+
+
+
+
+
+
+
+
+# Additional Note
+    # my solution with comments and test cases
+    # https://leetcode.com/submissions/detail/608597792/
+    # this is huahua's shorter codes

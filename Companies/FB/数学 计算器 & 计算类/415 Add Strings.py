@@ -30,7 +30,7 @@ class Solution:
     # Space: Extra Space (without counting output as space): O(1)
     def addStrings(self, num1: str, num2: str) -> str:
         carry = 0
-        res = []
+        res = collections.deque([])
         p1, p2 = len(num1) - 1, len(num2) - 1
         
         while p1 >= 0 or p2 >= 0 or carry:
@@ -41,7 +41,7 @@ class Solution:
                 carry += int(num2[p2])
                 p2 -= 1
             
-            res.append(str(carry % 10))
+            res.appendleft(str(carry % 10))
             carry = carry // 10
         
-        return ''.join(res[::-1])
+        return ''.join(res)

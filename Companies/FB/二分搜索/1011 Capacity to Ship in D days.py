@@ -17,9 +17,9 @@ Explanation: A ship capacity of 15 is the minimum to ship all the packages in 5 
 
 
 '''
-Time complexity: O(n * log(sum(weights))
-where SIZE is the size of the search space (sum of weights - max weight).
-which is the left, right bound
+Time complexity: O(n * log(size))
+    n    is the size of the input weights list
+    SIZE is the size of the search space (sum of weights - max weight).
 Space complexity: O(1).
 '''
 # https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/discuss/256729/JavaC%2B%2BPython-Binary-Search
