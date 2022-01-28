@@ -10,26 +10,34 @@ Return the minimum area of a rectangle formed from these points, with sides para
 
 class Solution:
     def minAreaRect(self, points: List[List[int]]) -> int:
-        
+         
+        # Improvement one: fast sanity check first
         n = len(points)
         nx = len(set(x for x, y in points))
         ny = len(set(y for x, y in points))
-        if nx == n or ny == n:
+        if nx >= n - 1 or ny >= n - 1:
             return 0
+        
+        # Improvement Two: only navigate the cord with more unique nx * nx * ny
+        p = collections.defaultdict(list)
+        if nx > ny:
+            for x, y in points:
+                p[x].append(y)
+        else:
+            for x, y in points:
+                p[y].append(x)
 
-        seen = set()
-        res = math.inf
-        
-        for x1, y1 in points:
-            for x2, y2 in seen:
-                if (x1, y2) in seen and (x2, y1) in seen:
-                    area = abs(x1 - x2) * abs(y1 - y2)
-                    res = min(res, area)
-            # has to add after the look up, 
-            # since this point must not be used during check up
-            seen.add((x1, y1))
-        
-        return res if res < math.inf else 0
+        lastx = {}
+        res = float('inf')
+        for x in sorted(p):
+            p[x].sort()
+            for i in range(len(p[x])):
+                for j in range(i):
+                    y1, y2 = p[x][j], p[x][i]
+                    if (y1, y2) in lastx:
+                        res = min(res, (x - lastx[y1, y2]) * abs(y2 - y1))
+                    lastx[y1, y2] = x
+        return res if res < float('inf') else 0
 
 
 

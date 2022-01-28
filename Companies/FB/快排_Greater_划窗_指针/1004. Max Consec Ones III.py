@@ -10,8 +10,8 @@ class Solution:
         # 下面的one pass利用了数组只有 0, 1的性质s
         i = 0
         for j in range(len(nums)):
-            k -= (1 - nums[j])
-            if k < 0:
+            k -= (1 - nums[j])   # k 代表 quota，每次都会更新
+            if k < 0:            # 没 quota 就 i += 1
                 k += (1 - nums[i])
                 i += 1
         

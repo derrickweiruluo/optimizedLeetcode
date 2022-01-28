@@ -38,42 +38,47 @@ Interesting Examples
 ["a","b","a"] # Cycle
 ["wnlb"]
 """
-
 import collections
 
 # 拓扑要求： 
 # 1. DAG(directed acyclic graph)
 # 2. 每个 v只出现一次
 
-#### 小当家
-class Solution:  # topological sorting
+class Solution:  # topological sorting 只需四步曲
+    # time O(E +V)
     def alienOrder(self, words) -> str:
         chars = set("".join(words))
-        graph = collections.defaultdict(set)
-        indegree = {char: 0 for char in chars}
+        graph = collections.defaultdict(set)        # step 1 建图
+        degree = {char: 0 for char in chars}        # step 2 建入度
         for i, word1 in enumerate(words[:-1]):
             word2 = words[i + 1]
+
+            # ["abc","ab"] corner case 1
             if len(word1) > len(word2) and word2 == word1[:len(word2)]:
                 return ""
+
             for c1, c2 in zip(word1, word2):
+                # ["z", "z"] corner case 2
                 if c1 == c2:
                     continue
                 if c2 not in graph[c1]:
-                    indegree[c2] += 1
+                    degree[c2] += 1
                 graph[c1].add(c2)
                 break
-
-        
         res = ''
-        queue = collections.deque([char for char in indegree if not indegree[char]])
+
+        # step 3 找入口
+        queue = collections.deque([char for char in degree if not degree[char]])
+        
+        # step 4: 拓扑排序
         while queue:
             char = queue.popleft()
             res += char
             for nei in graph[char]:
-                indegree[nei] -= 1
-                if not indegree[nei]:
+                degree[nei] -= 1
+                if not degree[nei]: # 没有入度了，才可以进入queue
                     queue.append(nei)
-        return res if len(res) == len(indegree) else ''
+        return res if len(res) == len(degree) else ''
 
 
 

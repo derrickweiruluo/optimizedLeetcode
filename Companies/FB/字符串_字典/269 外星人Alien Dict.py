@@ -45,9 +45,7 @@ import collections
 # 1. DAG(directed acyclic graph)
 # 2. 每个 v只出现一次
 
-
-#### 小当家
-class Solution:  # topological sorting
+class Solution:  # topological sorting 只需四步曲
     # time O(E +V)
     def alienOrder(self, words) -> str:
         chars = set("".join(words))

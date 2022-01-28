@@ -58,6 +58,24 @@ class Solution:  # Morris, O(1) Space
                     root = root.right 
 
 
+class Solution:  # Space O(w)
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        queue = collections.deque([(root, 0)])
+        res = 0
+        
+        while queue:
+            node, curVal = queue.popleft()
+            curVal = curVal * 10 + node.val
+            if not node.left and not node.right:
+                res += curVal
+            if node.left:
+                queue.append((node.left, curVal))
+            if node.right:
+                queue.append((node.right, curVal))
+        
+        return res
+
+
 class Solution: # O(H) Space
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         

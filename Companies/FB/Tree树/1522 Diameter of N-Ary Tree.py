@@ -2,6 +2,7 @@
 The diameter of an N-ary tree is the length of the longest path between any two nodes in the tree. This path may or may not pass through the root.
 '''
 
+ #BEST
 class Solution:
     def diameter(self, root: 'Node') -> int:
         
@@ -28,7 +29,7 @@ class Solution:
 
 
 
-
+#### Bad solution
 class Solution:
     def diameter(self, root: 'Node') -> int:
         self.maxPath = 0

@@ -39,6 +39,7 @@ class Solution:
                 return 0
             left = dfs(node.left)
             right = dfs(node.right)
+
             if isComplete(left) and left // 2 <= right <= left:
                 # 如果左子树complete， 那右子树要么是complete少一层，要么同样层数不complete
                 return left + right + 1
@@ -49,5 +50,4 @@ class Solution:
             # 如果两个都不完整，-1, 往上递归的时候，上层的check也会fail掉，root最终也返回 -1
             return -1
             
-        # print(dfs(root))
         return dfs(root) > 0

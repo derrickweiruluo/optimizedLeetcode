@@ -10,6 +10,8 @@ class Solution(object):
         while cur:
             if abs(cur.val - target) < abs(res - target):
                 res = cur.val
+                if abs(cur.val - target) <= 0.5:  # early return as all Val is int
+                    break
             if cur.val == target:
                 return cur.val
             elif cur.val < target:

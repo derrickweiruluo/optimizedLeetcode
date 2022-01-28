@@ -12,9 +12,9 @@ Output: [4,1,1,1,0]
 '''
 
 # contraints:
-# n == heights.length
-# 1 <= n <= 105
 # All the values of heights are unique.
+# 向右看，只能看到比他低的
+
 class Solution:
     def canSeePersonsCount(self, heights: List[int]) -> List[int]:
         
@@ -22,7 +22,7 @@ class Solution:
         res = [0] * n
         stack = []
         for i in range(n - 1, -1, -1):
-            while stack and heights[i] >= heights[stack[-1]]:
+            while stack and heights[i] > heights[stack[-1]]:  # 只用 > 因为题目说unique 且 比他矮才能看到
                 res[i] += 1
                 
                 # each pop(), cur ppl seen += 1, and will be invisible for
@@ -30,7 +30,7 @@ class Solution:
                 stack.pop()
             if stack:
                 res[i] += 1
-            # print(i, stack)
+
             stack.append(i)
         
         return res
