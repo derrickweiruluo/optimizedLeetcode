@@ -28,21 +28,21 @@ class Solution:
         if not nums:
             return [-1, -1]
         
-        def binarySearchLeft(nums, target):
+        def binarySearchLeft(nums):
             left, right = 0, len(nums) - 1
             while left < right:
                 mid = (left + right) // 2
-                if nums[mid] < target:         # 左bound,所以小于不符合
-                    left = mid + 1
+                if nums[mid] < target:
+                    left = mid + 1      # when mid fail lowerBound
                 else:
                     right = mid
             return left if nums[left] == target else -1
-
-        def binarySearchRight(nums, target):
+        
+        def binarySearchRight(nums): # upperBound
             left, right = 0, len(nums) - 1
             while left < right:
-                mid = (left + right) // 2 + 1  #右bound，所以必须 +1
-                if nums[mid] > target:         #大于就肯定不符合
+                mid = (left + right) // 2 + 1
+                if nums[mid] > target:  # when mid + 1 fail upperBound
                     right = mid - 1
                 else:
                     left = mid

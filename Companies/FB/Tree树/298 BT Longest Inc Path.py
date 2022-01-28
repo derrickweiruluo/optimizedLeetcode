@@ -4,22 +4,39 @@ The longest consecutive path needs to be
 from parent to child (cannot be the reverse).
 '''
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+"""
+Example 1:
+Input:
+   1
+    \
+     3
+    / \
+   2   4
+        \
+         5
+Output: 3
+Explanation: Longest consecutive sequence path is 3-4-5, so return 3.
+Example 2:
+Input:
+   2
+    \
+     3
+    /
+   2
+  /
+ 1
+Output: 2
+"""
+
 class Solution:
     def longestConsecutive(self, root: Optional[TreeNode]) -> int:
-        
         if not root: return 0
         
-        stack = [(root, 1)]
+        stack = collections.deque([(root, 1)])
         res = 0
         
         while stack:
-            node, cnt = stack.pop()
+            node, cnt = stack.popleft()
             if node.left:
                 if node.left.val == node.val + 1:
                     stack.append((node.left, cnt + 1))
@@ -48,6 +65,8 @@ class Solution:
                 cnt += 1
             else:
                 cnt = 1
+
+            #DFS到下一层的时候，要知道 cnt值来判断是否连续，不连续 就 传下 cnt = 1
             left = dfs(node.left, cnt, node.val)
             right = dfs(node.right, cnt, node.val)
             return max(cnt, left, right)

@@ -22,9 +22,9 @@ class Solution:
     def mincostTickets(self, days: List[int], costs: List[int]) -> int:
         
         dp = [0] * (days[-1] + 1) # dp from day 0 to the last day
+        days = set(days)
         
-        
-        for i in range(1, days[-1] + 1):  # "i" is the calendar day
+        for i in range(len(dp)):
             if i not in days:
                 dp[i] = dp[i - 1]
             else:

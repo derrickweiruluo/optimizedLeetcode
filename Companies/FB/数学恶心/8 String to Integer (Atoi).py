@@ -25,15 +25,17 @@ class Solution:
         if len(s) == 0:
             return 0
         
-        s = list(s.strip())
+        s = list(s.strip()) # 除掉space，转换inpu，t以及sanity check
         if not s:
             return 0
-        sign = -1 if s[0] == '-' else 1
+
+        sign = -1 if s[0] == '-' else 1  # 确定 sign
         if s[0] in '-+':
             del s[0]
+
         res = i = 0
         while i < len(s) and s[i].isdigit():
-            res = res * 10 + ord(s[i]) - ord('0')
+            res = res * 10 + ord(s[i]) - ord('0')  # get the num
             i += 1
         
         return max(- 2** 31, min(sign * res, 2 ** 31 - 1))

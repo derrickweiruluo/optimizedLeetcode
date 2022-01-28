@@ -55,7 +55,9 @@ class Solution:
         """
         self.dirs = [(1, 0), (0, -1), (-1, 0), (0, 1)]
         self.clean(robot, 0, 0, 0, set())
-        
+    
+
+    # Using DFS, we have to backtrack after we explore as far as possible along a branch, i.e. robot moves backward one step while maintaining its orientation.
     def clean(self, robot, x, y, curDir, visited):
         robot.clean()
         visited.add(str(x) + "#" + str(y))
@@ -65,6 +67,8 @@ class Solution:
             if (str(xi) + "#" + str(yi)) not in visited and robot.move():
                 self.clean(robot, xi, yi, i % 4, visited)
             robot.turnRight()
+        
+        # Moves backward one step while maintaining the orientation.
         robot.turnRight()
         robot.turnRight()
         robot.move()        # return False if facing a wall, return True if not
