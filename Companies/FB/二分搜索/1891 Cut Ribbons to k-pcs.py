@@ -15,10 +15,10 @@ import collections
 class Solution: # BS-template 1 -- Interview
     def maxLength(self, ribbons: List[int], k: int) -> int:
         
-        total, maxRib = sum(ribbons), max(ribbons)
+        total, maxRib = sum(ribbons), min(ribbons)
         if k > total: return 0
         
-        left, right = 1, max(total //k, maxRib) + 1     # upperbound for speed
+        left, right = 1, max(total // k + 1, maxRib) + 1     # upperbound for speed
         counter = collections.Counter(ribbons)          # speed improvement
         
         def canCut(length, k):

@@ -38,18 +38,18 @@ class Solution:
         max_val = nums[right_idx]
 
         for j in range(i + 1, n):
-            if nums[j] >= max_val:
+            if nums[j] >= max_val:  # greater or equal, get the rightmost Max
                 max_val = nums[j]
                 right_idx = j
                 
         # step 3 look to the left, get the leftmost smaller than maxVal
         for j in range(left_idx, -1, -1):
-            if nums[j] < max_val:  # 保证swap the bigger one to left
+            if nums[j] < max_val:  # smaller than rightmost Max
                 left_idx = j
                 
         # Step 4: do the swap
         nums[left_idx], nums[right_idx] = nums[right_idx], nums[left_idx]
-        return ''.join(nums)                           # re-create the integer
+        return ''.join(nums)  
 
 
 
