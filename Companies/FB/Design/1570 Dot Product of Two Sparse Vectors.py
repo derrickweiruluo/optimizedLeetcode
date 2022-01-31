@@ -39,9 +39,35 @@ class SparseVector:  #最优解
         
         return res
 
-        
+# Advance      
+# above are hashmap solutions, META wants non-hashmap
 
-# Your SparseVector object will be instantiated and called as such:
-# v1 = SparseVector(nums1)
-# v2 = SparseVector(nums2)
-# ans = v1.dotProduct(v2)
+class SparseVector:
+    def __init__(self, nums: List[int]):
+        indexes = []
+        vals = []
+        for i, num in enumerate(nums):
+            if num != 0:
+                indexes.append(i)
+                vals.append(num)
+        self.indexes = indexes
+        self.vals = vals
+
+    # Return the dotProduct of two sparse vectors
+    def dotProduct(self, vec: 'SparseVector') -> int:
+        res = 0
+        m, n = len(self.indexes), len(vec.indexes)
+        i = j = 0
+        while i < m and j < n:
+            if self.indexes[i] == vec.indexes[j]:
+                res += self.vals[i] * vec.vals[j]
+                i += 1
+                j += 1
+            elif self.indexes[i] < vec.indexes[j]:
+                # Advance i using binary search (instead of i += 1)
+                i = bisect.bisect_left(self.indexes, vec.indexes[j], lo = i + 1)
+            else:
+                # Advance j using binary search (instead of j += 1)
+                j = bisect.bisect_left(vec.indexes, self.indexes[i], lo = j + 1)
+        
+        return res

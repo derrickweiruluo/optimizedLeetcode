@@ -20,14 +20,12 @@ class Solution:  # Trie 优化解
 
         # _trie = lambda: collections.defaultdict(_trie)
         trie = {}
-        
-        for w in words:
+        for word in words:
             cur = trie
-            for c in w:
-                cur = cur.setdefault(c, {})
+            for char in word:
+                cur = cur.setdefault(char, {})
             cur["#"] = 1
 
-        
         # 步骤和下面的解一样，多了trie步骤来 speed up status boolean array的构建
         status = [False] * len(s)
         for i in range(len(s)):

@@ -22,7 +22,7 @@ class Solution:
             low = max(A[i][0], B[j][0])
             high = min(A[i][1], B[j][1])
             
-            if low <= high:
+            if low <= high:  # 等于号的情况会得出一个 空的interval
                 res.append([low, high])
             
             if A[i][1] < B[j][1]:

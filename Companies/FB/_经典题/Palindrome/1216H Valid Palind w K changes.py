@@ -28,6 +28,7 @@ class Solution:
         dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]).
         dp[i][i] Initialized to 1.'''
         
+        ####### 2D DP
         for i in range(n - 2, -1, -1):
             dp[i][i] = 1
             for j in range(i + 1, n, 1):
@@ -37,3 +38,16 @@ class Solution:
                     dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
         
         return n - dp[0][n - 1] <= k
+
+
+        ####### 1D Space Optimization
+        for i in range(n - 2, -1, -1):
+            newDp = [0] * n
+            for j in range(i + 1, n, 1):
+                if s[i] == s[j]:
+                    newDp[j] = dp[j - 1]
+                else:
+                    newDp[j] = 1 + min(dp[j], newDp[j - 1])
+            
+            dp = newDp
+        return dp[n - 1] <= k

@@ -17,7 +17,33 @@ Time complexity :O(N) in the average case, O(N^2) in the worst case.
 Space complexity : O(1).
 """
 
-class Solution:  # 最优解，quickselect with random pivot 
+class Solution:  # BEST of BEST -- Quick Select
+    def findKthLargest(self, nums: List[int], k: int) -> int:   
+        left, right, pos = 0, len(nums) - 1, len(nums)
+        while pos + 1 != k:
+            pos = self.partition(nums, left, right)
+            if pos + 1 < k:
+                left = pos + 1
+            else:
+                right = pos - 1
+        return nums[pos]
+                
+        
+    def partition(self, nums, left, right):
+        i, p = left, random.randint(left, right)
+        pivot_val = nums[p]
+        nums[p], nums[right] = nums[right], nums[p]
+        for j in range(left, right + 1):
+            if nums[j] > pivot_val:
+                nums[j], nums[i] = nums[i], nums[j]
+                i += 1
+        nums[right], nums[i] = nums[i], nums[right]
+        return i
+
+
+
+
+class Solution:  # NOT 优解，quickselect with random pivot 
     def findKthLargest(self, nums: List[int], k: int) -> int:
         # https://leetcode.com/submissions/detail/592804245/
         # partition without random pivot

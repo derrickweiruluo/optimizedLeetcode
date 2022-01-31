@@ -18,21 +18,26 @@ class Solution:
 
     def __init__(self, w: List[int]):
         self.w = w
+        self.n = len(w)
         for i in range(1, len(w)):
             self.w[i] += self.w[i - 1]
         self.total = self.w[-1]
-        self.n = len(w)
-
+        
     # idx_0: (0, 1], idx_1: (1, 4]
     def pickIndex(self) -> int:
-        randWeight = random.randint(1, self.total) # 
-        left, right = 0, self.n - 1 # idx range from 0 to n - 1
+        randomWeight = random.randint(1, self.total)
+        left, right = 0, self.n - 1
+
+        # if a range fall into the target_random_weight
         while left < right:
             mid = (left + right) // 2
-            if self.w[mid] < randWeight:
+            if self.w[mid] == randomWeight:
+                return mid
+            if self.w[mid] < randomWeight:
                 left = mid + 1
             else:
                 right = mid
+        
         return left
 
 

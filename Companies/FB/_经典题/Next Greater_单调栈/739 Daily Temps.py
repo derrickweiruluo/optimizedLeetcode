@@ -13,7 +13,7 @@ class Solution:
         stack = []
         for i in range(n - 1, -1, -1):
             while stack and temperatures[i] >= temperatures[stack[-1]]:
-                stack.pop()
+                stack.pop()  # stack pop 掉 小于等于当前温度的日子，维持mono-increase stack
             res[i] = 0 if not stack else stack[-1] - i
             stack.append(i)
         

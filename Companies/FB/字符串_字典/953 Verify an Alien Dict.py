@@ -17,9 +17,11 @@ Explanation: As 'h' comes before 'l' in this language, then the sequence is sort
 
 # Clarifications:
 # All characters in words[i] and order are English lowercase letters.
+
+
+# corner case:
 # "apple", "appl" is False
-
-
+# "hello", "hello", duplicate word is True
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
         

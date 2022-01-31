@@ -11,6 +11,8 @@ Output: 5
 # return the max result
 # k could be bigger than any exisiting ribon length
 
+# Time: N log (searchSpace)
+# Space: O(1)
 import collections
 class Solution: # BS-template 1 -- Interview
     def maxLength(self, ribbons: List[int], k: int) -> int:
@@ -18,7 +20,8 @@ class Solution: # BS-template 1 -- Interview
         total, maxRib = sum(ribbons), min(ribbons)
         if k > total: return 0
         
-        left, right = 1, max(total // k + 1, maxRib) + 1     # upperbound for speed
+        left = max(1, max(ribbons) // k)            # lowerBound
+        right = max(total // k + 1, maxRib) + 1     # upperbound for speed
         counter = collections.Counter(ribbons)          # speed improvement
         
         def canCut(length, k):

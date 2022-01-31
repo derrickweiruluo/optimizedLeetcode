@@ -28,17 +28,16 @@ class Solution:
         # res[i] += decreasing Cnt + optional taller ppl as the right bound
 
         for i in range(n - 1, -1, -1):
-            while stack and heights[i] >= heights[stack[-1]]:
+            while stack and heights[i] > heights[stack[-1]]: # 等于的情况不符合题目要求
                 res[i] += 1
                 
                 # each pop(), cur ppl seen += 1, and will be invisible for
                 # the next ppl on the left, which also maintain mono
                 stack.pop()
-            
             # 如果pop完，还剩下一个比自己高的在far right, res += 1
             if stack:
                 res[i] += 1
-            # print(i, stack)
+
             stack.append(i)
         
         return res

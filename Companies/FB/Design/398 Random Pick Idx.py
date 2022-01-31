@@ -5,11 +5,7 @@ Given an integer array nums with possible duplicates, randomly output the index 
 # Clarifications:
 # Picks a random index i from nums where nums[i] == target. If there are multiple valid i's, then each index should have an equal probability of returning.
 
-
-
-# Approach 3: Reservoir sampling
-class Solution:
-
+class Solution:  # Approach 3: Reservoir sampling
     def __init__(self, nums: List[int]):
         self.nums = nums
 

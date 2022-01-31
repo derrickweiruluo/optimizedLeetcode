@@ -4,10 +4,12 @@ You are given an array of points in the X-Y plane points where points[i] = [xi, 
 Return the minimum area of a rectangle formed from these points, with sides parallel to the X and Y axes. If there is not any such rectangle, return 0.
 
 '''
-
 # Clarifications:
 # All the given points are unique.
 
+
+# the time complexity is O(nx * nx * ny) < O(N ^ 1.5).
+# nx is # of x-cord, ny is # of y-cord
 class Solution:
     def minAreaRect(self, points: List[List[int]]) -> int:
          
@@ -26,6 +28,7 @@ class Solution:
         else:
             for x, y in points:
                 p[y].append(x)
+
 
         lastx = {}
         res = float('inf')
@@ -46,7 +49,6 @@ class Solution:
 # For each x value in sorted order, check all y pairs.
 # However, it seems that, in the test cases, it has a really big amount of rectangles.
 # In these worst cases, the time complexity is O(nx * nx * ny) < O(N ^ 1.5).
-
 # In the extreme worst cases, like all points have x = 0 or y = 0
 
 def minAreaRect(self, points):

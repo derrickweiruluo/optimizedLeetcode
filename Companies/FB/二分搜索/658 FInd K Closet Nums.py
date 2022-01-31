@@ -20,6 +20,30 @@ Output: [1,2,3,4]
 '''
 
 
+
+
+# constraints: nums is sorted in ASEC order
+# If x - A[mid] > A[mid + k] - x,
+# it means A[mid + 1] ~ A[mid + k] is better than A[mid] ~ A[mid + k - 1]
+
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        
+        left, right = 0, len(arr) - k # right is the rightmost startint point
+        while left < right:
+            mid = (left + right) // 2
+            if x - arr[mid] > arr[mid + k] - x: # 如果 leftBound diff > rightBound + 1 diff
+                left = mid + 1
+            else:
+                right = mid
+        
+        
+        # find the left bound of the solution section
+        # think of x in between 
+        return arr[left: left + k]
+
+
+
 """
 Explanation
 Assume we are taking A[i] ~ A[i + k -1].
@@ -42,25 +66,3 @@ case 4: x - A[mid] > A[mid + k] - x, need to move window go right
 -------A[mid]---------------------A[mid + k]----x------
 
 """
-
-
-
-# constraints: nums is sorted in ASEC order
-# If x - A[mid] > A[mid + k] - x,
-# it means A[mid + 1] ~ A[mid + k] is better than A[mid] ~ A[mid + k - 1]
-
-class Solution:
-    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        
-        left, right = 0, len(arr) - k # right is the rightmost startint point
-        while left < right:
-            mid = (left + right) // 2
-            if x - arr[mid] > arr[mid + k] - x: # 如果 leftBound diff > rightBound + 1 diff
-                left = mid + 1
-            else:
-                right = mid
-        
-        
-        # find the left bound of the solution section
-        # think of x in between 
-        return arr[left: left + k]

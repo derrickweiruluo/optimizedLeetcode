@@ -50,7 +50,7 @@ class Solution:
                     backtrack(j + 1, path + "-" + str(num), cur - num, -num)
                     
                     # keep the prevNum so that to calculate cur, we need to minus prev then Plus with prev * num. 
-                    # So cur = cur - prev + prev * num. e.g. Can imagine with example: 1+2*3*4
+                    # So cur = cur - prev + prev * num. e.g. Can imagine with example: 1+2*3 :: cur = 3 - 2 + 2 * 3
                     backtrack(j + 1, path + "*" + str(num), cur - prev + prev * num, prev * num)
 
         ans = []

@@ -9,20 +9,14 @@ Output: [1,2]
 
 # Clarifications:
 # It is guaranteed that the answer is unique.
-# which means, no conflict if there is tie
+# which means, no conflict if there is tie,  面试的时候不一定
 
 
-
-# Complexity: time complexity is O(n), because we first iterate over nums once and create buckets, then we flatten list of lists with total number of elements O(n) and finally we return last k elements. Space complexity is also O(n).
-# Optimized bucket sort with two hashtables
+# O(n) for both， optimized bucket with hashMaps
 import collections
 class Solution:  # both O(N)
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # It is guaranteed that the answer is unique.
-        # which means, no conflict if there is tie
-        
-        # bucket sort: https://leetcode.com/submissions/detail/602987983/
-        
+                
         counter = collections.Counter(nums)
         buckets = collections.defaultdict(list)  # {freq: list of num}
         maxFreq = 0

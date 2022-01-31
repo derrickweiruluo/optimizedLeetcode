@@ -25,7 +25,8 @@ class Solution:
         while head:
             headNext = head.next
             copyNode = Node(head.val, None, head.random)
-            copy.next = head.next = copyNode
+
+            copy.next = head.next = copyNode # 更新copy，以及改原list的next到copyNode上
             head, copy = headNext, copy.next
         
         copy = dummy.next # reset to copy pointer from the end to the start(head)
@@ -37,11 +38,29 @@ class Solution:
         return dummy.next
 
 
+#----------------
+# O(n), One-pass solutiuon
+
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        """dict with old Nodes as keys and new Nodes as values. Doing so allows us to create node's next and random as we iterate through the list from head to tail. Otherwise, we need to go through the list backwards.
+        defaultdict() is an efficient way of handling missing keys """ 
+        map_new = collections.defaultdict(lambda: Node(None, None, None))
+        map_new[None] = None # if a node's next or random is None, their value will be None but not a new Node, doing so removes the if-else check in the while loop
+        
+        nd_old = head
+        while nd_old:
+            map_new[nd_old].val = nd_old.val
+            map_new[nd_old].next = map_new[nd_old.next]
+            map_new[nd_old].random = map_new[nd_old.random]
+            nd_old = nd_old.next
+        return map_new[head]
+
 
 
 
 #-----------------
-# using dictionary
+# using dictionary, One-Pass
 class Solution1:
     def copyRandomList(self, head):
         if not head:

@@ -19,12 +19,12 @@ class Solution:
         while left < right:
             leftBound = max(leftBound, height[left])
             rightBound = max(rightBound, height[right])
+
+            # 矮的那一边先结算
             if leftBound < rightBound:
-                # print(leftBound - height[left], 'left')
                 res += leftBound - height[left]
                 left += 1
             else:
-                # print(rightBound - height[right], 'right')
                 res += rightBound - height[right]
                 right -= 1
         

@@ -15,35 +15,40 @@ Given word = "ABCB", return false.
 
 
 class Solution:
-    def exist(self, board, word):
-        memo = {}  # memo of false result
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        
+        memo = {}  # memo for all False result, to avoid duplicate search
         m, n = len(board), len(board[0])
         
-        # Two Sanity Check:
+        ####### Two Sanity Check:
         if m * n < len(word): return False   
         counter = collections.Counter(word)
         for i in range(m):
             for j in range(n):
                 counter[board[i][j]] -= 1
         if max(counter.values()) > 0: return False
+        #######
         
         for i in range(m):
             for j in range(n):
                 if self.getWord(board, i, j, memo, word, 0):
                     return True
         return False
-
+        
+    
     def getWord(self, board, i, j, memo, word, pos):
         if pos == len(word):
             return True
+        
         if i < 0 or i == len(board) or j < 0 or j == len(board[0]) or memo.get((i, j)) or word[pos] != board[i][j]:
             return False
+        
         memo[(i, j)] = True
         if self.getWord(board, i, j + 1, memo, word, pos + 1) \
               or self.getWord(board, i, j - 1, memo, word, pos + 1) \
               or self.getWord(board, i + 1, j, memo, word, pos + 1) \
               or self.getWord(board, i - 1, j, memo, word, pos + 1):
             return memo[(i, j)]
-        
         memo[(i, j)] = False
+        
         return memo[(i, j)]

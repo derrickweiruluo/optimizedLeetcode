@@ -28,8 +28,25 @@ class Solution: # faster time with parent pointers w/ early return
             dfs(node, node.left)
             dfs(node, node.right)
 
-        parent = {root: None}
-        dfs(None, root)
+        parent = {root: None}  # 可以 BFS也可以DFS构图
+        # dfs(None, root)
+        # def dfs(parentNode, node):
+        #     if not node:
+        #         return
+        #     parent[node] = parentNode
+        #     dfs(node, node.left)
+        #     dfs(node, node.right)
+        
+        queue = collections.deque([root])
+        while queue:
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                if node.left:
+                    parent[node.left] = node
+                    queue.append(node.left)
+                if node.right:
+                    parent[node.right] = node
+                    queue.append(node.right)
 
         visited = set()
         while p:

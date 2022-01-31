@@ -5,15 +5,27 @@
 #         self.next = next
 
 
-'''
-Time complexity : 
-O(N log K )
-N is the number of nodes in two lists
-K is the number linkedLists
 
-O(1) Space
-'''
+# O (nlogK)
+# O (k + n), k for heap and n for creating new LL
 
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        
+        heap = [(head.val, idx, head) for idx, head in enumerate(lists) if head]
+        heapq.heapify(heap)  # using (val, idx, head) tuple is for python to compare if node.val is the same 
+        root = cur = ListNode()
+        while heap:
+            val, idx, node = heapq.heappop(heap)
+            cur.next = node
+            cur = cur.next
+            if cur.next:
+                heapq.heappush(heap, (cur.next.val, idx, cur.next))
+        
+        return root.next
+
+
+#*--------------------------------
 
 # Divide and Conquer
 # O (nlogK)

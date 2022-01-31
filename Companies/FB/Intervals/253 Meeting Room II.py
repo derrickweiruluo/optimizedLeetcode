@@ -35,6 +35,10 @@ class Solution:  # 古城数飞机 Best高级解法
         return res
 
 
+
+
+
+#*-------------------------------
 class Solution:  # 古城数飞机 第二种高级解法
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         starts = []
