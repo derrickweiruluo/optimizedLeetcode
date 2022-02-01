@@ -24,6 +24,37 @@ Time complexity = O(n!)
 
 '''
 
+# Time: O(n!) for all permutation
+# Space: O(n + k + n) -> O(n), hashtable is n, recursion is k, recursion of permutation is n 
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        
+        res = []
+        def backtrack(path, counter):
+            if len(path) == len(nums):
+                # make a deep copy of the resulting permutation,
+                # since the permutation would be backtracked later.
+                res.append(list(path))
+                return
+
+            for num in counter:
+                if counter[num] > 0:
+                    # add this number into the current combination
+                    path.append(num)
+                    counter[num] -= 1
+                    # continue the exploration
+                    backtrack(path, counter)
+                    # revert the choice for the next exploration
+                    path.pop()
+                    counter[num] += 1
+
+        counter = collections.Counter(nums)
+        backtrack([], counter)
+
+        return res
+
+
+
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         

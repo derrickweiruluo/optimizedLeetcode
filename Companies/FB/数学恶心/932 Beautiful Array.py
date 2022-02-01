@@ -37,3 +37,16 @@ class Solution:
 #         res     [1,5,3,7] + [2,6,4,8]  -> [1,5,3,7,2,6,4,8]
         
 #         trim to [1,5,3,7,2,6]
+
+# Recursive
+class Solution(object):
+    def beautifulArray(self, N):
+        """
+        :type N: int
+        :rtype: List[int]
+        """
+        return self.helper(range(1,N+1))
+        
+    def helper(self, lst):
+        if len(lst)<=2:         return lst
+        return self.helper(list(lst[::2])) + self.helper(list(lst[1::2]))
