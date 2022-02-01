@@ -58,6 +58,26 @@ class Solution:
 
 
 
+# DP O(n^3) for time, O(n^2) for space
+class Solution7:
+    def wordBreak(self, s, wordDict):
+        l = len(s)
+        dp = [[False] * l for i in range(l)]
+        for n in range(0, l):
+            for i in range(0, l - n):
+                j = i + n
+                if s[i:j + 1] in wordDict:
+                    dp[i][j] = True
+                else:
+                    for k in range(i, j):
+                        if dp[i][k] and dp[k + 1][j]:
+                            dp[i][j] = True
+                            break
+        return dp[0][l - 1]
+
+
+
+
 # s = "applepenapple", wordDict = ["apple","pen"]
 # apple, pen, apple -> True
 
@@ -89,6 +109,8 @@ class Solution:
         
         memo[s[i:]] = False
         return False
+
+
 
 
 

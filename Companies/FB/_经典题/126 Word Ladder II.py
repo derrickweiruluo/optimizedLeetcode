@@ -33,6 +33,46 @@ class Solution:
         return res
 
 
+
+"""
+If we know source and destination, 
+we can build the word tree by going forward in one direction and backwards in the other. 
+We stop when we have found that a word in the next level of BFS is in the other level, 
+but first we need to update the tree for the words in the current level.
+Then we build the result by doing a DFS on the tree constructed by the BFS.
+The difference between normal and double BFS is that the search changes 
+
+"""
+
+# time reduced from O(k^d) to O(k^(d/2) + k^(d/2)). 
+# 
+class Solution:  # bi-BFS
+    def findLadders(self, beginWord, endWord, wordList):
+        tree, words, n = collections.defaultdict(set), set(wordList), len(beginWord)
+        if endWord not in wordList: return []
+        found, front, back, nextLayer, rev = False, {beginWord}, {endWord}, set(), False
+        while front and not found:
+            words -= set(front)
+            for x in front:
+                for y in [x[:i]+c+x[i+1:] for i in range(n) for c in string.ascii_lowercase]:
+                    if y in words:
+                        if y in back: 
+                            found = True
+                        else: 
+                            nextLayer.add(y)
+                        tree[y].add(x) if rev else tree[x].add(y)
+            front, nextLayer = nextLayer, set()
+            if len(front) > len(back): 
+                front, back, rev = back, front, not rev
+        def backtrack(x): 
+            return [[x]] if x == endWord else [[x] + rest for y in tree[x] for rest in backtrack(y)]
+        return backtrack(beginWord)
+
+
+
+
+
+
 class Solution:
     """
     @param: start: a string
