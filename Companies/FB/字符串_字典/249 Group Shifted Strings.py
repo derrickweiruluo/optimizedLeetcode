@@ -19,6 +19,8 @@ Input: strings = ["a"]
 Output: [["a"]]
 
 '''
+
+# Time O(nk), Space (n) worst case
 import collections
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:

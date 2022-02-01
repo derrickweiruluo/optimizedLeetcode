@@ -7,9 +7,8 @@ Output: "ay"
 '''
 
 #
-class Solution: # Interview, same as below O(1) solution
+class Solution: # Anonther O(N) + O(1) solution if w/o considering output
     def removeDuplicates(self, s: str) -> str:
-        # Anonther O(N) + O(1) solution
         s = list(s)
         i = 0
         
@@ -30,7 +29,7 @@ class Solution: # Interview, same as below O(1) solution
 
 
 
-class Solution: #  Interview::  Time O(N), Space O(1)
+class Solution: # Time O(N), Space O(1) if w/o considering output
     def removeDuplicates(self, s: str) -> str:
         
         # O(1) space, one pass

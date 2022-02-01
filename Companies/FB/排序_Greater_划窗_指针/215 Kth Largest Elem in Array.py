@@ -17,7 +17,7 @@ Time complexity :O(N) in the average case, O(N^2) in the worst case.
 Space complexity : O(1).
 """
 
-class Solution:  # BEST of BEST -- Quick Select
+class Solution:  # BEST of BEST -- Quick Select w/ random pivot
     def findKthLargest(self, nums: List[int], k: int) -> int:   
         left, right, pos = 0, len(nums) - 1, len(nums)
         while pos + 1 != k:

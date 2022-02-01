@@ -14,6 +14,9 @@ Output: false
 
 '''
 # Time O(N^2 + Trie Time), Space O(N + T)
+# There are total N dp states, they are dp[0], dp[1],.., dp[n], each dp state needs a loop O(N) to calculate the result.
+# Plus with the time to build the Trie, which is O(T).
+# So total complexity is: O(N * N + T) = O(N^2 + T).
 class TrieNode:
     def __init__(self):
         self.child = defaultdict(TrieNode)

@@ -31,9 +31,8 @@ class Solution: #BEST
         return True
         
 
-class Solution:
+class Solution:  # Similar, but not the best
     def isStrobogrammatic(self, num: str) -> bool:
-        # Similar, but not the best
         reverse = {'1': '1', '6': '9', '8': '8', '9': '6', '0': '0'}
         res = []
         

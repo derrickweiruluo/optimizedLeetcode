@@ -2,6 +2,8 @@
 Integer to Eng Words
 '''
 
+
+#O(1) for both since there is a constant upper bound
 class Solution:
     def numberToWords(self, num: int) -> str:
         oneTo19 = 'One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve ' \
